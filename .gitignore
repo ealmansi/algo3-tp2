@@ -15,6 +15,9 @@
 *.a
 *.lib
 
+# temporales gedit
+*~
+
 # Executables
 *.exe
 *.out
