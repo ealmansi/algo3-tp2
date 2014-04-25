@@ -2,7 +2,7 @@
 #include <utility>
 #include <vector>
 
-struct Problema1 {
+namespace Problema1 {
 
   struct Entrada {
     int cantCartas;
