@@ -1,0 +1,9 @@
+#include "problema2.h"
+
+int main(){
+	Entrada e;
+	leer_entrada(e);
+	Salida s = resolver(e);
+	imprimo_salida(s);
+	return 0;
+}
