@@ -15,10 +15,10 @@ SRC_MAIN 			= $(SRC_DIR)/main.cpp
 SRC_MEDIR 		= $(SRC_DIR)/medir.cpp
 SRC_RESOLVER 	= $(SRC_DIR)/resolver.cpp
 
-HDR	= $(SRC_DIR)/problema1.h
+HDR	= $(SRC_DIR)/problema2.h
 
 CXX     	= g++
-CXXFLAGS	= -g -Wall -Wno-unused-parameter -Wextra
+CXXFLAGS	= -g -Wall -Wno-unused-parameter -Wextra -std=c++0x
 LDFLAGS 	= -lrt
 
 all: crear_carpetas $(BIN_MAIN) $(BIN_MEDIR)

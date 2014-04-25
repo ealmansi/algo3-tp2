@@ -12,6 +12,7 @@ namespace Problema2
 	struct Pueblo{
 		int id;
 		pair <int, int> coord;
+		Pueblo(){;} ///por el linker. Nosotros no lo usamos. Culpen al linker.
 		Pueblo(int id ,int x ,int y)
 			: id(id), coord(make_pair(x,y)){}
 		
@@ -31,9 +32,9 @@ namespace Problema2
 
 	Entrada leerEntrada();
 
-	Salida resolver(const Entrada& e);
+	Salida resolver(Entrada& e);
 
-	void imprimoSalida(const Salida& s);
+	void imprimoSalida(Salida& s);
 }
 
 #endif /* PROBLEMA_2_H */
