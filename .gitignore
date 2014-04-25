@@ -19,3 +19,6 @@
 *.exe
 *.out
 *.app
+problema1/bin/*
+problema2/bin/*
+problema3/bin/*
