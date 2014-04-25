@@ -32,6 +32,7 @@ Salida Problema2::resolver(Entrada& e){
 	int min;
 	pair< Pueblo, Pueblo > conexion;
 	list< Pueblo >::iterator itMejorPueblo;
+	///usamos Prim
 	for(int i = 1; i < n; ++i){
 		min = INT_MAX;
 		list< Pueblo >::iterator itPuebloConectados = conectados.begin();
@@ -49,8 +50,10 @@ Salida Problema2::resolver(Entrada& e){
 		conectados.push_back(*itMejorPueblo);
 		e.pueblos.erase(itMejorPueblo);
 		s.tuberias.push_back(conexion);
-		
 	}
+	///ahora ya estan todos conectados, vamos a sacar las conexiones 
+
+	
 	
 	return s;
 }
