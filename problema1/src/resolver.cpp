@@ -33,6 +33,9 @@ void Problema1::escribirSalida(const Salida& s)
 struct Subproblema {
   Subproblema()
     : iSiguiente(-1), jSiguiente(-1), cantPuntos(-1) {}
+  Subproblema(int iSiguiente, int jSiguiente, int cantPuntos)
+    : iSiguiente(iSiguiente), jSiguiente(jSiguiente), cantPuntos(cantPuntos) {}
+
   int iSiguiente, jSiguiente, cantPuntos;
 };
 
@@ -40,7 +43,8 @@ vector<int> computarSumasParciales(const Entrada& e)
 {
   vector<int> sumasParciales(e.cantCartas);
   for (int i = 0; i < e.cantCartas; ++i)
-    sumasParciales[i] = (i == 0) ? e.cartas[0] : sumasParciales[i-1] + e.cartas[i];
+    sumasParciales[i] = (i == 0) ? e.cartas[0] : sumasParciales[i - 1] + e.cartas[i];
+
   return sumasParciales;
 }
 
@@ -56,35 +60,28 @@ Salida Problema1::resolver(const Entrada& e)
     for (int i = j - 1; 0 <= i; --i)
     {
       int iSiguiente, jSiguiente, minCantPuntos = INT_MAX;
+
       for (int k = 1; k <= j - i; ++k)
       {
         if(msp[i + k][j].cantPuntos < minCantPuntos)
         {
-          minCantPuntos = msp[i + k][j].cantPuntos;
           iSiguiente = i + k;
           jSiguiente = j;
+          minCantPuntos = msp[i + k][j].cantPuntos;
         }
         if(msp[i][j - k].cantPuntos < minCantPuntos)
         {
-          minCantPuntos = msp[i][j - k].cantPuntos;
           iSiguiente = i;
           jSiguiente = j - k;
+          minCantPuntos = msp[i][j - k].cantPuntos;
         }
       }
 
       int sumaRango = sumasParciales[j] - ((i == 0) ? 0 : sumasParciales[i - 1]);
       if(0 <= minCantPuntos)
-      {
-        msp[i][j].iSiguiente = -1;
-        msp[i][j].jSiguiente = -1;
-        msp[i][j].cantPuntos = sumaRango;
-      }
+        msp[i][j] = Subproblema(-1, -1, sumaRango);
       else
-      {
-        msp[i][j].iSiguiente = iSiguiente;
-        msp[i][j].jSiguiente = jSiguiente;
-        msp[i][j].cantPuntos = sumaRango - minCantPuntos;
-      }
+        msp[i][j] = Subproblema(iSiguiente, jSiguiente, sumaRango - minCantPuntos);
     }
   }
 
