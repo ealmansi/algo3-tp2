@@ -1,0 +1,50 @@
+El algoritmo desarrollado para resolver el problema considera como posibles candidatos para fecha de inicio únicamente a los valores del conjunto $\{d_1\;d_2\;...\;d_n\}$, haciendo uso de la siguiente propiedad (demostración en la sección \ref{problema1-demostracion}):
+
+\begin{propiedad}\label{propiedad-candidatos}
+Siempre existe un intervalo óptimo $[d, d + D)$ (en el sentido de que comprende la mayor cantidad posible de elementos de la lista) cuyo límite inferior es $d \in \{d_1,d_2,...,d_n\}$.
+\end{propiedad}
+
+Para cada candidato $d_i$, se computa la cantidad de elementos contenidos en el intervalo $[d_i, d_i + D)$, guardando un registro del día $d$ para el cual dicha cantidad es mayor. Finalmente, se emite como solución el valor de $d$ y la cantidad $c$ de números contenidos en su respectivo intervalo.
+
+Dado el requerimiento de que la solución tenga complejidad temporal subcuadrática, no es viable el procedimiento ingenuo de tomar cada día de la lista $d_i$ y, para cada valor $1 \leq j \leq n$, evaluar la condición de pertenencia $d_i \leq d_j < d_i + D$.
+
+En cambio, la resolución propuesta realiza primeramente un ordenamiento sobre la lista, y luego recorre la misma linealmente mediante dos índices $i,j$, manteniendo en cada iteración el siguiente invariante\footnote{Los subíndices refieren a los elementos de la lista ya ordenada}:
+
+$$(\forall k: i \leq k < j)\;d_k \in [d_i, d_i + D)$$
+
+Si sucede que $d_{i-1} = d_i$, se está en presencia de un candidato que ya ha sido contemplado, y por lo tanto se saltea. De lo contrario, vale $d_{i-1} < d_i$ y por lo tanto $d_i$ es el primer elemento de la lista contenido en $[d_i, d_i + D)$. Esto permite computar la cantidad total de elementos contenidos en el intervalo mediante la expresión $j - i$, cuyo valor se utiliza para actualizar la solución parcial.
+
+Adicionalmente, la búsqueda del máximo $j$ que cumple el invariante puede realizarse a partir del valor de $j$ de la iteración anterior\footnote{En el caso base, se toma $j = 1$ para comenzar a partir del primer elemento.}, fundamentado en la siguiente propiedad (demostración en la sección \ref{problema1-demostracion}):
+
+\begin{propiedad}\label{propiedad-maximo-j}
+$$((\forall k: i \leq k < j)\;d_k \in [d_i, d_i + D)) \Rightarrow ((\forall k: i + 1 \leq k < j)\;d_k \in [d_{i+1}, d_{i+1} + D))$$
+\end{propiedad}
+
+Es decir, si vale el invariante para $(i,j)$, entonces vale para $(i+1,j)$. Esto permite obtener el valor máximo de $j$ correspondiente a cada $i$ mediante un único recorrido lineal, ya que $j$ nunca decrece. En la figura \ref{problema1-pseudo} se incluye pseudocódigo describiendo el algoritmo desarrollado en detalle, y en el apéndice \ref{problema1-codigo} se incluye el código completo.
+
+\begin{center}
+\begin{figure}[H]
+    \begin{pseudo}
+        \Procedure{Camiones-Sospechosos}{$D, n, \langle d_1, \ldots, d_n \rangle$}
+            \State $ordenar(\langle d_1, \ldots, d_n \rangle)$ \Ode{n\;log(n)}
+            \State $d \leftarrow 0, c \leftarrow 0$ \Ode{1}
+            \State $i \leftarrow 1$, $j \leftarrow 1$ \Ode{1}
+            \While{$i \leq n$} \Ode{1}
+                \If{$i = 0 \lor d_{i-1} \neq d_i$} \Ode{1}
+                    \While{$(j \leq n) \land (d_i \leq d_j < d_i + D)$} \Ode{1}
+                        \State $j \leftarrow j + 1$ \Ode{1}
+                    \EndWhile
+                    \If{$c < j - i$} \Ode{1}
+                        \State $c \leftarrow j - i$ \Ode{1}
+                        \State $d \leftarrow i$ \Ode{1}
+                    \EndIf
+                \EndIf
+                \State $i \leftarrow i + 1$ \Ode{1}
+            \EndWhile
+            \Return $d$, $c$
+        \EndProcedure
+    \end{pseudo}
+    \caption{Camiones Sospechosos. Pseudocódigo.}
+    \label{problema1-pseudo}
+\end{figure}
+\end{center}

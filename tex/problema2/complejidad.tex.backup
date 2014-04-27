@@ -1,0 +1,39 @@
+Nuestro algoritmo tiene una complejidad de O(n.log n) operaciones. Para eso vamos a analizar el pseudocodigo de a partes.
+
+\begin{pseudo}
+\State Tipo de dato Pieza es Tupla $\langle$ id : entero, pérdida : entero, tiempo : entero $\rangle$
+    \Procedure{La joya del Río de la Plata}{$\langle p_1, \ldots, p_n \rangle, L$}
+        \State $V \leftarrow$ nuevo vector de Pieza \Ode{1}
+        \State Cargo\_Piezas(V) \Ode{n}
+        \State Sort(V) \Ode{n*log(n)}
+        
+        \Comment Este sort se hace de menor a mayor según el coeficiente anteriormente dicho
+        \State \textbf{return} Calcular\_perdida(V) \Ode{n}
+    \EndProcedure
+\end{pseudo}
+
+\begin{pseudo}
+ \State  \textbf{$V \leftarrow$ nuevo vector de Pieza}
+\end{pseudo}
+
+Tiene complejidad O(1), ya que es simplemente crear un vector.
+
+\begin{pseudo}
+ \State \textbf{Cargo\_Piezas(V)}
+\end{pseudo}
+
+Lo que hace la función Cargo\_Piezas, es leer la entrada que nos pasan y agregar las piezas al vector creado anteriormente. Esto tiene complejidad O(n), ya que agregar n elementos a un vector tiene costo O(n).
+
+\begin{pseudo}
+ \State \textbf{Sort(V)}
+\end{pseudo}
+
+Como vimos en el la sección del ejercicio 1, el sort tiene complejidad O(n.log n).
+
+\begin{pseudo}
+ \State \textbf{return Calcular\_perdida(V)}
+\end{pseudo}
+
+Devolver el resultado es O(1), y calcular la pérdida es O(n), ya que hay que recorrer todas las piezas.
+
+Por algebra de ordenes O(1) + O(n) + O(n.log n) + O(1) + O(n) = O(n.log n), como queriamos demostrar.

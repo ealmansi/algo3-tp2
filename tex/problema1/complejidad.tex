@@ -1,0 +1,9 @@
+El pseudocódigo de la solución (Figura \ref{problema1-pseudo}) incluye al final de cada línea la complejidad temporal de las instrucciones contenidas en la misma.
+
+En primer lugar, la etapa de ordenamiento es realizable en tiempo $O(n *log(n))$ mediante conocidos algoritmos como \emph{Mergesort}, \emph{Heapsort} o \emph{Introsort}.
+
+Luego, dado que $j$ se inicializa en $1$ y su valor es incrementado en el cuerpo del ciclo interno, la guarda del mismo no puede ser verdadera más de $n$ veces. Como además siempre vale que $d_i \leq d_i < d_i + D$, este se ejecuta al menos una vez por cada valor de $i$. Por lo tanto, la operación $j \leftarrow j + 1$ se ejecuta $n$ veces, incurriendo en un costo lineal en $n$ en la totalidad del algoritmo, y no se ejecuta $n$ veces por cada valor de $i$.
+
+Por otro lado, el ciclo externo se ejecuta exactamente $n$ veces, con $i = 1, ..., n$. En peor caso, los elementos son todos distintos y jamás se saltea el cuerpo del ciclo. Las operaciones de actualización del máximo tienen un costo constante (incluso si hay que realizar la actualización), por lo cual en la totalidad del algoritmo comprenden una cantidad de operaciones proporcional a $n$.
+
+Buscar el máximo tiene una complejidad $O(n)$. Por esto, la etapa de ordenamiento (la cual tiene una complejidad de $O(n*log(n))$) domina la complejidad del algoritmo, permitiendo dar la cota $O(n*log(n))$ para la solución.

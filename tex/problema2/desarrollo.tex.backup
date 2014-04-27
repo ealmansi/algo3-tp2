@@ -1,0 +1,32 @@
+Lo primero que hicimos fue hallar que el orden óptimo en el que se deben armar las piezaspara minimizar la pérdida es de menor a mayor según el coeficiente $\frac{Tiempo_i}{Perdida_i}$, lo cual está demostrado en su sección correspondiente. Siguiendo este orden, podemos asegurar que una solución óptima cumple con el siguiente invariante:
+
+\begin{center}
+
+$(\forall i \in [1..\#{piezas})) \frac{Tiempo_i}{Perdida_i} < \frac{Tiempo_{i+1}}{Perdida_{i+1}}$
+ 
+\end{center}
+
+Lo cual es equivalente a:
+
+\begin{center}
+
+$(\forall i \in [1..\#{piezas})) Tiempo_i * Perdida_{i+1} < Tiempo_{i+1} * Perdida_i$
+ 
+\end{center}
+
+Este último es el que usamos debido a que al usar enteros, preferimos usar multiplicación antes que división.
+
+Lo que nuestro algoritmo hace es crear un vector y colocar una a una las piezas, una atrás de otra. Luego, ordena según el orden previamente enunciado. Finalmente, calcula la pérdida total. El pseudocódigo de nuestro algoritmo es el siguiente:
+
+\renewcommand{\algorithmiccomment}[1]{\hskip2em$//$ #1}
+
+\begin{pseudo}
+\State Tipo de dato Pieza es Tupla $\langle$ id : entero, pérdida : entero, tiempo : entero $\rangle$
+    \Procedure{La joya del Río de la Plata}{$\langle p_1, \ldots, p_n \rangle, L$}
+        \State $V \leftarrow$ nuevo vector de Pieza %\Ode{1}
+        \State Cargo\_Piezas(V) %\Ode{n}
+        \State Sort(V) %\Ode{n*log(n)}
+        \Comment Este sort se hace de menor a mayor según el coeficiente anteriormente dicho
+        \State \textbf{return} V, Calcular\_perdida(V) %\Ode{n}
+    \EndProcedure
+\end{pseudo}

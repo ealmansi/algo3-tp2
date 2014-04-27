@@ -1,0 +1,49 @@
+Para este problema, decidimos enfocar la demostración de correctitud de otra manera. Vamos a probar que nuestro algoritmo, sin contar las podas, recorre todas las soluciones posibles. Luego, vamos a probar que las podas utilizadas no remueven soluciones mejores que la mejor solución que encontramos hasta ese momento.
+
+Vamos a utilizar el mismo pseudo-código que se encuentra en la sección de Desarrollo. Para facilitar la lectura, decidimos escribirlo de nuevo en esta sección. Cabe recordar que SolucionOptima y SolucionParcial son \textbf{in/out}, es decir, pasados por referencia y por eso esta función no contiene un \textbf{return}
+
+\begin{pseudo}
+
+    \Procedure{ResolverBacktracking}{SolucionOptima,SolucionParcial,i,j,...}
+        \For{Cada Ficha}
+	  \If{EstaDisponible $\wedge$ esCompatible}
+	    \State Agrego ficha a SolucionParcial
+	    \If{SolucionParcial mejor que SolucionOptima}
+	      \State SolucionOptima = SolucionParcial
+	    \EndIf
+	    \If{!Podo} \Comment{Esta guarda es siempre true para la primer parte de esta demostración}
+	      \State ResolverBacktracking en siguiente posicion
+	    \EndIf
+	    \State Remuevo ficha 
+	  \EndIf
+	\EndFor
+        \State Agrego ficha blanca a SolucionParcial
+        \State ResolverBacktracking en siguiente posicion
+    \EndProcedure
+\end{pseudo}
+
+En un primer lugar vamos a demostrar que si no utilizamos ninguna poda recorremos todas las soluciones, y por consiguiente vamos a recorrer una solución óptima.
+
+Nuestro algoritmo llamado ResolverBacktracking, revisa si es posible colocar una pieza en la casilla de la fila $i$ y la columna $j$ (De ahora en mas casilla$_{i,j}$). Para hacer esto, revisa una a una las piezas para observar si es posible colocarla. En el caso en que pueda colocarla, revisa si la solución parcial (la solución que tenía más la pieza colocada) que encontró es mejor que la óptima que había encontrado hasta ese momento. Si es mejor, significa que encontró una mejor solución, y por eso actualiza SolucionOptima.
+
+Sin embargo, puede ser que no sea posible colocar alguna de las piezas que me faltan en la casilla$_{i,j}$ debido a restricciones acerca de como se colocaron las otras piezas. En cuyo caso, colocamos una pieza blanca (es decir, ninguna pieza o un espacio en blanco) y seguimos con la siguiente casilla.
+
+Realizamos este procedimiento para cada casilla, y para cada casilla recorremos para cada pieza. De esta manera, estamos efectivamente recorriendo todos las combinaciones de disposiciones de piezas posibles que sean compatibles.
+
+Ahora vamos a pasar a demostrar que ninguna de nuestras podas, descartan soluciones mejores a las que ya encontramos.
+
+La primera es la más simple que sólo devuelve falso cuando se llega al final del tablero. Si bien no poda en el sentido estricto, la utilizamos como corte en el caso en que encuentre una solución donde las fichas llenan todo el tablero, por lo que seguir recorriendo es inútil.
+
+Es simple demostrar que esta poda no descarta soluciones mejores a la ya obtenida, ya que ésta sólo corta cuando llega al final del tablero, es decir, cuando coloca todas las piezas. Como logró colocar todas las piezas, no existe otra disposición que coloque mas piezas que llenar el tablero. Por esto, no poda soluciones mejores a la que ya encontró (en este caso, llenar el tablero) ya que no existe una mejor solución que rellenar todo el tablero.
+
+La segunda opción se fija si la cantidad de fichas que puso en el tablero mas la cantidad de lugares del tablero que todavía no recorrió, es menor que la cantidad de fichas de SolucionOptima.
+
+Esta poda también es simple de demostrar. Supongo que tenemos un tablero $t_1$ donde logramos colocar $k_1$ piezas y tenemos $k_2$ casillas para colocar piezas. Por esto, la mayor cantidad de piezas que podríamos colocar es $k_3 = k_1 + k_2$. Si nuestra solución óptima tiene $k_4$, donde $k_4$ $\geq$ $k_3$, entonces es imposible que el tablero $t_1$ (ni todas sus posibilidades de colocar piezas en las casillas restantes) puedan tener más piezas que nuestra solución óptima. Por esto, esta poda no descarta alguna mejor solución que la óptima hasta ese momento.
+
+Finalmente, la tercer poda que utilizamos incluye a la anterior pero realiza algo extra: Queremos saber cuántas fichas tenemos disponibles en las posiciones que todavía no recorrimos pero que ya sabemos que tienen una restricción (como por ejemplo, que necesitan el color 1 en lado superior).
+
+Esta última poda se prueba de la misma manera que la anterior. Tiene un extra que es que realiza una cota menos burda acerca de la cantidad de casillas que es posible llenar. Podemos demostrar de una manera similar que no poda soluciones mejores a la óptima encontrada hasta ese momento.
+
+Supongo que tenemos un tablero $t_1$ donde logramos colocar $k_1$ piezas y tenemos $k_2$ casillas para colocar piezas, pero sin embargo solo puedo colocar a lo sumo $k_5$ piezas debido a las restricciones. Por esto, ahora la mayor cantidad de piezas que podríamos colocar no es $k_3 = k_1 + k_2$, sino que es $k_6 = k_1 + k_5$. Si nuestra solución óptima tiene $k_4$, donde $k_4$ $\geq$ $k_6$, entonces es imposible que el tablero $t_1$ (ni todas sus posibilidades de colocar piezas en las casillas restantes) puedan tener más piezas que nuestra solución óptima. Por esto, esta poda no poda alguna mejor solución que la óptima hasta ese momento.
+
+De esta manera, probamos que nuestro tablero recorre todas las soluciones, y las podas que utiliza no podan soluciones mejores a la solución óptima encontrada hasta ese momento.

@@ -1,0 +1,26 @@
+Estre problema trata de un juego de cartas llamado \emph{Robanúmeros}. El mismo es un juego para dos jugadores. Al empezar el juego se cuenta con una secuencia de cartas, todas ellas boca arriba, cada carta tiene un valor numérico entero (puede ser positivo o negativo). Este juego se juega por turnos alternadamente y en cada turno un jugador debe elejir un extremo de la secuencia de cartas y levantar una cantidad de las mismas empezando desde ese extremo. Por ejemplo supongamos que la secuencia de cartas es la dada en la siguiente tabla:
+
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+2 & -3 & 7 & 8 & -10
+\hline
+\end{tabular}
+
+Dada esta secuencia
+
+\subsubsection{Ejemplos y observaciones}
+
+La lista de días de llegada de los camiones no necesariamente se encuentra ordenada, y además puede contener días repetidos, que deben ser contados con su debida multiplicidad al computar la solución. Esto es razonable ya que muchos camiones pueden llegar al puesto de control en un mismo día. Por lo tanto, el siguiente es un ejemplo de instancia válida y su respectiva solución:
+
+\begin{tabular}{ll}
+Entrada: &$1\;5\;23\;23\;23\;23\;2$            \\
+Salida:  &$23\;4$ \hspace{10mm}
+\end{tabular}
+
+Por otro lado, es importante notar que si bien la cantidad máxima $c$ de camiones inspeccionados es única, la fecha de inicio del período de contratación no lo es. Distintos valores para $d$ pueden generar intervalos $[d, d + D)$ incluyendo igual cantidad de elementos de la lista.
+
+\begin{tabular}{ll}
+Entrada: &$3\;2\;6\;7$            \\
+Salida:  &$5\;2$ \hspace{10mm} ó  \\
+Salida:  &$6\;2$ \hspace{10mm}
+\end{tabular}

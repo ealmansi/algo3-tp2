@@ -1,0 +1,25 @@
+Este problema: plantea la siguiente situación, se tiene un tablero de dimensiones $n*m$ y la misma cantidad de piezas y el objetivo es insertar la mayor cantidad posible de piezas en dicho tablero. Las piezas son cuadradas y tienen un color en el lado superior, uno en el lado inferior, uno en el lado derecho y uno en el lado izquierdo. Una pieza se puede colocar adyacente a otra sólo si sus lados coinciden (por ejemplo si una pieza tiene el lado izquierdo de color rojo, a su izquierda sólo se puede colocar una pieza cuyo lado derecho también sea rojo). La otra variable que tiene este problema es la cantidad de colores posibles.
+
+Por ejemplo supongamos que tenemos un tablero de $2*2$ y que hay 4 colores disponibles: Amarillo, Azul, Rojo y Verde. Supongamos, además, que contamos con las siguientes piezas:
+\begin{center}
+\begin{tabular}{c|c|c|c|c}
+ Pieza & Izq & Der & Sup & Inf \\
+ \hline
+ 1 & Amarillo & Azul & Rojo & Verde \\
+ 2 & Rojo & Azul & Verde & Amarillo \\
+ 3 & Azul & Amarillo & Azul & Verde \\
+ 4 & Amarillo & Rojo & Verde & Azul \\
+\end{tabular}
+\end{center}
+
+Una posible solución (que pondría todas las fichas en el tablero) de esta instancia del problema sería:
+\begin{center}
+\begin{tabular}{|c|c|}
+  \hline
+  1 & 3 \\
+  \hline
+  4 & 2 \\
+  \hline  
+\end{tabular}
+\end{center}
+%Despuès vemos si es mejor centrar las tablas o no

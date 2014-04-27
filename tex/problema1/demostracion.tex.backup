@@ -1,0 +1,53 @@
+Para demostrar la correctitud del algoritmo, vamos a demostrar 2 propiedades:
+
+Primero queremos ver que siempre existe una solucion optima que empieza en algunos de los dias dados(Propiedad 1).
+
+$(\forall \ n,\ D\ , S = \{d_1,..,d_n\} ) \ \exists \ 0 < i \leq n \ / \ [d_i,d_i + D )$ es optimo 
+
+Tomo cualquier solucion optima T que empieza en el dia d'.
+Si $(\exists i: 0 < i\leq n ) \ d' = d_i$ para algun 0 $<$ i $\leq$ n, encontre lo que buscaba.
+
+Si $(\forall i: 0<i \leq n) \  d' \neq d_i$, divido en 2 subcasos
+
+Si $(\exists i: 0<i\leq n) \ d' < d_i$, tomo el minimo i / d' $< d_i$
+Ahora construyo una nueva solucion desde $d_i$, veamos que todo elemento de S perteneciente a [d',d'+D) tambien pertenece a $[d_i,d_i +D)$
+
+sea $d_j \in [d',d'+D) \Rightarrow d' \leq d_j < d'+D $
+
+q.v.q.$ d_j \in  [d',d'+D) \Rightarrow d_i \leq d_j < d_i+D $
+
+%$( d' \leq d_j < d'+D \Rightarrow d_i \leq d_j < d_i+D)  \Leftrightarrow$    
+%$( d' \leq d_j \Rightarrow d_i \leq d_j)$  como sabemos que $d' < d_i$
+%este es valido ya que sabemos que $d_i$ es el minimo elemento de S mayor que d' $\Rightarrow$ 
+%$( !\exists k: 0 < k \leq n) d' < d_j < d_i$
+
+Esto es lo mismo que probar que $d' \leq d_j < d'+D \Rightarrow d_i \leq d_j < d_i+D $
+
+Primero voy a probar que $d' \leq d_j \Rightarrow d_i \leq d_j$
+
+Ahora queremos demostrar la propiedad 2 : $((\forall k: i \leq k < j)\;d_k \in [d_i, d_i + D)) \Rightarrow ((\forall k: i + 1 \leq k < j)\;d_k \in [d_{i+1}, d_{i+1} + D))$
+
+Vamos a demostrar esto por el absurdo. Tomando como verdadero el antecedente y suponiendo falso el consecuente.
+
+Para eso suponemos que $(\exists k': i+1\leq k' < j) \;d_{k'} \notin [d_{i+1}, d_{i+1} + D) $
+
+Primero vamos a enumerar varias propiedades que sabemos por el antecedente y porque los elementos $d_i$ estan ordenados
+
+A : $d_i < d_{i+1}$
+
+B : $d_{i+1} \leq d_{k'}$ ya que $i+1 \leq k'$
+
+C : $d_{k'} < d_i +D$ ya que $d_{k'} \in [d_i,d_i +D)$, por el antecedente
+
+q.v.q $d_{k'} \notin [d_{i+1}, d_{i+1} + D)$ es absurdo.
+
+Equivalentemente: $d_{k'} < d_{i+1} \vee d_{k'} \geq d_{i+1} + D $ 
+
+$d_{k'} < d_{i+1}$ es falso por B.
+
+$d_{k'} \geq d_{i+1} + D  > d_i + D$ por A,
+
+$d_{k'} > d_i + D$ lo cual es falso por C.
+
+Al ser falso ambas partes del $\vee$, la afirmacion es falsa, lo cual nos lleva al absurdo que queriamos encontrar.
+

@@ -1,0 +1,20 @@
+Al igual que en el problema anterior, lo primero que hicimos fue verificar empíricamente la cota de complejidad temporal teórica que demostramoc para el algoritmo completo. 
+A continuación tenemos cuatro figuras que nos permiten ver que efectivamente nuestro algoritmo es $O(n * log(n))$
+
+figura1 normal mil
+figura2 normal / log n (o sobre n * log n)
+figura3 normal 10 mil
+figura4 normal 10 mil / log n (sobre n * log n)
+
+Como se puede observar en las figuras 2 y 4, una vez que dividimos por $log n$ nuestro algoritmo es una recta. Esto significa que la complejidad del algoritmo en su totalidad es de $O(n * log(n))$.
+
+En los gráficos presentados arriba, se puede observar un pico alrededor de $n$ = 64. Como hablamos anteriormente, esto se debe al algoritmo de sorting que realiza un sorting especial con $n$ relativamente chico.
+
+Dado que la complejidad temporal de la solución es dominada por la etapa de ordenamiento, y que el algoritmo utilizado para este fin pertenece a librerías estándares, la experimentación subsiguiente se realizó sobre instancias donde la lista de entrada se encuentra ordenada, eliminando la instrucción de ordenamiento. Esto permitió constatar si el ciclo final incurre efectivamente en un costo a lo sumo lineal, y verificar la preponderancia del ordenamiento como parte de la solución.
+
+En las figuras siguientes podemos observar que, sacando el sorting, nuestro algoritmo es $O(n)$.
+
+figura5 MIL
+figura 6 10 mil
+
+cada figura tiene width = anchoPagina / 2

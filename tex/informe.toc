@@ -1,0 +1,41 @@
+\select@language {spanish}
+\contentsline {section}{\numberline {1}Introducci\IeC {\'o}n}{4}
+\contentsline {section}{\numberline {2}Consideraciones generales}{4}
+\contentsline {subsection}{\numberline {2.1}Lenguaje de implementaci\IeC {\'o}n}{4}
+\contentsline {subsection}{\numberline {2.2}Algoritmo de ordenamiento}{4}
+\contentsline {subsection}{\numberline {2.3}Mediciones de performance}{4}
+\contentsline {section}{\numberline {3}Problema 1: Camiones sospechosos}{6}
+\contentsline {subsection}{\numberline {3.1}Descripci\IeC {\'o}n del problema}{6}
+\contentsline {subsubsection}{\numberline {3.1.1}Ejemplos y observaciones}{6}
+\contentsline {subsection}{\numberline {3.2}Desarrollo de la soluci\IeC {\'o}n}{6}
+\contentsline {subsection}{\numberline {3.3}Complejidad temporal}{7}
+\contentsline {subsection}{\numberline {3.4}Demostraci\IeC {\'o}n de correctitud}{8}
+\contentsline {subsubsection}{\numberline {3.4.1}Demostraci\IeC {\'o}n de la Propiedad \ref {propiedad-candidatos}}{8}
+\contentsline {subsubsection}{\numberline {3.4.2}Correctitud del ciclo}{8}
+\contentsline {subsubsection}{\numberline {3.4.3}Demostraci\IeC {\'o}n de la Propiedad \ref {propiedad-maximo-j}}{9}
+\contentsline {subsection}{\numberline {3.5}Experimentaci\IeC {\'o}n}{9}
+\contentsline {subsubsection}{\numberline {3.5.1}Incluyendo etapa de ordenamiento}{9}
+\contentsline {subsubsection}{\numberline {3.5.2}Mediciones sobre el ciclo para instancias ordenadas}{10}
+\contentsline {subsection}{\numberline {3.6}Conclusi\IeC {\'o}n}{11}
+\contentsline {section}{\numberline {4}Problema 2: La joya del R\IeC {\'\i }o de la Plata}{12}
+\contentsline {subsection}{\numberline {4.1}Descripci\IeC {\'o}n del problema}{12}
+\contentsline {subsection}{\numberline {4.2}Desarrollo de la soluci\IeC {\'o}n}{12}
+\contentsline {subsection}{\numberline {4.3}Complejidad temporal}{13}
+\contentsline {subsection}{\numberline {4.4}Demostraci\IeC {\'o}n de correctitud}{14}
+\contentsline {subsubsection}{\numberline {4.4.1}Demostraci\IeC {\'o}n de la optimicidad del orden propuesto}{14}
+\contentsline {subsubsection}{\numberline {4.4.2}Demostraci\IeC {\'o}n de correctitud del algoritmo Calcular\_perdida}{15}
+\contentsline {subsection}{\numberline {4.5}Experimentaci\IeC {\'o}n}{16}
+\contentsline {subsubsection}{\numberline {4.5.1}Incluyendo etapa de ordenamiento}{16}
+\contentsline {subsubsection}{\numberline {4.5.2}Mediciones sobre el ciclo para instancias ordenadas}{17}
+\contentsline {subsection}{\numberline {4.6}Conclusi\IeC {\'o}n}{17}
+\contentsline {section}{\numberline {5}Problema 3: Rompecolores}{18}
+\contentsline {subsection}{\numberline {5.1}Descripci\IeC {\'o}n del problema}{18}
+\contentsline {subsection}{\numberline {5.2}Desarrollo de la soluci\IeC {\'o}n}{18}
+\contentsline {subsection}{\numberline {5.3}Complejidad temporal}{19}
+\contentsline {subsection}{\numberline {5.4}Demostraci\IeC {\'o}n de correctitud}{20}
+\contentsline {subsection}{\numberline {5.5}Experimentaci\IeC {\'o}n}{21}
+\contentsline {subsection}{\numberline {5.6}Conclusi\IeC {\'o}n}{25}
+\contentsline {section}{Ap\IeC {\'e}ndices}{26}
+\contentsline {section}{\numberline {A}C\IeC {\'o}digo fuente del problema 1}{26}
+\contentsline {section}{\numberline {B}C\IeC {\'o}digo fuente del problema 2}{27}
+\contentsline {section}{\numberline {C}C\IeC {\'o}digo fuente del problema 3}{28}

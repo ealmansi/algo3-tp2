@@ -1,0 +1,18 @@
+Este problema trata de un juego de cartas llamado \emph{Robanúmeros}. El mismo es un juego para dos jugadores. Al empezar el juego se cuenta con una secuencia de cartas, todas ellas boca arriba, cada carta tiene un valor numérico entero (puede ser positivo o negativo). Este juego se juega por turnos de forma alterna y en cada turno un jugador debe elegir un extremo de la secuencia de cartas y robar una cantidad de las mismas empezando desde ese extremo. Por ejemplo supongamos que la secuencia de cartas es la dada en la siguiente tabla:
+
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+2 & -3 & 7 & 8 & -10
+\hline
+\end{tabular}
+
+Dada esta secuencia, el primer jugador en jugar puede, por ejemplo, elegir el extremo derecho y robar 3 cartas, quedándose así con -10, 8 y 7. También podría elegir 4 cartas por el lado izquierdo y de esta forma se quedaría con 2, -3, 7 y 8. Sin embargo, el jugador no puede robar 2, -3 y 8, o -10, y -3.
+
+En cada turno el jugador debe robar al menos una carta y al no quedar más, el jugador que obtenga el número más alto al sumar los valores de todas las cartas que robó es el ganador.
+
+En este problema debemos diseñar un algoritmo que juegue a este juego de manera óptima. Este algoritmo debe estar pensado para jugar contra otro jugador que también juegue de forma óptima. La definición de que un jugador juegue de manera óptima significa que la diferencia de puntos obtenida a su favor sea la mayor diferencia que se puede obtener frente a un oponente que también juega de la misma forma ante cada situación que se le deje.
+
+El algoritmo debe tener una complejidad temporal de peor caso de $O(n^3)$ donde $n$ es la cantidad de cartas en la secuencia inicial.
+
+\subsubsection{Ejemplos y observaciones}
+

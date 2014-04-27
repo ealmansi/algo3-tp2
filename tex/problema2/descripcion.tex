@@ -1,0 +1,31 @@
+Este problema trata sobre un joyero que debe fabricar un conjunto de $n$ piezas cuya materia prima se encuentra en un proceso de depreciación. Para cada pieza \emph{i} de este conjunto, se conoce la cantidad de días que el joyero requiere para su fabricación (\emph{$t_i$}), además de la pérdida diaria (\emph{$p_i$}) que le genera el tener en su posesión la materia prima necesaria para dicha pieza. En función de estos valores, podemos calcular la pérdida total que sufre el joyero durante la fabricación de todas las piezas del conjunto, mediante la siguiente expresión:
+
+$$C(R) = \sum_{i=1}^{n} (t_{R[i]} \sum_{j=i}^{n}p_{R[j]})$$
+
+donde $R[i]$ representa el orden en el cual fue fabricada la $i$-ésima pieza, y $C$ representa el costo o la pérdida total de elegir tal ordenamiento.
+
+Se desea desarrollar un algoritmo que determine un orden óptimo para la fabricación de estas piezas, en el sentido de que minimiza la pérdida total del joyero, y que además compute cuál es dicha pérdida. Como requerimiento adicional, la complejidad del algoritmo utilizado debe ser $O(n^2)$.
+
+A continuación, damos una instancia del problema planteado junto con su solución. Supongamos que tenemos las siguientes piezas:
+
+\begin{center}
+  \begin{tabular}{|c|c|c|}
+   \hline
+   \textbf{Pieza} & \textbf{Pérdida} & \textbf{Tiempo} \\
+   \hline
+   1 & 3 & 1 \\
+   
+   2 & 2 & 1 \\
+   
+   3 & 1 & 1 \\
+   \hline
+  \end{tabular}
+\end{center}
+
+En este ejemplo la solución es la siguiente secuencia:
+
+\textbf{Solución} = [Pieza 1, Pieza 2, Pieza 3]
+
+La pérdida total para esta solución es: $3*1 + 2*2 + 1*3 = 10$
+
+En cambio si eligiéramos como solución otra secuencia, como por ejemplo [Pieza 2, Pieza 1, Pieza 3], la pérdida total sería de: $2*1 + 3*2 + 1*3 = 11$. Si eligiéramos [Pieza 3, Pieza 2, Pieza 1], la pérdida total sería de: $1*1 + 2*2 + 3*3 = 14$.

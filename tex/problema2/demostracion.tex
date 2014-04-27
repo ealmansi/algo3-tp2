@@ -1,0 +1,145 @@
+Para probar que nuestro algoritmo es correcto y que además es óptimo, lo que debemos demostrar es que el orden en que se fabrican las piezas que nosotros en principio supusimos como óptimo es realmente óptimo. Y lo otro que debemos demostrar es que el algoritmo Calcular\_perdida calcule correctamente la perdida total del joyero por fabricar las joyas en el orden utilizado.
+
+\subsubsection{Demostración de la optimicidad del orden propuesto}
+La propiedad que queremos demostrar es la siguiente:
+
+Sea S un conjunto de elementos  ${s_1,...,s_n}$ y R un permutación de los elementos de S / $(\forall \ 1 \leq i  < n)$ $\frac{t(R[i])}{p(R[i])} \leq \frac{t(R[i+1])}{p(R[i+1])} $, minimiza la función C(R) 
+
+Siendo C(R) = $\sum_{i=1}^{n} t(R[i]) \sum_{j=i}^{n}p(R[j]) $
+
+Para demostrar esto vamos a hacer inducción en el tamaño de R.
+
+El caso base  es $\|$R$\|$ = 1 :
+
+Este caso es trivial porque sólo existe una permutación de R, por lo cual claramente es la mínima.
+
+Para continuar con la demostración debemos realizar el paso inductivo, que es el siguiente:
+
+$(\forall n > 1)$  P(n-1) $\Rightarrow$ P(n)
+
+Para realizar el paso inductivo vamos a usar como Hipótesis inductiva que vale P(n-1) y a partir de eso vamos a demostrar que vale P(n).
+
+Tomamos un permutación óptima R = $(r_1,...,r_n)$ y construyo R' = $(r'_1,...,r'_n) / \  r'_1 = r_1 \  y \ (r'_2,...,r'_n)$ es una permutación de $(r_2,...,r_n) / (\forall 2 \leq i  < n) \frac{t(r'_i)}{p(r'_i)} \leq \frac{t(r'_{i+1})}{p(r'_{i+1})} $
+
+Osea, R' tiene el primer elemento igual al primer elemento de R, y los otros $n-1$ elementos están ordenados según nuestro orden propuesto.
+
+Primero vamos demostrar que R' es óptima, para esto calculo C(R) y C(R') :
+
+C(R) = $t(r_1) \sum_{j=1}^{n}p(r_j) + C(R[2..n]) $
+
+C(R') = $t(r_1) \sum_{j=1}^{n}p(r'_j) + C(R'[2..n]) $
+
+Como R es óptimo, se que C(R) $\leq$ C(R')
+
+También se por H.I. que R'[2..n] es óptima, por lo cual: 
+
+C(R'[2,n]) $\leq$ C(R[2..n]) $\iff$
+
+$t(r_1) \sum_{j=1}^{n}p(r_j)$ + C(R'[2..n]) $\leq$  $t(r_1) \sum_{j=1}^{n}p(r_j)$ + C(R[2..n])
+
+Sabemos que $\sum_{j=1}^{n}p(r_j) = \sum_{j=1}^{n}p(r'_j)$ ya que R' es una permutación de R, Entonces:
+
+$t(r_1) \sum_{j=1}^{n}p(r'_j)$ + C(R'[2..n]) $\leq$  $t(r_1) \sum_{j=1}^{n}p(r_j)$ + C(R'[2..n]) $\iff$
+
+C(R') $\leq$ C(R)
+
+Pero habíamos dicho que R es óptimo, por lo tanto C(R) $\leq$ C(R').
+
+Entonces, como C(R') $\leq$ C(R) $\wedge$ C(R) $\leq$ C(R'), entonces C(R) = C(R'). Por lo tanto R' es óptimo.
+
+Por ultimo queremos ver que R' cumple con la condición de P(n), sabemos que R'[2..n] tiene a sus elementos ordenados según $\frac{t(r'_i)}{p(r'_i)}$. Nos falta ver que R' completa está ordenada, para esto sólo hace falta ver $r'_1$ esta ordenado, que es lo mismo que decir que $\frac{t(r'_1)}{p(r'_1)}$ $\leq \frac{t(r'_2)}{p(r'_2)}$
+
+Para esto tomamos R'' = $(r'_2,r'_1,r'_3,...,r'_n)$
+
+C(R') = $t(r'_1) \sum_{j=1}^{n}p(r'_j) + t(r'_2) \sum_{j=2}^{n}p(r'_j) + C(R'[3,n]) $
+
+C(R'') = $t(r'_2) \sum_{j=1}^{n}p(r'_j) + t(r'_1) \sum_{j=1,j\neq 2}^{n}p(r'_j) + C(R''[3,n]) $
+
+C(R') $\leq$ C(R'') por ser R' óptimo
+
+$t(r'_1) \sum_{j=1}^{n}p(r'_j) + t(r'_2) \sum_{j=2}^{n}p(r'_j) + C(R'[3,n]) \leq t(r'_2) \sum_{j=1}^{n}p(r'_j) + t(r'_1) \sum_{j=1,j\neq 2}^{n}p(r'_j) + C(R''[3,n]) \iff$
+
+Como R'(3..n) = R''(3..n) entonces C(R'(3..n)) = C(R''(3..n)) y los puedo cancelar.
+
+$t(r'_1) \sum_{j=1}^{n}p(r'_j) + t(r'_2) \sum_{j=2}^{n}p(r'_j)  \leq t(r'_2) \sum_{j=1}^{n}p(r'_j) + t(r'_1) \sum_{j=1,j\neq 2}^{n}p(r'_j)  \iff$
+
+$t(r'_1) \sum_{j=1,j\neq 2}^{n}p(r'_j) + t(r'_1) * p(r'_2) + t(r'_2) \sum_{j=2}^{n}p(r'_j) \leq t(r'_1) \sum_{j=1,j\neq 2}^{n}p(r'_j) + t(r'_2) \sum_{j=2}^{n}p(r'_j)+ t(r'_2) * p(r'_1) \iff$  
+
+Cancelo un término:
+
+$t(r'_1) * p(r'_2) + t(r'_2) \sum_{j=2}^{n}p(r'_j) \leq + t(r'_2) \sum_{j=2}^{n}p(r'_j)+ t(r'_2) * p(r'_1) \iff$
+
+Cancelo el otro:
+
+$t(r'_1) * p(r'_2) \leq t(r'_2) * p(r'_1) $
+
+$\frac{t(r'_1)}{p(r'_1)} \leq \frac{t(r'_2)}{p(r'_2)}$
+
+\begin{flushright}
+\hfill \ensuremath{\Box}
+\end{flushright}
+
+\subsubsection{Demostración de correctitud del algoritmo Calcular\_perdida}
+
+Para empezar recordemos el pseudocódigo de este algoritmo:
+
+\begin{pseudo}
+  \Procedure{Calcular\_perdida}{V}
+      \State $total \leftarrow 0$
+      \State $tiempo \leftarrow 0$
+      \State $i \leftarrow 0$
+      \While{$i < n$}
+	\State $tiempo \leftarrow tiempo + V[i].tiempo$
+	\State $total \leftarrow total + V[i].perdida * tiempo$
+	\State $i \leftarrow  i + 1$
+      \EndWhile
+      \State \textbf{return} total
+  \EndProcedure
+\end{pseudo}
+
+Supongamos que tenemos las piezas en el orden $V = [pieza_1..pieza_n]$, la pérdida total ocasionada por fabricar las piezas en ese orden es la siguiente:
+
+$\sum_{i=1}^{n}{(p_i \sum_{j=1}^{i}{t_j})}$
+
+Donde $p_i$ es la pérdida por día de la $i-esima$ joya y $t_i$ es la cantidad de días que la $i-esima$ joya tarda en ser armada.
+
+Lo que queremos demostrar es que este algoritmo cumple el siguiente invariante:
+
+P(n) : en la $k-esima$ iteración, vale que total = $\sum_{i=1}^{k}{(p_i \sum_{j=1}^{i}{t_j})}$
+
+Vamos a demostrar esto por inducción.
+
+\begin{itemize}
+ \item Caso base: Vale P(1)
+    En la primera iteración del algoritmo vale que:
+    
+      $total = V[1].perdida * V[1].tiempo$
+      
+    Esto significa que total = $p_1 * t_1 = \sum_{i=1}^{1}{(p_i \sum_{j=1}^{i}{t_j})}$
+      
+    Por lo tanto vale P(1).
+    
+  \item Paso Inductivo:
+  
+    Hipótesis Inductiva: P(n)
+      
+    Queremos ver que $P(n) \Rightarrow P(n+1)$
+    
+    Sabemos que en la iteración $n+1-esima$, la variable total tiene el siguiente valor:
+    
+      $total = total + V[n+1].perdida * tiempo$
+      
+    Por un lado sabemos que en nuestro algoritmo la variable $tiempo$ empieza valiendo cero y va acumulando en cada iteración del ciclo el tiempo de cada pieza que vamos recorriendo. Así que podemos decir que en la $n+1-esima$ iteración la variable $tiempo$ es igual a $\sum_{i=1}^{n+1}{t_i}$ (esto se podría demostrar por inducción).
+    
+    Asumiendo esto podemos ver que la variable total tiene el siguiente valor
+    
+      $total = total + V[n+1].perdida * tiempo = total + p_{n+1} * \sum_{j=1}^{n+1}{t_j}$
+      
+    Y por hipótesis inductiva:
+    
+      $total = \sum_{i=1}^{n}{(p_i \sum_{j=1}^{i}{t_j})} + p_{n+1} * \sum_{j=1}^{n+1}{t_j} = \sum_{i=1}^{n+1}{(p_i \sum_{j=1}^{i}{t_j})}$
+      
+    \begin{flushright}
+    \hfill \ensuremath{\Box}
+    \end{flushright}
+\end{itemize}
