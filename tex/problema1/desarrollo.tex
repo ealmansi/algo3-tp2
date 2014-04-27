@@ -25,3 +25,12 @@ Los casos base ocurren cuando no queda ninguna carta, o cuando queda una sola ca
 Lo que dice el paso recursivo de esta función es que el jugador debe robar cartas de forma tal que minimize los puntos que pueda ganar el contrincante, sabiendo que este también jugará de forma óptima. Por ejemplo, si el valor mínimo de la función $opt$ es $opt(i+3,j)$ significa que el jugador debe robar las primeras 3 cartas empezando por la izuquierda.
 
 \subsection{Implementación:}
+
+Para implementar un algoritmo que utiliza la técnica de programación dinámica necesitamos de una estructura para guardar los resultados que vamos computando para no tener que recalcularlos, y de esta forma lograr una buena complejidad temporal.
+
+Para resolver este algoritmo utilizamos una matriz de $n * n$ donde $n$ es la cantidad de cartas al inciar el juego. Durante este informe llamaremos a la matriz $msp$.
+
+El valor de la casilla $msp[i][j]$ será por un lado la cantidad de puntos óptima que se podrá lograr a partir de las cartas que quedan ($c_i ... c_j$) y por otro lado dos valores que indican las cartas que quedarán luego de que el jugador que le toque realize su turno, estos valores se utilizan para que dada una secuencia de cartas se pueda realizar un seguimiento de todos los turnos que se realizen hasta terminar el juego.
+
+Por ejemplo si en la casilla $msp[i][j]$ tiene los valores $i+k, j$ significa que en ese turno el jugador robo k cartas empezando desde la izquierda y la proxima casilla que se debe obserbar para continuar con el seguimiento del juego es la casilla $msp[i+k][j]$. Además, si los valores de la casilla son $-1, -1$ significa que en ese turno el jugador robó todas las cartas restantes, terminando de esta forma el juego.
+
