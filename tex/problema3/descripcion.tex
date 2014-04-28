@@ -25,15 +25,26 @@ Sin embargo, no hace falta que todas las celdas tengan la misma potencia. Otro t
 \begin{center}
 \begin{tabular}{|c|c|c|c|c|}
 \hline
- 4 & 0 & 0 & 0 & 4 \\
+ 4 & 3 & 2 & 1 & 4 \\
  \hline
- 0 & 0 & 0 & 1 & 1 \\
+ 3 & 3 & 2 & 1 & 1 \\
  \hline
- 0 & 0 & 1 & 1 & 1 \\
+ 2 & 2 & 2 & 1 & 1 \\
  \hline
- 4 & 1 & 1 & 1 & 1 \\
+ 1 & 1 & 1 & 1 & 1 \\
  \hline
 \end{tabular}
 \end{center}
 
 Una posible solución sería: (1,1), (1,5), (5,5), sin importar el $k$ con el que se empieza ya que no nos hace falta.
+
+Cabe notar que a veces conviene alejarse del destino, si esto resulta en menos saltos totales. Por ejemplo, usando $k$ = 0, origen en (1,2) y destino en (5,5):
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+ 4 & 1 & 1 & 1 & 1 \\
+ \hline
+\end{tabular}
+\end{center}
+
+Una posible solución de esta instancia del problema sería: (1,2), (1,1), (1,5).
