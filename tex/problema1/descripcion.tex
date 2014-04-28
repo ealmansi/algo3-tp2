@@ -1,10 +1,11 @@
 Este problema trata de un juego de cartas llamado \emph{Robanúmeros}. El mismo es un juego para dos jugadores. Al empezar el juego se cuenta con una secuencia de cartas, todas ellas boca arriba, cada carta tiene un valor numérico entero (puede ser positivo o negativo). Este juego se juega por turnos de forma alterna y en cada turno un jugador debe elegir un extremo de la secuencia de cartas y robar una cantidad de las mismas empezando desde ese extremo. Por ejemplo supongamos que la secuencia de cartas es la dada en la siguiente tabla:
-
+\begin{center}
 \begin{tabular}{|c|c|c|c|c|}
 \hline
 2 & -3 & 7 & 8 & -10 \\
 \hline
 \end{tabular}
+\end{center}
 
 Dada esta secuencia, el primer jugador en jugar puede, por ejemplo, elegir el extremo derecho y robar 3 cartas, quedándose así con -10, 8 y 7. También podría elegir 4 cartas por el lado izquierdo y de esta forma se quedaría con 2, -3, 7 y 8. Sin embargo, el jugador no puede robar 2, -3 y 8, o -10, y -3.
 
@@ -16,3 +17,42 @@ El algoritmo debe tener una complejidad temporal de peor caso de $O(n^3)$ donde 
 
 \subsubsection{Ejemplos y observaciones}
 
+A continuación vamos a dar algunos ejemplos con sus soluciones y algunos casos particulares que pensamos.
+
+Un ejemplo se da ante la siguiente secuencia de cartas:
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+2 & 3 & 7 & 8 & -10 \\
+\hline
+\end{tabular}
+\end{center}
+
+La forma óptima de jugar para el jugador que empieza es robar todas las cartas empezando desde la izquierda excepto la última, luego de ese turno el segundo jugador deberá robar la carta con el valor $-10$. Al final del juego el jugador uno tendrá un puntaje de $20$ y el jugador dos, de $-10$.
+
+Otro ejemplo es si todas las cartas son positivas. En ese caso el jugador uno debe robar todas las cartas para obtener la mayor diferencia posible.
+
+Un caso interesante es el que denominamos ''Montaña``. En Este caso se tiene una cantidad impar de cartas, la carta del medio tiene un valor muy alto y hacia ambos lados hay igual cantidad de cartas, todas ellas de valor bajo (podría ser menor a cero), pero similar. Un ejemplo de ''Montaña`` sería el siguiente:
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|}
+\hline
+1 &1 & 1 & 1000 & 1 & 1 & 1 \\
+\hline
+\end{tabular}
+\end{center}
+
+En este caso siempre resultará vencedor el jugador uno ya que al jugar ambos jugadores de forma óptima, siempre el que juegue primero será el que, por una cuestión de orden, logre robar la carta del medio.
+
+Y el caso contrario a ''Montaña``, sería tener en el medio una carta de valor muy bajo (menor a cero) y a ambos lados cartas de valor parecido. Podría ser:
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|}
+\hline
+10 & 10 & 999 & 10 & 10 \\
+\hline
+\end{tabular}
+\end{center}
+
+En este caso por la misma rezón que en el caso ''Montaña`` el vencedor sería el que juegue en segundo lugar.
