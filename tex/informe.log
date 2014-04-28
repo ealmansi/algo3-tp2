@@ -1,18 +1,11 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2014.3.26)  11 APR 2014 18:01
+This is pdfTeX, Version 3.1415926-1.40.10 (TeX Live 2009/Debian) (format=pdflatex 2012.7.16)  28 APR 2014 16:03
 entering extended mode
- \write18 enabled.
  %&-line parsing enabled.
 **informe.tex
 (./informe.tex
 LaTeX2e <2009/09/24>
 Babel <v3.8l> and hyphenation patterns for english, usenglishmax, dumylang, noh
-yphenation, farsi, arabic, croatian, bulgarian, ukrainian, russian, czech, slov
-ak, danish, dutch, finnish, french, basque, ngerman, german, german-x-2009-06-1
-9, ngerman-x-2009-06-19, ibycus, monogreek, greek, ancientgreek, hungarian, san
-skrit, italian, latin, latvian, lithuanian, mongolian2a, mongolian, bokmal, nyn
-orsk, romanian, irish, coptic, serbian, turkish, welsh, esperanto, uppersorbian
-, estonian, indonesian, interlingua, icelandic, kurmanji, slovenian, polish, po
-rtuguese, spanish, galician, catalan, swedish, ukenglish, pinyin, loaded.
+yphenation, spanish, galician, catalan, loaded.
 (/usr/share/texmf-texlive/tex/latex/base/article.cls
 Document Class: article 2007/10/19 v1.4h Standard LaTeX document class
 (/usr/share/texmf-texlive/tex/latex/base/size10.clo
@@ -272,7 +265,7 @@ Now handling font encoding U ...
    defining Unicode char U+2122 (decimal 8482)
    defining Unicode char U+2423 (decimal 9251)
 ))
-(/var/lib/texmf/tex/generic/babel/babel.sty
+(/usr/share/texmf-texlive/tex/generic/babel/babel.sty
 Package: babel 2008/07/06 v3.8l The Babel package
 
 (/usr/share/texmf-texlive/tex/generic/babel/spanish.ldf
@@ -497,11 +490,13 @@ Package pdftexcmds Info: LuaTeX not detected.
 Package pdftexcmds Info: \pdf@primitive is available.
 Package pdftexcmds Info: \pdf@ifprimitive is available.
 )
+
+Package epstopdf Warning: Shell escape feature is not enabled.
+
 Package grfext Info: Graphics extension search list:
 (grfext)             [.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPE
 G,.JBIG2,.JB2,.eps]
 (grfext)             \AppendGraphicsExtensions on input line 433.
-
 (/usr/share/texmf-texlive/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2009/10/26 v1.1 Configuration of epstopdf for TeX Live
 )))
@@ -595,8 +590,15 @@ File: umsb.fd 2009/06/22 v3.00 AMS symbols B
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./img/DC.jpg>] (./informe.
 toc
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 39.
 
+LaTeX Warning: Reference `propiedad-candidatos' on page 2 undefined on input li
+ne 15.
+
+
+LaTeX Warning: Reference `propiedad-maximo-j' on page 2 undefined on input line
+ 17.
+
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 39.
 (/usr/share/texmf-texlive/tex/latex/base/omscmr.fd
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
@@ -608,89 +610,33 @@ LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
 
  [3]
 (./introduccion.tex) (./consideraciones.tex) [4] [5]
-(./problema1/descripcion.tex) (./problema1/desarrollo.tex [6])
-(./problema1/complejidad.tex) (./problema1/demostracion.tex [7] [8])
-(./problema1/experimentacion.tex
-Package epstopdf Info: Source file: <problema1/graficos/problema1_aleatoria_100
-00.eps>
-(epstopdf)                    date: 2014-04-10 11:23:08
-(epstopdf)                    size: 62587 bytes
-(epstopdf)             Output file: <problema1/graficos/problema1_aleatoria_100
-00-eps-converted-to.pdf>
-(epstopdf)                    date: 2014-04-10 12:04:16
-(epstopdf)                    size: 43271 bytes
-(epstopdf)             Command: <epstopdf --outfile=problema1/graficos/problema
-1_aleatoria_10000-eps-converted-to.pdf problema1/graficos/problema1_aleatoria_1
-0000.eps>
-(epstopdf)             \includegraphics on input line 13.
-Package epstopdf Info: Output file is already uptodate.
+(./problema1/descripcion.tex) (./problema1/desarrollo.tex [6] [7])
+(./problema1/complejidad.tex
 
-<problema1/graficos/problema1_aleatoria_10000-eps-converted-to.pdf, id=45, 500.
-87125pt x 404.51125pt>
-File: problema1/graficos/problema1_aleatoria_10000-eps-converted-to.pdf Graphic
- file (type pdf)
+LaTeX Warning: Reference `problema1-pseudo' on page 8 undefined on input line 1
+.
 
-<use problema1/graficos/problema1_aleatoria_10000-eps-converted-to.pdf>
-Package epstopdf Info: Source file: <problema1/graficos/problema1_aleatoria_100
-00_div_nlogn.eps>
-(epstopdf)                    date: 2014-04-11 01:17:33
-(epstopdf)                    size: 54004 bytes
-(epstopdf)             Output file: <problema1/graficos/problema1_aleatoria_100
-00_div_nlogn-eps-converted-to.pdf>
-(epstopdf)                    date: 2014-04-11 01:26:08
-(epstopdf)                    size: 36124 bytes
-(epstopdf)             Command: <epstopdf --outfile=problema1/graficos/problema
-1_aleatoria_10000_div_nlogn-eps-converted-to.pdf problema1/graficos/problema1_a
-leatoria_10000_div_nlogn.eps>
-(epstopdf)             \includegraphics on input line 14.
-Package epstopdf Info: Output file is already uptodate.
+) (./problema1/demostracion.tex
 
-<problema1/graficos/problema1_aleatoria_10000_div_nlogn-eps-converted-to.pdf, i
-d=46, 503.8825pt x 404.51125pt>
-File: problema1/graficos/problema1_aleatoria_10000_div_nlogn-eps-converted-to.p
-df Graphic file (type pdf)
+LaTeX Warning: Reference `propiedad-candidatos' on page 8 undefined on input li
+ne 1.
 
-<use problema1/graficos/problema1_aleatoria_10000_div_nlogn-eps-converted-to.pd
-f>
-Overfull \hbox (2.22221pt too wide) in paragraph at lines 13--15
-[][] [] 
- []
 
-[9]
-Package epstopdf Info: Source file: <problema1/graficos/problema1_ordenada_alea
-toria_10000_vs_problema1_ordenada_siempre_actualiza_10000_vs_problema1_ordenada
-_todos_distintos_10000.eps>
-(epstopdf)                    date: 2014-04-11 01:17:33
-(epstopdf)                    size: 135099 bytes
-(epstopdf)             Output file: <problema1/graficos/problema1_ordenada_alea
-toria_10000_vs_problema1_ordenada_siempre_actualiza_10000_vs_problema1_ordenada
-_todos_distintos_10000-eps-converted-to.pdf>
-(epstopdf)                    date: 2014-04-11 01:26:08
-(epstopdf)                    size: 91234 bytes
-(epstopdf)             Command: <epstopdf --outfile=problema1/graficos/problema
-1_ordenada_aleatoria_10000_vs_problema1_ordenada_siempre_actualiza_10000_vs_pro
-blema1_ordenada_todos_distintos_10000-eps-converted-to.pdf problema1/graficos/p
-roblema1_ordenada_aleatoria_10000_vs_problema1_ordenada_siempre_actualiza_10000
-_vs_problema1_ordenada_todos_distintos_10000.eps>
-(epstopdf)             \includegraphics on input line 28.
-Package epstopdf Info: Output file is already uptodate.
+LaTeX Warning: Reference `propiedad-candidatos' on page 8 undefined on input li
+ne 3.
 
-<problema1/graficos/problema1_ordenada_aleatoria_10000_vs_problema1_ordenada_si
-empre_actualiza_10000_vs_problema1_ordenada_todos_distintos_10000-eps-converted
--to.pdf, id=51, 500.87125pt x 404.51125pt>
-File: problema1/graficos/problema1_ordenada_aleatoria_10000_vs_problema1_ordena
-da_siempre_actualiza_10000_vs_problema1_ordenada_todos_distintos_10000-eps-conv
-erted-to.pdf Graphic file (type pdf)
+[8]
 
-<use problema1/graficos/problema1_ordenada_aleatoria_10000_vs_problema1_ordenad
-a_siempre_actualiza_10000_vs_problema1_ordenada_todos_distintos_10000-eps-conve
-rted-to.pdf>) [10 <./problema1/graficos/problema1_aleatoria_10000-eps-converted
--to.pdf> <./problema1/graficos/problema1_aleatoria_10000_div_nlogn-eps-converte
-d-to.pdf> <./problema1/graficos/problema1_ordenada_aleatoria_10000_vs_problema1
-_ordenada_siempre_actualiza_10000_vs_problema1_ordenada_todos_distintos_10000-e
-ps-converted-to.pdf>] (./problema1/resultados.tex) [11]
-(./problema2/descripcion.tex) (./problema2/desarrollo.tex [12])
-(./problema2/complejidad.tex) (./problema2/demostracion.tex [13]
+LaTeX Warning: Reference `propiedad-maximo-j' on page 9 undefined on input line
+ 40.
+
+
+LaTeX Warning: Reference `propiedad-maximo-j' on page 9 undefined on input line
+ 42.
+
+[9]) (./problema1/experimentacion.tex) (./problema1/resultados.tex) [10]
+(./problema2/descripcion.tex) (./problema2/desarrollo.tex [11])
+(./problema2/complejidad.tex) (./problema2/demostracion.tex [12]
 Overfull \hbox (8.7143pt too wide) in paragraph at lines 60--61
 []$\OML/cmm/m/it/10 t\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 r[]\OT1/cmr/m/n/10 ) [][
 ] \OML/cmm/m/it/10 p\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 r[]\OT1/cmr/m/n/10 ) + \O
@@ -711,199 +657,15 @@ Underfull \hbox (badness 10000) in paragraph at lines 60--61
 
  []
 
-[14] [15]) (./problema2/experimentacion.tex
-Package epstopdf Info: Source file: <problema2/graficos/problema2_aleatoria_100
-00.eps>
-(epstopdf)                    date: 2014-04-10 11:23:08
-(epstopdf)                    size: 58817 bytes
-(epstopdf)             Output file: <problema2/graficos/problema2_aleatoria_100
-00-eps-converted-to.pdf>
-(epstopdf)                    date: 2014-04-10 12:04:16
-(epstopdf)                    size: 41469 bytes
-(epstopdf)             Command: <epstopdf --outfile=problema2/graficos/problema
-2_aleatoria_10000-eps-converted-to.pdf problema2/graficos/problema2_aleatoria_1
-0000.eps>
-(epstopdf)             \includegraphics on input line 18.
-Package epstopdf Info: Output file is already uptodate.
-
-<problema2/graficos/problema2_aleatoria_10000-eps-converted-to.pdf, id=90, 500.
-87125pt x 404.51125pt>
-File: problema2/graficos/problema2_aleatoria_10000-eps-converted-to.pdf Graphic
- file (type pdf)
-
-<use problema2/graficos/problema2_aleatoria_10000-eps-converted-to.pdf>
-Package epstopdf Info: Source file: <problema2/graficos/problema2_aleatoria_100
-00_div_nlogn.eps>
-(epstopdf)                    date: 2014-04-11 12:50:05
-(epstopdf)                    size: 47453 bytes
-(epstopdf)             Output file: <problema2/graficos/problema2_aleatoria_100
-00_div_nlogn-eps-converted-to.pdf>
-(epstopdf)                    date: 2014-04-11 12:50:29
-(epstopdf)                    size: 30580 bytes
-(epstopdf)             Command: <epstopdf --outfile=problema2/graficos/problema
-2_aleatoria_10000_div_nlogn-eps-converted-to.pdf problema2/graficos/problema2_a
-leatoria_10000_div_nlogn.eps>
-(epstopdf)             \includegraphics on input line 19.
-Package epstopdf Info: Output file is already uptodate.
-
-<problema2/graficos/problema2_aleatoria_10000_div_nlogn-eps-converted-to.pdf, i
-d=91, 503.8825pt x 404.51125pt>
-File: problema2/graficos/problema2_aleatoria_10000_div_nlogn-eps-converted-to.p
-df Graphic file (type pdf)
-
-<use problema2/graficos/problema2_aleatoria_10000_div_nlogn-eps-converted-to.pd
-f>
-Overfull \hbox (2.22221pt too wide) in paragraph at lines 18--20
-[][] [] 
- []
-
-[16 <./problema2/graficos/problema2_aleatoria_10000-eps-converted-to.pdf> <./pr
-oblema2/graficos/problema2_aleatoria_10000_div_nlogn-eps-converted-to.pdf>]
-Package epstopdf Info: Source file: <problema2/graficos/problema2_ordenada_1000
-0.eps>
-(epstopdf)                    date: 2014-04-11 12:50:05
-(epstopdf)                    size: 56993 bytes
-(epstopdf)             Output file: <problema2/graficos/problema2_ordenada_1000
-0-eps-converted-to.pdf>
-(epstopdf)                    date: 2014-04-11 12:50:29
-(epstopdf)                    size: 40589 bytes
-(epstopdf)             Command: <epstopdf --outfile=problema2/graficos/problema
-2_ordenada_10000-eps-converted-to.pdf problema2/graficos/problema2_ordenada_100
-00.eps>
-(epstopdf)             \includegraphics on input line 33.
-Package epstopdf Info: Output file is already uptodate.
-
-<problema2/graficos/problema2_ordenada_10000-eps-converted-to.pdf, id=105, 492.
-84125pt x 404.51125pt>
-File: problema2/graficos/problema2_ordenada_10000-eps-converted-to.pdf Graphic 
-file (type pdf)
-
-<use problema2/graficos/problema2_ordenada_10000-eps-converted-to.pdf>
-Package epstopdf Info: Source file: <problema2/graficos/problema2_ordenada_1000
-0_div_n.eps>
-(epstopdf)                    date: 2014-04-11 12:50:05
-(epstopdf)                    size: 45412 bytes
-(epstopdf)             Output file: <problema2/graficos/problema2_ordenada_1000
-0_div_n-eps-converted-to.pdf>
-(epstopdf)                    date: 2014-04-11 12:50:29
-(epstopdf)                    size: 28609 bytes
-(epstopdf)             Command: <epstopdf --outfile=problema2/graficos/problema
-2_ordenada_10000_div_n-eps-converted-to.pdf problema2/graficos/problema2_ordena
-da_10000_div_n.eps>
-(epstopdf)             \includegraphics on input line 34.
-Package epstopdf Info: Output file is already uptodate.
-
-<problema2/graficos/problema2_ordenada_10000_div_n-eps-converted-to.pdf, id=106
-, 509.905pt x 404.51125pt>
-File: problema2/graficos/problema2_ordenada_10000_div_n-eps-converted-to.pdf Gr
-aphic file (type pdf)
-
-<use problema2/graficos/problema2_ordenada_10000_div_n-eps-converted-to.pdf>
-Overfull \hbox (2.22221pt too wide) in paragraph at lines 33--35
-[][] [] 
- []
-
-) (./problema2/resultados.tex) [17 <./problema2/graficos/problema2_ordenada_100
-00-eps-converted-to.pdf> <./problema2/graficos/problema2_ordenada_10000_div_n-e
-ps-converted-to.pdf>] (./problema3/descripcion.tex) (./problema3/desarrollo.tex
-[18]) (./problema3/complejidad.tex [19]) (./problema3/demostracion.tex [20])
-(./problema3/experimentacion.tex [21]
-Package epstopdf Info: Source file: <problema3/graficos/comparacion_podas_todas
-_instancias_llamados.eps>
-(epstopdf)                    date: 2014-04-11 17:52:28
-(epstopdf)                    size: 11984 bytes
-(epstopdf)             Output file: <problema3/graficos/comparacion_podas_todas
-_instancias_llamados-eps-converted-to.pdf>
-(epstopdf)                    date: 2014-04-11 17:52:34
-(epstopdf)                    size: 7885 bytes
-(epstopdf)             Command: <epstopdf --outfile=problema3/graficos/comparac
-ion_podas_todas_instancias_llamados-eps-converted-to.pdf problema3/graficos/com
-paracion_podas_todas_instancias_llamados.eps>
-(epstopdf)             \includegraphics on input line 15.
-Package epstopdf Info: Output file is already uptodate.
-
-<problema3/graficos/comparacion_podas_todas_instancias_llamados-eps-converted-t
-o.pdf, id=133, 484.81125pt x 402.50375pt>
-File: problema3/graficos/comparacion_podas_todas_instancias_llamados-eps-conver
-ted-to.pdf Graphic file (type pdf)
-
-<use problema3/graficos/comparacion_podas_todas_instancias_llamados-eps-convert
-ed-to.pdf>
-Package epstopdf Info: Source file: <problema3/graficos/comparacion_podas_todas
-_instancias_tiempo.eps>
-(epstopdf)                    date: 2014-04-11 17:52:28
-(epstopdf)                    size: 11670 bytes
-(epstopdf)             Output file: <problema3/graficos/comparacion_podas_todas
-_instancias_tiempo-eps-converted-to.pdf>
-(epstopdf)                    date: 2014-04-11 17:52:34
-(epstopdf)                    size: 7725 bytes
-(epstopdf)             Command: <epstopdf --outfile=problema3/graficos/comparac
-ion_podas_todas_instancias_tiempo-eps-converted-to.pdf problema3/graficos/compa
-racion_podas_todas_instancias_tiempo.eps>
-(epstopdf)             \includegraphics on input line 16.
-Package epstopdf Info: Output file is already uptodate.
-
-<problema3/graficos/comparacion_podas_todas_instancias_tiempo-eps-converted-to.
-pdf, id=134, 486.81876pt x 402.50375pt>
-File: problema3/graficos/comparacion_podas_todas_instancias_tiempo-eps-converte
-d-to.pdf Graphic file (type pdf)
-
-<use problema3/graficos/comparacion_podas_todas_instancias_tiempo-eps-converted
--to.pdf>
-Overfull \hbox (2.22221pt too wide) in paragraph at lines 15--17
-[][] [] 
- []
-
-Package epstopdf Info: Source file: <problema3/graficos/comparacion_podas1y2_ll
-amados_recursivos.eps>
-(epstopdf)                    date: 2014-04-11 17:52:28
-(epstopdf)                    size: 18649 bytes
-(epstopdf)             Output file: <problema3/graficos/comparacion_podas1y2_ll
-amados_recursivos-eps-converted-to.pdf>
-(epstopdf)                    date: 2014-04-11 17:52:34
-(epstopdf)                    size: 9599 bytes
-(epstopdf)             Command: <epstopdf --outfile=problema3/graficos/comparac
-ion_podas1y2_llamados_recursivos-eps-converted-to.pdf problema3/graficos/compar
-acion_podas1y2_llamados_recursivos.eps>
-(epstopdf)             \includegraphics on input line 32.
-Package epstopdf Info: Output file is already uptodate.
-
-<problema3/graficos/comparacion_podas1y2_llamados_recursivos-eps-converted-to.p
-df, id=135, 487.8225pt x 404.51125pt>
-File: problema3/graficos/comparacion_podas1y2_llamados_recursivos-eps-converted
--to.pdf Graphic file (type pdf)
-
-<use problema3/graficos/comparacion_podas1y2_llamados_recursivos-eps-converted-
-to.pdf> [22 <./problema3/graficos/comparacion_podas_todas_instancias_llamados-e
-ps-converted-to.pdf> <./problema3/graficos/comparacion_podas_todas_instancias_t
-iempo-eps-converted-to.pdf>]
-Package epstopdf Info: Source file: <problema3/graficos/comparacion_podas1y2_ti
-empo.eps>
-(epstopdf)                    date: 2014-04-11 17:52:28
-(epstopdf)                    size: 18694 bytes
-(epstopdf)             Output file: <problema3/graficos/comparacion_podas1y2_ti
-empo-eps-converted-to.pdf>
-(epstopdf)                    date: 2014-04-11 17:52:35
-(epstopdf)                    size: 9672 bytes
-(epstopdf)             Command: <epstopdf --outfile=problema3/graficos/comparac
-ion_podas1y2_tiempo-eps-converted-to.pdf problema3/graficos/comparacion_podas1y
-2_tiempo.eps>
-(epstopdf)             \includegraphics on input line 40.
-Package epstopdf Info: Output file is already uptodate.
-
-<problema3/graficos/comparacion_podas1y2_tiempo-eps-converted-to.pdf, id=149, 4
-87.8225pt x 404.51125pt>
-File: problema3/graficos/comparacion_podas1y2_tiempo-eps-converted-to.pdf Graph
-ic file (type pdf)
-
-<use problema3/graficos/comparacion_podas1y2_tiempo-eps-converted-to.pdf>
-[23 <./problema3/graficos/comparacion_podas1y2_llamados_recursivos-eps-converte
-d-to.pdf>]) (./problema3/resultados.tex [24 <./problema3/graficos/comparacion_p
-odas1y2_tiempo-eps-converted-to.pdf>]) [25] (./apendices.tex
+[13] [14]) (./problema2/experimentacion.tex) (./problema2/resultados.tex)
+[15] (./problema3/descripcion.tex) (./problema3/desarrollo.tex [16])
+(./problema3/complejidad.tex [17]) (./problema3/demostracion.tex [18] [19])
+(./problema3/experimentacion.tex) (./problema3/resultados.tex) [20]
+(./apendices.tex
 File: ./codigo/problema1.cpp  (verbatim)
- [26]
+ [21]
 File: ./codigo/problema2.cpp  (verbatim)
- [27]
+ [22]
 File: ./codigo/problema3.cpp  (verbatim)
 
 Overfull \hbox (51.02771pt too wide) in paragraph at lines 18--18
@@ -929,44 +691,47 @@ Overfull \hbox (30.0279pt too wide) in paragraph at lines 18--18
 cionOptima, piezaDisponible, e);[] 
  []
 
-[28]
+[23]
 Overfull \hbox (30.0279pt too wide) in paragraph at lines 18--18
 []\OT1/cmtt/m/n/10 bool esCompatible(int indicePieza, int i, int j, Tablero &so
 lucionParcial, const Entrada &e)[] 
  []
 
-[29]) AED: lastpage setting LastPage [30] (./informe.aux) ) 
+[24]) AED: lastpage setting LastPage [25] (./informe.aux)
+
+LaTeX Warning: There were undefined references.
+
+ ) 
 Here is how much of TeX's memory you used:
- 4628 strings out of 493848
- 64591 string characters out of 1152823
- 131953 words of memory out of 3000000
- 7719 multiletter control sequences out of 15000+50000
+ 4558 strings out of 494999
+ 60020 string characters out of 1180816
+ 130906 words of memory out of 3000000
+ 7574 multiletter control sequences out of 15000+50000
  11677 words of font info for 45 fonts, out of 3000000 for 9000
- 714 hyphenation exceptions out of 8191
- 41i,12n,43p,892b,458s stack positions out of 5000i,500n,10000p,200000b,50000s
-</usr/share/texmf-te
-xlive/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texmf-texlive/fonts
-/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-texlive/fonts/type1/publ
-ic/amsfonts/cm/cmcsc10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfont
-s/cm/cmex10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmmi10
-.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/s
-hare/texmf-texlive/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/share/texmf-t
-exlive/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texmf-texlive/fonts
-/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texmf-texlive/fonts/type1/publi
-c/amsfonts/cm/cmr12.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/c
-m/cmr17.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr5.pfb><
-/usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/te
-xmf-texlive/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/share/texmf-texlive/f
-onts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texmf-texlive/fonts/type1/pu
-blic/amsfonts/cm/cmsy10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfon
-ts/cm/cmsy5.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy7.
-pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/s
-hare/texmf-texlive/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texmf-
-texlive/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/share/texmf-texliv
-e/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on informe.pdf (30 pages, 720133 bytes).
+ 54 hyphenation exceptions out of 8191
+ 41i,12n,43p,954b,458s stack positions out of 5000i,500n,10000p,200000b,50000s
+</usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/sha
+re/texmf-texlive/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texmf-te
+xlive/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texmf-texlive/font
+s/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf-texlive/fonts/type1/pub
+lic/amsfonts/cm/cmmi10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfont
+s/cm/cmmi5.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmmi7.p
+fb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/sha
+re/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texmf-tex
+live/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texmf-texlive/fonts/t
+ype1/public/amsfonts/cm/cmr5.pfb></usr/share/texmf-texlive/fonts/type1/public/a
+msfonts/cm/cmr6.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cm
+r7.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/
+share/texmf-texlive/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texmf
+-texlive/fonts/type1/public/amsfonts/cm/cmsy5.pfb></usr/share/texmf-texlive/fon
+ts/type1/public/amsfonts/cm/cmsy7.pfb></usr/share/texmf-texlive/fonts/type1/pub
+lic/amsfonts/cm/cmti10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfont
+s/cm/cmtt10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/symbols/m
+sam10.pfb></usr/share/texmf-texlive/fonts/type1/public/amsfonts/symbols/msbm10.
+pfb>
+Output written on informe.pdf (25 pages, 371403 bytes).
 PDF statistics:
- 253 PDF objects out of 1000 (max. 8388607)
+ 168 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)
- 61 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 6 words of extra memory for PDF output out of 10000 (max. 10000000)
 
