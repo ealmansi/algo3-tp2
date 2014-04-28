@@ -14,8 +14,8 @@ Donde A es el conjunto de cartas que robó el jugador A y B es el conjunto de ca
 
 Lo que pensamos es que maximizar la sumatoria de puntos que robemos nosotros es lo mismo que minimizar la suma de puntos robada por el otro jugador. Además sabemos que el otro jugador también jugara de forma óptima, por lo tanto llegamos a la conclusión de que la función recusrsiva para resolver este problema es la siguiente:
 
-$opt(0,0) = 0$
-$oppt(i,i) = c_i$
+$opt(0,0) = 0$ \\
+$oppt(i,i) = c_i$ \\
 $opt(i,j) = \sum cartas - min(opt(i+1, j), ..., opt(j,j), opt(i, j-1), ... ,opt(i,i)$
 
 Vale aclarar que por cómo pensamos la función, siempre pasa que $i \leq j$ ya que, como dijimos antes, tomamos a $i$ como el valor de la primer carta disponible desde la izquierda y $j$ como el primer valor disponible desde la izquierda.
