@@ -1,9 +1,61 @@
-El pseudocódigo de la solución (Figura \ref{problema1-pseudo}) incluye al final de cada línea la complejidad temporal de las instrucciones contenidas en la misma.
+En la figura que muestra el pseudocódigo de nuestro algoritmo situada arriba podemos ver que la complejidad de este algoritmo se representa con esta cuenta:
 
-En primer lugar, la etapa de ordenamiento es realizable en tiempo $O(n *log(n))$ mediante conocidos algoritmos como \emph{Mergesort}, \emph{Heapsort} o \emph{Introsort}.
+$O(n) + 2*O(1) + n*(2*O(1) + n*(2*O(1) +O(n) + 6*O(1)) + O(n)$
 
-Luego, dado que $j$ se inicializa en $1$ y su valor es incrementado en el cuerpo del ciclo interno, la guarda del mismo no puede ser verdadera más de $n$ veces. Como además siempre vale que $d_i \leq d_i < d_i + D$, este se ejecuta al menos una vez por cada valor de $i$. Por lo tanto, la operación $j \leftarrow j + 1$ se ejecuta $n$ veces, incurriendo en un costo lineal en $n$ en la totalidad del algoritmo, y no se ejecuta $n$ veces por cada valor de $i$.
+Por álgebra de órdenes esto se puede reducir a:
 
-Por otro lado, el ciclo externo se ejecuta exactamente $n$ veces, con $i = 1, ..., n$. En peor caso, los elementos son todos distintos y jamás se saltea el cuerpo del ciclo. Las operaciones de actualización del máximo tienen un costo constante (incluso si hay que realizar la actualización), por lo cual en la totalidad del algoritmo comprenden una cantidad de operaciones proporcional a $n$.
+$O(2n+2) + n*(O(2) + n*(O(2) + O(n) + O (6)))$
 
-Buscar el máximo tiene una complejidad $O(n)$. Por esto, la etapa de ordenamiento (la cual tiene una complejidad de $O(n*log(n))$) domina la complejidad del algoritmo, permitiendo dar la cota $O(n*log(n))$ para la solución.
+$O(n) + n*(O(1) + n*(O(n+1)))$
+
+$O(n) + n*(O(1) + O(n^2+n))$
+
+$O(n) + n*(O(n^2 +n +1))$
+
+$O(n) + n*O(n^2)$
+
+$O(n^3+n)$
+
+$O(n^3)$
+
+Entonces podemos decir que la complejidad de nuestro algoritmo es $O(n^3)$, pero primero tenemos que demostrar que los algoritmos $escribirSalida$ y $buscarMinimo$ realmente tienen una complejidad lineal.
+
+El algoritmo de $buscarMinimo$ es el siguiente
+
+\begin{center}
+ \begin{figure}[H]
+  \begin{pseudo}
+   \Procedure{buscarMinimo}{opt,i,j,iSiguiente,jSiguiente,minCantPuntos}
+    \State $k \leftarrow 1$\Ode{1}
+    \While{$k \leq j-1$} \hfill $n*O(1)$
+      \If{$opt[i+k][j].cantPuntos < minCantPuntos$ }\Ode{1}
+	\State $iSiguiente \leftarrow i+k$\Ode{1}
+	\State $jSiguiente \leftarrow j$\Ode{1}
+	\State $minCantPuntos \leftarrow opt[i+k][j].cantPuntos$\Ode{1}
+      \EndIf
+      \If{$opt[i][j-k].cantPuntos < mincantPuntos$}\Ode{1}
+	\State $iSiguiente \leftarrow i$\Ode{1}
+	\State $jSiguiente \leftarrow j-k$\Ode{1}
+	\State $mincantPuntos \leftarrow opt[i][j-k].cantPuntos$\Ode{1}
+      \EndIf
+    \EndWhile
+   \EndProcedure
+  \end{pseudo}
+
+ \end{figure}
+
+\end{center}
+
+La complejidad del algoritmo es:
+
+$O(1) + n*(8*O(1))$
+
+Por álgebra de órdenes:
+
+$O(1) + O(8*n)$
+
+$O(n)$
+
+Ahora veamos que el algoritmo $escribirSalida$ también tiene complejidad lineal:
+
+%Continuará

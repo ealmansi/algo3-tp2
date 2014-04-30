@@ -68,3 +68,39 @@ Y si es mejor terminar el juego en ese turno se pone -1 como valores $iSiguiente
 Nuestro algoritmo va llenando la matriz con los valores correspondientes, lo hace por columnas, de izquierda a derecha y de abajo hacia arriba. De esta forma una vez que hay que completar una casilla ya se cuenta con todos los valores necesarios para hacerlo. Ya que a la hora de completar una casilla, ya están completas todas las casillas de la izquierda y las de abajo. 
 
 Una vez completa la matriz, sólo debemos consultar la casilla $opt[0][n-1]$ que es la que nos dice la mayor puntuación posible cuando todavía no se inició el juego, con todas las cartas aún disponibles. Y para realizar el seguimiento de todos los turnos que se jugarán en el juego se revisan periódicamente los valores $iSiguiente$ y $jSiguiente$ por donde nos lleven, hasta estos valores sean iguales a -1. En ese caso sabremos que ese fue el último turno y el jugador robó todas las cartas disponibles.
+
+A continuación incluiremos un pseudocódigo del algoritmo que utilizamos para resolver el problema:
+
+\begin{center}
+\begin{figure}[H]
+    \begin{pseudo}
+        \Procedure{Robanumeros}{$n, \langle c_1, \ldots, c_n \rangle$}
+            \State $vector\langle int \rangle sumasParciales \leftarrow computar\_sumasParciales(c_1, \ldots, c_n)$ \Ode{n}
+            \State $matriz\langle subproblema \rangle opt(n)$ \Ode{1}
+            \State $j \leftarrow 0$ \Ode{1}
+            \While{$j \leq n$} \hfill $n*O(1)$
+                \State $opt[j][j] \leftarrow c_j$\Ode{1}
+                \State $i \leftarrow j-1$\Ode{1}
+                \While{$i \geq 0$} \hfill $n*O(1)$
+                    \State $iSiguiente$,$jSiguiente$, $minCantPuntos \leftarrow INT\_MAX$ \Ode{1}
+		    \State $buscarMinimo(opt,i,j,iSiguiente,jSiguiente,minCantPuntos)$ \Ode{n}
+		    \State $sumaRango \leftarrow sumasParciales[j]$ \Ode{1}
+		    \If{$i != 0$} \Ode{1}
+			\State $sumaRango \leftarrow sumaRango - sumasParciales[i-1]$ \Ode{1}
+		    \EndIf
+		    \If{$0 \leq minCantPuntos$} \Ode{1}
+			\State $opt[i][j] \leftarrow Subproblema(-1,-1,sumaRango)$ \Ode{1}
+		    \Else
+			\State $opt[i][j] \leftarrow Subproblema(iSiguiente,jSiguiente, sumaRango - minCantPuntos)$ \Ode{1}
+		    \EndIf
+		    \State $i \leftarrow i-1$\Ode{1}
+		 \EndWhile
+		 \State $j \leftarrow j+1$\Ode{1}
+            \EndWhile
+            \State $escribirSalida(opt)$ \Ode{n}
+        \EndProcedure
+    \end{pseudo}
+    \caption{Robanúmeros. Pseudocódigo.}
+    \label{problema1-pseudo}
+\end{figure}
+\end{center}
