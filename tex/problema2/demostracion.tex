@@ -1,145 +1,60 @@
-Para probar que nuestro algoritmo es correcto y que además es óptimo, lo que debemos demostrar es que el orden en que se fabrican las piezas que nosotros en principio supusimos como óptimo es realmente óptimo. Y lo otro que debemos demostrar es que el algoritmo Calcular\_perdida calcule correctamente la perdida total del joyero por fabricar las joyas en el orden utilizado.
+Primero vamos a demostrar que un bosque generador mínimo con k componentes conexas resuelve el problema. Osea que todos los pueblos estan conectados y su máxima arista es la mínima entre todas las soluciones posibles.
 
-\subsubsection{Demostración de la optimicidad del orden propuesto}
-La propiedad que queremos demostrar es la siguiente:
+Para eso primero vamos a demostrar los siguiente lemas:
 
-Sea S un conjunto de elementos  ${s_1,...,s_n}$ y R un permutación de los elementos de S / $(\forall \ 1 \leq i  < n)$ $\frac{t(R[i])}{p(R[i])} \leq \frac{t(R[i+1])}{p(R[i+1])} $, minimiza la función C(R) 
+\textbf{Lema 1:} Un árbol generador mínimo tambien minimiza la máxima arista.
 
-Siendo C(R) = $\sum_{i=1}^{n} t(R[i]) \sum_{j=i}^{n}p(R[j]) $
+\textbf{Lema 2:} G grafo es solucion $\Leftrightarrow \#$ (componentes conexas (G)) $\leq$ k. Osea,  G(V,E) grafo y C un conjunto de k vertices $\in $ V q.v.q. $(\forall v \in V)(\exists c \in C)$ v esta conecado a c $\Leftrightarrow \#$ (componentes conexas (G)) $\leq$ k
 
-Para demostrar esto vamos a hacer inducción en el tamaño de R.
+\textbf{Lema 3:} Dada una solucions con C componentes conexas (C $<$ k), existe una solucion mejor o igual con C+1 componentes conexas.
 
-El caso base  es $\|$R$\|$ = 1 :
 
-Este caso es trivial porque sólo existe una permutación de R, por lo cual claramente es la mínima.
+\textbf{Lema 1:} Un árbol generador mínimo tambien minimiza la máxima arista.
 
-Para continuar con la demostración debemos realizar el paso inductivo, que es el siguiente:
+Sea G(V,E) un árbol generador mínimo y e su máxima arista.
 
-$(\forall n > 1)$  P(n-1) $\Rightarrow$ P(n)
+Sea G'(V,E-e), tiene dos componentes conexas C1 y C2 por ser G un árbol.
 
-Para realizar el paso inductivo vamos a usar como Hipótesis inductiva que vale P(n-1) y a partir de eso vamos a demostrar que vale P(n).
+Por el absurdo supongo que existe otro grafo conexo H(V,E') cuya arista máxima es e' y f(e') $<$ f(e).
+Como H es conexa tiene que existir algun e'' tal que un extremo pertenezca a C1 y el otro a C2. y f(e'') $\leq$ f(e') ya que e'es la máxima.
 
-Tomamos un permutación óptima R = $(r_1,...,r_n)$ y construyo R' = $(r'_1,...,r'_n) / \  r'_1 = r_1 \  y \ (r'_2,...,r'_n)$ es una permutación de $(r_2,...,r_n) / (\forall 2 \leq i  < n) \frac{t(r'_i)}{p(r'_i)} \leq \frac{t(r'_{i+1})}{p(r'_{i+1})} $
+Sea G''(V,E-e+e'') G'' es árbol ya que e'' tiene un extremo en cada componente conexa q se forma al quitar e, osea q sigue siendo conexo y la cantidad de arista se mantiene en m = n-1. Sea l la arista de mayor peso de G''.
 
-Osea, R' tiene el primer elemento igual al primer elemento de R, y los otros $n-1$ elementos están ordenados según nuestro orden propuesto.
+Sabemos que $f(e'') < f(e) \Rightarrow f(e'') - f(e) < 0$
 
-Primero vamos demostrar que R' es óptima, para esto calculo C(R) y C(R') :
+$\sum_{i \in E-e+e''} f(i) = \sum_{i \in E} f(i) - f(e) + f(e'') < \sum_{i \in E} f(i)$.
 
-C(R) = $t(r_1) \sum_{j=1}^{n}p(r_j) + C(R[2..n]) $
+Tambien sabemos que $\sum_{i \in E} f(i) \leq \sum_{i \in E-e+e''} f(i)$ ya que G es un árbol generador mínimo.
 
-C(R') = $t(r_1) \sum_{j=1}^{n}p(r'_j) + C(R'[2..n]) $
+Entonces: $\sum_{i \in E} f(i) > \sum_{i \in E-e+e''} f(i) \wedge \sum_{i \in E} f(i) \leq \sum_{i \in E-e+e''} f(i)$
+Lo cual es absurdo.
 
-Como R es óptimo, se que C(R) $\leq$ C(R')
+\textbf{Lema 2:} G(V,E) grafo y C un conjunto de k vertices $\in $ V q.v.q. $(\forall v \in V)(\exists c \in C)$ v esta conecado a c $\Leftrightarrow \#$ (componentes conexas (G)) $\leq$ k
 
-También se por H.I. que R'[2..n] es óptima, por lo cual: 
+Sea k' la cantidad de $\#$ (componentes conexas (G)).
 
-C(R'[2,n]) $\leq$ C(R[2..n]) $\iff$
+Primero probemos $\Leftarrow$
 
-$t(r_1) \sum_{j=1}^{n}p(r_j)$ + C(R'[2..n]) $\leq$  $t(r_1) \sum_{j=1}^{n}p(r_j)$ + C(R[2..n])
+Tomo $c_i \in S_i$ con $c_i$ el i-esimo vertice de C y $S_i$ la i-esima componente conexa de S para $1 \leq i \leq k'$ puedo elegir k' elemento porque C tiene k elementos y k' $\leq$ k.
 
-Sabemos que $\sum_{j=1}^{n}p(r_j) = \sum_{j=1}^{n}p(r'_j)$ ya que R' es una permutación de R, Entonces:
+Ahora tomo cualquier v $\in$ V, sea $S_j$ la componente conexa de G a la que v pertenece. Existe un camino entre v y $c_j$ ya que ambos pertenecen a la misma componente conexa.
 
-$t(r_1) \sum_{j=1}^{n}p(r'_j)$ + C(R'[2..n]) $\leq$  $t(r_1) \sum_{j=1}^{n}p(r_j)$ + C(R'[2..n]) $\iff$
+Ahora probemos $\Rightarrow$
+Para esto probaremos el contra reciproco:
 
-C(R') $\leq$ C(R)
+$\#$ (componentes conexas (G)) $>$ k  $\Leftrightarrow$ $(\exists v \in V)(! \exists c \in C)$ v esta conecado a c. 
 
-Pero habíamos dicho que R es óptimo, por lo tanto C(R) $\leq$ C(R').
+Sea ${v_1,...,v_{k'}}$ un conjuntos de vertices de V tal que $v_i \in S_i$. $(\forall 1 \leq i,j \leq k', i \neq j)$ no existe camino entre $v_i$ y $v_j$, ya que pertenecen a componentes conexas diferentes.
 
-Entonces, como C(R') $\leq$ C(R) $\wedge$ C(R) $\leq$ C(R'), entonces C(R) = C(R'). Por lo tanto R' es óptimo.
+Ahora tomo cada uno de los $c_i \in$ C y los asocio al $v_j$ / exista un camino entre $c_i$ y $v_j$. Veamos que un $c_i$ no puede estar asociado a dos v diferentes. ya que si existe un camino entre $c_i$ y $v_j$ y tambien entre $c_i$ y $v_q$ tambien existira el camino entre $v_j$ y $v_q$ lo cual es absurdo salvo que j = q.
 
-Por ultimo queremos ver que R' cumple con la condición de P(n), sabemos que R'[2..n] tiene a sus elementos ordenados según $\frac{t(r'_i)}{p(r'_i)}$. Nos falta ver que R' completa está ordenada, para esto sólo hace falta ver $r'_1$ esta ordenado, que es lo mismo que decir que $\frac{t(r'_1)}{p(r'_1)}$ $\leq \frac{t(r'_2)}{p(r'_2)}$
+Cuando terminamos de asignar los k $c_i$ tendremos a lo sumo (ya que dos c diferentes si pueden corresponder al mismo v) k $v_i$ con un c asignado. Pero como k $<$ k' tendremos como mínimo un $v_i$ que no esta conectado a ningun c. Demostrando asi el lema.
 
-Para esto tomamos R'' = $(r'_2,r'_1,r'_3,...,r'_n)$
+\textbf{Lema 3:} Dada una solucions con C componentes conexas (C $<$ k), existe una solucion mejor o igual con C+1 componentes conexas.
 
-C(R') = $t(r'_1) \sum_{j=1}^{n}p(r'_j) + t(r'_2) \sum_{j=2}^{n}p(r'_j) + C(R'[3,n]) $
-
-C(R'') = $t(r'_2) \sum_{j=1}^{n}p(r'_j) + t(r'_1) \sum_{j=1,j\neq 2}^{n}p(r'_j) + C(R''[3,n]) $
-
-C(R') $\leq$ C(R'') por ser R' óptimo
-
-$t(r'_1) \sum_{j=1}^{n}p(r'_j) + t(r'_2) \sum_{j=2}^{n}p(r'_j) + C(R'[3,n]) \leq t(r'_2) \sum_{j=1}^{n}p(r'_j) + t(r'_1) \sum_{j=1,j\neq 2}^{n}p(r'_j) + C(R''[3,n]) \iff$
-
-Como R'(3..n) = R''(3..n) entonces C(R'(3..n)) = C(R''(3..n)) y los puedo cancelar.
-
-$t(r'_1) \sum_{j=1}^{n}p(r'_j) + t(r'_2) \sum_{j=2}^{n}p(r'_j)  \leq t(r'_2) \sum_{j=1}^{n}p(r'_j) + t(r'_1) \sum_{j=1,j\neq 2}^{n}p(r'_j)  \iff$
-
-$t(r'_1) \sum_{j=1,j\neq 2}^{n}p(r'_j) + t(r'_1) * p(r'_2) + t(r'_2) \sum_{j=2}^{n}p(r'_j) \leq t(r'_1) \sum_{j=1,j\neq 2}^{n}p(r'_j) + t(r'_2) \sum_{j=2}^{n}p(r'_j)+ t(r'_2) * p(r'_1) \iff$  
-
-Cancelo un término:
-
-$t(r'_1) * p(r'_2) + t(r'_2) \sum_{j=2}^{n}p(r'_j) \leq + t(r'_2) \sum_{j=2}^{n}p(r'_j)+ t(r'_2) * p(r'_1) \iff$
-
-Cancelo el otro:
-
-$t(r'_1) * p(r'_2) \leq t(r'_2) * p(r'_1) $
-
-$\frac{t(r'_1)}{p(r'_1)} \leq \frac{t(r'_2)}{p(r'_2)}$
-
-\begin{flushright}
-\hfill \ensuremath{\Box}
-\end{flushright}
-
-\subsubsection{Demostración de correctitud del algoritmo Calcular\_perdida}
-
-Para empezar recordemos el pseudocódigo de este algoritmo:
-
-\begin{pseudo}
-  \Procedure{Calcular\_perdida}{V}
-      \State $total \leftarrow 0$
-      \State $tiempo \leftarrow 0$
-      \State $i \leftarrow 0$
-      \While{$i < n$}
-	\State $tiempo \leftarrow tiempo + V[i].tiempo$
-	\State $total \leftarrow total + V[i].perdida * tiempo$
-	\State $i \leftarrow  i + 1$
-      \EndWhile
-      \State \textbf{return} total
-  \EndProcedure
-\end{pseudo}
-
-Supongamos que tenemos las piezas en el orden $V = [pieza_1..pieza_n]$, la pérdida total ocasionada por fabricar las piezas en ese orden es la siguiente:
-
-$\sum_{i=1}^{n}{(p_i \sum_{j=1}^{i}{t_j})}$
-
-Donde $p_i$ es la pérdida por día de la $i-esima$ joya y $t_i$ es la cantidad de días que la $i-esima$ joya tarda en ser armada.
-
-Lo que queremos demostrar es que este algoritmo cumple el siguiente invariante:
-
-P(n) : en la $k-esima$ iteración, vale que total = $\sum_{i=1}^{k}{(p_i \sum_{j=1}^{i}{t_j})}$
-
-Vamos a demostrar esto por inducción.
-
-\begin{itemize}
- \item Caso base: Vale P(1)
-    En la primera iteración del algoritmo vale que:
-    
-      $total = V[1].perdida * V[1].tiempo$
-      
-    Esto significa que total = $p_1 * t_1 = \sum_{i=1}^{1}{(p_i \sum_{j=1}^{i}{t_j})}$
-      
-    Por lo tanto vale P(1).
-    
-  \item Paso Inductivo:
-  
-    Hipótesis Inductiva: P(n)
-      
-    Queremos ver que $P(n) \Rightarrow P(n+1)$
-    
-    Sabemos que en la iteración $n+1-esima$, la variable total tiene el siguiente valor:
-    
-      $total = total + V[n+1].perdida * tiempo$
-      
-    Por un lado sabemos que en nuestro algoritmo la variable $tiempo$ empieza valiendo cero y va acumulando en cada iteración del ciclo el tiempo de cada pieza que vamos recorriendo. Así que podemos decir que en la $n+1-esima$ iteración la variable $tiempo$ es igual a $\sum_{i=1}^{n+1}{t_i}$ (esto se podría demostrar por inducción).
-    
-    Asumiendo esto podemos ver que la variable total tiene el siguiente valor
-    
-      $total = total + V[n+1].perdida * tiempo = total + p_{n+1} * \sum_{j=1}^{n+1}{t_j}$
-      
-    Y por hipótesis inductiva:
-    
-      $total = \sum_{i=1}^{n}{(p_i \sum_{j=1}^{i}{t_j})} + p_{n+1} * \sum_{j=1}^{n+1}{t_j} = \sum_{i=1}^{n+1}{(p_i \sum_{j=1}^{i}{t_j})}$
-      
-    \begin{flushright}
-    \hfill \ensuremath{\Box}
-    \end{flushright}
-\end{itemize}
+Tomo una solución G(V,E) con C componentes conexas (C $<$ k), Sea e $\in$ E y G'(V,E-e).
+Primero veamos que G' es solucion, como G tenia C componentes conexas, G' tiene a lo sumo C+1. Como C $<$ k $\Rightarrow$ C+1 $\leq$ k. Por el \textbf{Lema 2} G' es solución. 
+Ahora quiero ver que es mejor o igual que G.
+G' es mejor o igual que G $\Leftrightarrow$ MaxArista(G') $\leq$ MaxArista(G).
+Como las aristas de G' estan incluidas en las de G, no puede existir una arista de G' que sea mayor a la máxima arista de G.
+Entonces probamos G' es mejor o igual que G.
