@@ -55,3 +55,13 @@ Y la puntuación óptima se determina por la cuenta:
 $\sum cartas - min(opt(i+1,j), ... , opt(j,j), opt(i,j-1), ... , opt(i,i), opt(0,0))$
 
 Por lo tanto nuestra función $opt$ minimiza el puntaje del jugador contrario. Osea que realmente determina nuestra puntuación óptima y el movimiento a realizar para obtenerla, que es lo que el problema pide.
+
+Lo que queda mostrar es que completamos la matriz de forma correcta. Como cada casilla de la matriz es un subproblema y para resolver cada subproblema usamos subproblemas mas chicos, tenemos que mostrar que a la hora de completar una casilla siempre tenemos completas las casillas de los subproblemas que se necesitan.
+
+La matriz, tal y como dijimos en el desarrollo, se completa de arriba a abajo y de izquierda a derecha.
+
+Entonces, supongamos que queremos llenar la casilla $opt[i][j]$. Como la matriz se llena de abajo hacia arriba, a la hora de llenar esta casilla ya van a estar llenas las casillas $opt[i][j']$ donde $j < j'$. Y como la matriz se llena de izquierda a derecha, a la hora de completar esta casilla ya van a estar completas las casillas $opt[i'][j]$, donde $i' < i$.
+
+Además, como dijimos en el desarrollo para llenar una casilla $opt[i][j]$ se necesita observar los valores de las casillas que están a la izquierda de la ésta y las que están abajo. Como se muestra en la Figura 1.
+
+Osea que las casillas necesarias son $opt[i'][j]$, donde $i' < i$ y $opt[i][j']$ donde $j < j'$. Estas son las mismas casillas que ya dijimos que iban a estar completas a la hora de completar $opt[i][j]$. Por lo tanto al completar $opt[i][j]$ casilla van a estar previamente completadas las casillas necesarias para hacerlo, por lo tanto nuestra matriz se llena correctamente.
