@@ -6,17 +6,13 @@ Donde $C$ es el total de los puntos que sumamos e $i$ y $j$ son los índices de 
 
 \subsubsection{Función Recursiva}
 
-Pensamos la función según el siguiente enfoque: Al finalizar el juego, la suma de las cartas que robamos será la suma de todas las cartas menos la suma de las cartas que robo el rival, esto es así porque según las reglas del juego no podemos elegir no robar cartas, por lo tanto la cantidad de puntos total se distribuye de la siguiente manera:
+Pensamos la función según el siguiente enfoque: Al finalizar el juego, la suma de las cartas que robamos será la suma de todas las cartas menos la suma de las cartas que robo el rival, esto es así porque según las reglas del juego no podemos elegir no robar cartas.
 
-$\sum_{i=0}^{n} c_i = \sum_{j \in A} c_j + \sum_{k \in B} c_k$
-
-Donde A es el conjunto de cartas que robó el jugador uno y B es el conjunto de cartas que robó el jugador dos.
-
-Lo que pensamos es que maximizar la sumatoria de puntos que robemos nosotros es lo mismo que minimizar la suma de puntos robada por el jugador contrario. Además sabemos que el otro jugador también jugara de forma óptima, por lo que en su turno pensará de la misma forma que nosotros. Por eso llegamos a la conclusión de que la función recursiva para resolver este problema es la siguiente:
+Lo que pensamos es que maximizar la sumatoria de puntos que robemos nosotros es lo mismo que minimizar la suma de puntos robada por el jugador contrario\footnote{Esto esta demostrado en la sección de ``Demostración de correctitud´´}. Además sabemos que el otro jugador también jugara de forma óptima, por lo que en su turno pensará de la misma forma que nosotros. Por eso llegamos a la conclusión de que la función recursiva para resolver este problema es la siguiente:
 
 $opt(0,0) = 0$ \\
 $oppt(i,i) = c_i$ \\
-$opt(i,j) = \sum cartas - min(opt(i+1, j), ..., opt(j,j), opt(i, j-1), ... ,opt(i,i)$
+$opt(i,j) = \sum cartas - min(opt(i+1, j), ..., opt(j,j), opt(i, j-1), ... ,opt(i,i), opt(0,0))$
 
 Vale aclarar que por cómo pensamos la función, siempre pasa que $i \leq j$ ya que, como dijimos antes, tomamos a $i$ como el valor de la primer carta disponible desde la izquierda y $j$ como el primer valor disponible desde la derecha.
 

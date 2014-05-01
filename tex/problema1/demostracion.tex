@@ -1,58 +1,57 @@
-Para demostrar la correctitud del algoritmo propuesto, es necesario probar esencialmente dos afirmaciones mencionadas en la sección \ref{problema1-desarrollo}. En primer lugar, debe justificarse que entre los intervalos empezados en los $d_i$ siempre va a existir un máximo o, formalmente, se debe demostrar la Propiedad \ref{propiedad-candidatos}. Luego, es importante argumentar por qué el ciclo del algoritmo computa efectivamente la cantidad de elementos de la lista contenidos en el intervalo asociado a cada candidato.
+Para demostrar que nuestra solución resuelve el problema propuesto tenemos que demostrar dos cosas. La primera es que la función recursiva que nosotros propusimos realmente determina los movimientos óptimos para realizar y la segunda es que la matriz que usamos para guardar las subsoluciones es completada correctamente.
 
-\subsubsection{Demostración de la Propiedad \ref{propiedad-candidatos}}
+Primero vamos a demostrar que la función recursiva determina las jugadas óptimas del juego. 
 
-Dada una instancia $<D,\;n,\;l = [d_1, d_2, ..., d_n]>$, se quiere probar que siempre existe un intervalo óptimo $[d, d + D)$ (en el sentido de que comprende la mayor cantidad posible de elementos de la lista $l$) cuyo límite inferior es $d \in \{d_1,d_2,...,d_n\}$.
+Para empezar recordemos lo que lo que el problema pide es jugar de una forma que maximice tu puntuación. Como al finalizar el juego no pueden quedar cartas sin robar, la suma de los valores de todas las cartas va a estar distribuida entre el jugador uno y el jugador dos, de esta forma:
 
-Como cualquier valor $d$ natural genera un intervalo $[d, d + D)$ válido, el conjunto de posibles soluciones es no vacío. Como además cualquier solución posible contiene entre 0 y $n$ elementos de la lista, necesariamente existe solución óptima. Sea $d'$ tal que $[d', d' + D)$ es un intervalo óptimo.
+$\sum_{i=0}^{n} c_i = \sum_{j \in A} c_j + \sum_{k \in B} c_k$
 
-\begin{itemize}
-  \item Si $(\nexists\;i : 1 \leq i \leq n)\;d' \leq d_i$, entonces el intervalo $[d', d' + D)$ no contiene ningún elemento de la lista. Esto es absurdo porque cualquier intervalo $[d_i, d_i + D)$ contiene al menos un elemento, y sería mejor que el óptimo.
-  \item De lo contrario, se puede definir $d^*$ como el menor elemento de la lista que es mayor o igual a $d'$; es decir: $d^* = min\;\{\;d_i : 1 \leq i \leq n \land d' \leq d_i\;\}$.
+Donde A es el conjunto de cartas que robó el jugador uno y B es el conjunto de cartas que robó el jugador dos.
 
-  Luego, $\forall\;i : 1 \leq i \leq n$:
-  
-  \begin{itemize}
-    \item Como $d^*$ es el menor elemento que cumple la propiedad de ser mayor o igual que $d'$:
-    $$d' \leq d_i \rightarrow d^*\leq d_i$$
-    \item Como $d' \leq d^*$ por definición, se desprende que $d' + D \leq d^* + D$, y por lo tanto:
-    $$(d_i < d' + D) \rightarrow (d_i < d^* + D)$$
-  \end{itemize}
-  Entonces, vale que todo elemento contenido en el intervalo óptimo también está contenido en el intervalo $[d^*, d^* + D)$. Como $d^* \in \{d_1,d_2,...,d_n\}$, queda demostrada la propiedad.
-\end{itemize}
+Por lo tanto mientras más chico sea el valor de la suma de los valores del conjunto B, el valor del conjunto A va a crecer, y viceversa, ya que se da la siguiente igualdad:
 
-\subsubsection{Correctitud del ciclo}
+$\sum_{i=0}^{n} c_i  - \sum_{j \in B} c_j= \sum_{k \in A} c_k$
 
-En la inicialización previa al ciclo, se configura $(i, j) \leftarrow (1, 1)$ y por lo tanto, vale trivialmente el invariante:
+Supongamos que somos el jugador uno. Lo que el problema pide es que juguemos de forma óptima, por lo tanto debemos maximizar nuestra puntuación. Maximizar nuestra puntuación es maximizar el valor de la suma de los elementos de A, y  por lo que acabamos de ver esto es lo mismo que minimizar la suma de los elementos de B, que representa la puntuación del jugador dos.
 
-$$(\forall k: i \leq k < j)\;d_k \in [d_i, d_i + D)$$
+Recordemos que nuestra función recursiva es la siguiente:
 
-El cuerpo del ciclo se ejecuta únicamente para el primer elemento de la lista, y para todos aquellos que no sean iguales al inmediatamente anterior. Como la lista está ordenada, esto es equivalente a evaluar únicamente la primera aparición de cada valor dentro de la lista, ignorando sus posibles repeticiones posteriores.
+$opt(0,0) = 0$ \\
+$oppt(i,i) = c_i$ \\
+$opt(i,j) = \sum cartas - min(opt(i+1, j), ..., opt(j,j), opt(i, j-1), ... ,opt(i,i), opt(0,0))$
 
-El ciclo interno tiene la única función de incrementar el valor de $j$. La guarda del mismo es:
+Por lo dicho anteriormente demostrar que nuestra función resuelve el problema es lo mismo que demostrar que nuestra función minimiza el puntaje del jugador contrario.
 
-$$(j \leq n) \land (d_i \leq d_j < d_i + D) \equiv (j \leq n) \land d_j \in [d_i, d_i + D)$$
+Primero analicemos los casos base:
 
-Es decir, $j$ jamás se incrementa si el $j$-ésimo elemento no pertenece al intervalo $[d_i, d_i + D)$. Esto mantiene el invariante, evitando que algún elemento con índice menor a $j$ no pertenezca al intervalo del candidato en evaluación. Como además $j$ se incrementa tantas veces como sea posible sin romper el invariante, esto garantiza que al terminar el ciclo interno la variable tendrá su valor máximo (cuando $j = n + 1$ ó $d_j \notin [d_i, d_i + D)$).
+$opt(0,0) = 0$
 
-Luego, $d_i$ es el primer elemento de la lista contenido en $[d_i, d_i + D)$ por no tener predecesor o por ser mayor que el mismo. Además, $d_{j-1}$ es el último elemento de la lista contenido en $[d_i, d_i + D)$ por no tener sucesor, o porque lo garantiza el invariante en caso contrario. De ello se desprende que existen $(j - 1) - i + 1 = j - i$ elementos de la lista contenidos en el intervalo, por lo cual es el valor que se utiliza para actualizar el estado de la solución parcial.
+Esta caso representa la situación en la que ya no quedan cartas, se podría interpretar como que el jugador contrario robo todas las cartas que quedaban en el turno anterior, en este no podemos hacer nada, el puntaje será de cero. Como es la única opción posible dada esta situación, también es la mejor opción posible, osea que es la óptima.
 
-Por último, es necesario probar que el invariante se mantiene al incrementar $i$ al final del ciclo. Esto es equivalente a demostrar la propiedad \ref{propiedad-maximo-j}.
+El otro caso base es:
 
-\subsubsection{Demostración de la Propiedad \ref{propiedad-maximo-j}}
+$oppt(i,i) = c_i$
 
-Si el invariante de ciclo es válido para el par $(i,j)$, entonces también lo es para $(i + 1,j)$. Formalmente:
+Este caso significa que sólo queda una carta. Como el juego nos obliga a, de ser posible, robar al menos una carta por turno, la única opción posible es robar esta carta. Como es la última opción, al igual que en el caso anterior el movimiento es óptimo.
 
-$$((\forall k: i \leq k < j)\;d_k \in [d_i, d_i + D)) \Rightarrow ((\forall k: i + 1 \leq k < j)\;d_k \in [d_{i+1}, d_{i+1} + D))$$
+Ahora analicemos el caso recursivo:
 
-De la verdad del antecedente, y dado que los elementos $d_i$ están ordenados al comenzar el ciclo, se deducen las siguientes propiedades para todo $k'$ tal que $i + 1 \leq k'< j$:
+$opt(i,j) = \sum cartas - min(opt(i+1, j), ..., opt(j,j), opt(i, j-1), ... ,opt(i,i), opt(0,0))$
 
-\begin{enumerate}
-  \item $d_{i+1} \leq d_{k'}$               \hfill        por estar ordenados, ya que $i+1 \leq k'$
-  \item $d_i \leq d_{i+1}$                  \hfill        por estar ordenados
-  \item $d_{i} + D \leq d_{i + 1} +D$       \hfill        se deduce de 2
-  \item $d_{k'} < d_i +D$                   \hfill        por el antecedente, ya que $d_{k'} \in [d_i,d_i +D)$
-  \item $d_{k'} < d_{i+1} +D$               \hfill        se deduce de 3 y 4
-\end{enumerate}
+En este caso quedan $j-i+1$ cartas, tenemos que demostrar que $opt(i,j)$ toma la decisión que minimiza el puntaje del jugador contrario. Como el problema nos dice que tenemos que asumir que el jugador contrario también juega de forma óptima, entonces su puntaje también estará determinado por la función $opt$.
 
-En base a 1 y 5, vale que $d_{k'} \in [d_{i+1}, d_{i+1} + D)$, y queda demostrada la propiedad.
+Lo que la función debe determinar es, de las posibles instancias del juego que se pueden generar luego de jugar nuestro turno, la que minimiza la función de $opt$ ya que el puntaje del jugador contrario será el resultado de aplicar $opt$ a la instancia que quede.
+
+Como sólo se pueden robar cartas de uno de los dos extremos las posibles instancias son las siguientes: Si se roba una carta comenzando de la izquierda la instancia generada será de $(i+1,j)$, si se roban 2, de $(i+2,j)$ y se se roban $j-i$, de $(j,j)$. De esta misma forma si se roba una carta empezando de la derecha quedará una instancia de $(i,j-1)$ y si se roban $j-i$ cartas, la instancia sera de $(i,i)$.
+
+Pero queda una instancia más por analizar, la de levantar todas las cartas posibles (no importa de cual extremo). En ese caso se generará una instancia $(0,0)$.
+
+Por lo tanto el mínimo que debemos hallar es el siguiente:
+
+$min(opt(i+1,j), ... , opt(j,j), opt(i,j-1), ... , opt(i,i), opt(0,0))$
+
+Y la puntuación óptima se determina por la cuenta:
+
+$\sum cartas - min(opt(i+1,j), ... , opt(j,j), opt(i,j-1), ... , opt(i,i), opt(0,0))$
+
+Por lo tanto nuestra función $opt$ minimiza el puntaje del jugador contrario. Osea que realmente determina nuestra puntuación óptima y el movimiento a realizar para obtenerla, que es lo que el problema pide.
