@@ -60,10 +60,9 @@ Salida Problema3::resolver(Entrada& e){
 	
 	while(!q.empty()){
 		Casillero c = q.front();
-		//cout << c.f << " " << c.c << " " << c.k << endl;
 		q.pop();
 		if(c.c == e.destino.c && c.f == e.destino.f){
-			///llegue a la que queria
+			///llegamos a la que queriamos
 			kFinal = c.k;
 			break;
 		}
@@ -77,7 +76,6 @@ Salida Problema3::resolver(Entrada& e){
 				q.push(*itAdy);
 			}
 		}
-		
 	}
 	
 	s.saltos = yaPase[e.destino.f][e.destino.c][kFinal].second;
@@ -94,10 +92,9 @@ list< Casillero > Problema3::losAdyacentes(const Entrada& e, const Casillero& c)
 	list< Casillero > ady;
 	int potencia = e.tablero[c.f][c.c];
 	///estos son sin usar los K del jugador
-	for(int i = 1; i <= potencia; ++i){
+	for(int i = 1; i <= potencia && i <= n; ++i){
 		///abajo
 		if(c.f+i <= e.n){
-		
 			ady.push_back(Casillero(c.f+i, c.c, c.k));
 		}
 		///arriba
@@ -114,7 +111,7 @@ list< Casillero > Problema3::losAdyacentes(const Entrada& e, const Casillero& c)
 		}
 	}
 	///usando Kaes
-	for(int i = 1; i <= c.k; ++i){
+	for(int i = 1; i <= c.k && i <= n; ++i){
 		///abajo
 		if(c.f+i+potencia <= e.n){
 			ady.push_back(Casillero(c.f+i+potencia, c.c, c.k-i));

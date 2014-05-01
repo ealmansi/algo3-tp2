@@ -1,92 +1,86 @@
-Para calcular la complejidad vamos a tener en cuenta el peor caso, en el cual toda pieza disponible se puede agregar al tablero. Para facilitar el calculo llamaremos n a la cantidad de casillas, que en el problema esta representado por n*m.
+Nosotros afirmamos que nuestro algoritmo tiene una complejidad de $O(n^3 * k)$ operaciones. Vamos a demostrar esto de a partes.
 
-%Facu: esto es lo que vi de como queda la sumatoria desarmando T(n,n) no se si estara bien igual
-Si pensamos la recursión en una sola variable llegamos a una cota demasiado amplia:
-$T(k)=n*T(k-1)$ donde n es la cantidad de fichas. Ya que no podemos asegurar que en cada paso tenemos disponible una pieza menos porque pudimos haber puesto una ficha blanca.
+Antes de empezar, vamos a hacer unas definiciones de tipo, válidas para los pseudocódigos de esta sección.
+\begin{pseudo}
+\State Tipo de dato Casillero es Tupla $\langle$ fila : entero, columna : entero, k : entero $\rangle$
+\State Tipo de dato Entrada es Tupla $\langle$ n : entero, k\_max : entero, tablero : vector $\langle$ vector $\langle$ entero $\rangle$ $\rangle$, origen : Casillero, destino : Casillero $\rangle$
+\State Tipo de dato Salida es Tupla $\langle$ saltos : entero, caminoMinimo : list $\langle$ Casillero$\rangle$ $\rangle$
+\end{pseudo}
 
-Por esto vamos a hacer una recursión en 2 variables, la cantidad de espacios por procesar y la cantidad de fichas disponibles. Siempre vamos a suponer que $n\leq k$, osea que siempre tengo una cantidad de fichas mayor o igual que de casilleros a rellenar.
-Sabemos que: $T(n,k) = T(n-1,k) + k*T(n-1,k-1)$ ya que en cada paso ponemos una ficha blanca con lo cual se reduce el n pero no el k, y para las k fichas disponibles la agregamos al tablero y pasamos a un caso n-1,k-1.
+Desde un punto de vista mas ``macro'', nuestro algoritmo hace lo siguiente:
 
-Nuestro caso base es $(\forall k) T(0,k)= c$ siendo c una constante, ya que no tener casillas en el tablero por procesar significa que el problema terminó.
+\begin{pseudo}
+    \Procedure{Saltos en la \emph{Matrix}}{}
+        \State Entrada E $\leftarrow$ leerEntrada() \Ode{n^2}
+        \State Salida S(V) $\leftarrow$ resolver(E) \Ode{n^3*k}
+        \State Imprimir(S) \Ode{n}
+        \State \textbf{return} 0
+    \EndProcedure
+\end{pseudo}
 
-% Observando el arbol de recursion y pensando en el problema llegamos a la suposicion que:
+\textbf{leerEntrada()} se encarga de cargar los datos vía \emph{stdin}. Por esto, realiza una cantidad constante de asignaciones todas las cuales son $O(1)$ ya que los tipos de datos son enteros o Casilleros (los cuales se componen de tres enteros). Una vez cargados los datos, creamos el tablero. El tablero es vector $\langle$ vector $\langle$ entero $\rangle$ $\rangle$ que representa el campo de juego. Por esto, tiene tamaño $n*n$ y realiza justamente $n^2$ asignaciones de enteros. Sumando todo esto, \textbf{leerEntrada()} tiene un costo de $O(n^2)$.
 
-Vamos a probar que:
+Sin embargo, cabe aclarar que después realizamos una asignación (ya que la Entrada E no es pasada por referencia). Esta asignación de Entrada se compone de tres asignaciones de enteros ($O(1)$ cada una), un asignación de tablero ($O(n^2)$) y dos asignaciones de Casillero ($O(1)$ cada uno). Pero esto no cambia el costo total de $O(n^2)$.
 
-$T(n,k) = c \sum_{i=0}^{n} \binom{n}{i} \binom{k}{i} i!$
+\textbf{resolver(E)} es el núcleo de nuestro algoritmo y es lo que más cuesta, y por esta razón lo vamos analizar con más detalle.
 
-Esto es lógico ya que $\binom{n}{i} \binom{k}{i} i!$ se puede pensar como la cantidad de formas de elegir i casillas entre n para poner fichas, i fichas entre k y ponerlas en todas sus permutaciones posibles. Si sumo para todo i entre 0 y la cantidad de casillas obtengo todas las combinaciones de fichas en el tablero posibles.
+\begin{pseudo}
+\State Tipo de dato Matriz3D es vector $\langle$ vector $\langle$ vector $\langle$ Tupla $\langle$ Casillero, k $\rangle$ $\rangle$ $\rangle$ $\rangle$
+    \Procedure{resolver}{$Entrada E$}
+        \State Matriz3D yaPase $\leftarrow$ crearMatriz() \Ode{1}
+		\Comment{Empieza BFS, pero modificado para nuestra conveniencia}
+		\State q $\leftarrow$ crearCola() \Ode{1}
+		\Comment{La funcion que sigue marca al casillero e.origen en yaPase con cantidad de saltos 0}
+		\State marcoComo(e.origen, yaPase, 0) \Ode{1}
+		
+		\State encolar(e.origen, q) \Ode{1}
+		
+		\While{!q.empty()} \Ode{1}
+			\State c $\leftarrow$ q.desencolar() \Ode{1}
+			\If{c == destino}
+				\State break
+			\EndIf
+			
+			\For{cada Casillero c en losAdyacentes(e,c)} \Ode{n}
+				\State u $\leftarrow$ siguienteAdyacente() \Ode{1}
+        		\If{!estaEn(u,V)} \Ode{1}
+					\State marcoComo(u, yaPase, cantSaltos(c) + 1) \Ode{1}
+					\State encolar(u, q) \Ode{1}
+				\EndIf
+      		\EndFor
+		\EndWhile
 
-A continuación demostraremos haciendo inducción sobre n:
+      	\Comment{Terminamos BFS. Escribimos Salida}
+      	escriboSalida(S) \Ode{n}
+      	\State \textbf{return} S
+        
+    \EndProcedure
+\end{pseudo}
 
-Caso base: $(\forall q)T(0,q)= c \sum_{i=0}^{0} \binom{0}{i} \binom{q}{i} i! = c \binom{0}{0} \binom{q}{0} 0! = c*1*1*1 = c$, siendo c constante. Es decir, $(\forall q)T(0,q)=O(1)$.
+La parte importante de resolver, es el BFS que realizamos, ya que las otras partes del algoritmo tienen complejidad menor.
 
-Paso Inductivo:
+Vamos a empezar diciendo que como un casillero cualquiera puede tener a lo sumo $2*(n-1)$ casilleros adyacentes (toda su fila y toda su columna, menos él mismo). Por esto, cuando realizamos losAdyacentes, buscamos a lo sumo $O(n)$ adyacentes. Si ya sabemos que estamos fuera del rango del tablero, no vale la pena seguir buscando. Por esta misma razón, el ciclo for que utiliza los adyacentes corre a lo sumo $O(n)$ veces por cada casillero.
 
-H.I.: $(\forall q)T(n-1,q) = c \sum_{i=0}^{n-1} \binom{n-1}{i} \binom{q}{i} i!$
+Teniendo en cuenta esto, vamos a correr el ciclo while grande a lo sumo una vez por casillero. Cabe recordar que tenemos $n*n*k$ casilleros en total: un casillero por cada celda del tablero, y ese tablero lo tenemos k veces. Lo peor que puede suceder es tener que correr el while para cada casillero, por lo que tendríamos un costo total de $O(n*n*n*k)$, que es igual a $O(n^3*k)$.
 
-q.v.q H.I. $\Rightarrow T(n,k) = c \sum_{i=0}^{n} \binom{n}{i} \binom{k}{i} i! = c \sum_{i=0}^{n} \frac{k!}{(k-i)!}\binom{n}{i}$ 
+Al escribir la salida, escribimos la cantidad de saltos, y los saltos en sí. Podemos observar que la cantidad de saltos es $O(n)$. En el peor caso, todos los casilleros tienen potencia 1 (lo menor que pueden valer) y el jugador no tiene potencias extras (los kaes) para gastar. En este caso, estamos en el primer ejemplo de la sección  \ref{problema3-descripcion}. En este caso, una solución óptima es recorrer desde la fila origen hasta la fila destino, y luego de la columna origen hasta la columna destino. Tanto las filas como las columnas pueden estar separadas a lo sumo por $n-1$ casilleros. Por esto, el camino más corto esta claramente acotado por $2*n$, por lo que tenemos a lo sumo $O(2*n)$ ciclos. Por todo esto, podemos afirmar que \textbf{Imprimir(S)} tiene una complejidad de $O(n)$
 
-$(\forall k) T(n,k) = T(n-1,k) + k*T(n-1,k-1)$
+Finalmente, \textbf{Imprimir(S)} es la función encargada de imprimir el resultado por pantalla. Vamos a utilizar un pseudocodigo para probar su complejidad.
 
-$T(n,k) = c \sum_{i=0}^{n-1} \binom{n-1}{i} \binom{k}{i} i! + k * c \sum_{i=0}^{n-1} \binom{n-1}{i} \binom{k-1}{i} i!$ por H.I.
+\begin{pseudo}
+    \Procedure{imprimoSalida}{$Salida s$}
+        \State imprimir(s.saltos) \Ode{1}
 
-$ = c \sum_{i=0}^{n-1} \binom{n-1}{i} \frac{k!}{(k-i)!i!} i! + c \sum_{i=0}^{n-1} \binom{n-1}{i} \frac{k!}{(k-i-1)!i!}i! $ 
+		\For{cada Casillero c en s.caminoMinimo} \Ode{1}
+        \State imprimir(c.fila) \Ode{1}
+        \State imprimir(c.columna) \Ode{1}
+        \State imprimir(kUsado(c, padre(c))) \Ode{1}
+        \Comment{Este kUsado en nuestro algoritmo en C++ lo obtenemos sabiendo cual era nuestro padre con un iterador auxiliar. Como esto es pseudocodigo decidimos dejarlo de esta manera}
+      	\EndFor
+        
+    \EndProcedure
+\end{pseudo}
 
-Ahora simplifico el i! en las dos sumatorias:
+Como se puede observar, todas las impresiones por pantalla son $O(1)$ y la guarda del for también cuesta $O(1)$. Sin embargo, falta justificar cuantas veces corre el ciclo for. Como probamos anteriormente, el camino está acotado por $2*n$. Por esto, realizamos $O(n)$ cantidad de ciclos for.
 
-$ = c \sum_{i=0}^{n-1} \binom{n-1}{i} \frac{k!}{(k-i)!} + c \sum_{i=0}^{n-1} \binom{n-1}{i} \frac{k!}{(k-i-1)!} $
-
-Luego saco el primer valor de la primera sumatoria y el último de la segunda:
-
-$ = c (\binom{n-1}{0} \frac{k!}{(k-0)!} + \sum_{i=1}^{n-1} \binom{n-1}{i} \frac{k!}{(k-i)!} + \binom{n-1}{n-1} \frac{k!}{(k-(n-1)-1)!} + \sum_{i=0}^{n-2} \binom{n-1}{i} \frac{k!}{(k-i-1)!} )$
-
-Como $\binom{n-1}{0} = \binom{n-1}{n-1} = 1$:
-
-$ = c (\frac{k!}{(k-0)!} + \sum_{i=1}^{n-1} \binom{n-1}{i} \frac{k!}{(k-i)!} + \frac{k!}{(k-n)!} + \sum_{i=0}^{n-2} \binom{n-1}{i} \frac{k!}{(k-i-1)!} )$
-
-Renombro i = j-1 en la segunda sumatoria:
-
-$ = c (\frac{k!}{(k-0)!} + \sum_{i=1}^{n-1} \binom{n-1}{i} \frac{k!}{(k-i)!} + \frac{k!}{(k-n)!} + \sum_{j=1}^{n-1} \binom{n-1}{j-1} \frac{k!}{(k-j)!} )$ 
-
-Como ambas sumatorias van de 1 a (n-1) puedo juntarlas:
-
-$ = c (\frac{k!}{(k-0)!} + \frac{k!}{(k-n)!} + \sum_{i=1}^{n-1} ( \binom{n-1}{i} \frac{k!}{(k-i)!} + \binom{n-1}{i-1} \frac{k!}{(k-i)!} ) )$ 
-
-Saco factor común $\frac{k!}{(k-i)!}$:
-
-$ = c (\frac{k!}{(k-0)!} + \frac{k!}{(k-n)!} + \sum_{i=1}^{n-1} ( \frac{k!}{(k-i)!} (\binom{n-1}{i} + \binom{n-1}{i-1} )))$ 
-
-Por propiedad de números combinatorios:
-
-$ = c (\frac{k!}{(k-0)!} + \frac{k!}{(k-n)!} + \sum_{i=1}^{n-1} \frac{k!}{(k-i)!}\binom{n}{i})$ 
-
-Multiplico por $\binom{n}{0} = \binom{n}{n}= 1$ a los dos primeros términos:
-
-$ = c (\binom{n}{0}\frac{k!}{(k-0)!} + \binom{n}{n}\frac{k!}{(k-n)!} + \sum_{i=1}^{n-1} \frac{k!}{(k-i)!}\binom{n}{i})$
-
-Para finalizar, agrego el elemento 0 y n de la sumatoria:
-
-$ = c  \sum_{i=0}^{n} \frac{k!}{(k-i)!}\binom{n}{i}$ 
-
-Entonces $T(n,k)  = c  \sum_{i=0}^{n} \frac{k!}{(k-i)!}\binom{n}{i}$ 
-
-\begin{flushright}
-    \hfill \ensuremath{\Box}
-    \end{flushright}
-
-
-
-
-
-
-% $T(n,n) = T(1, n) + n*n * T(1, n-1) + \binom{n}{2} * \binom{n}{2} * T(1, n-2) * 2 + \binom{n}{3}^2 *T(1,n-3) * 3! + \hdots + \binom{n}{i}^2 * T(1, n-i) * i! + \hdots + T(1,1) * n!$
-% 
-% Lo que hicimos en el paso anterior es contar todas las posibles soluciones, cada termino de la suma de arriba representa la cantiidad de formas de ponner $i$ fichas con $0 \leq i \leq n$. Para poner $i$ fichas en $i$ lugares del tablero, elegimos de $n$ posibles lugares, $i$ donde poner las fichas, y por cada elección, elegimos de $n$ posibles fichas, $i$ para distribuirlas, la cantidad de formas de hacer esas elecciones es $\binom{n}{i}^2$, y para cada combinación posible de $i$ fichas en $i$ espacios, tenemos que ver todas las permutaciones de las fichas en dichos espacios, esto es $i!$, entonces, la cantidad de formas posibles de ubicar $i$ fichas en $i$ espacios es de $i! * T(1,i) * \binom{n}{i}^2$, y por lo tanto:
-% 
-% $T(n,n) = \sum_{j=0}^{n}{j! * T(1,j) * \binom{n}{j}^2}$
-% 
-% Donde $T(1,j) \in O(j)$, entonces:
-% 
-% $T(n,n) = \sum_{j=0}^{n}{j! * j * \binom{n}{j}^2}$
-% 
+Sumando todas las complejidades, llegamos a obtener una complejidad temporal total de $O(n^3 * k)$, con lo que cumplimos con la complejidad temporal pedida.
