@@ -89,7 +89,7 @@ Salida Problema1::resolver(const Entrada& e)
 
   int i = 0, j = e.cantCartas - 1;
   Subproblema turno = msp[i][j];
-  while(turno.iSiguiente != -1 and turno.iSiguiente != -1)
+  while(turno.iSiguiente != -1 and turno.jSiguiente != -1)
   {
     if(0 < turno.iSiguiente - i)
       s.turnos.push_back(make_pair("izq", turno.iSiguiente - i));

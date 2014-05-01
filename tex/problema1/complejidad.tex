@@ -1,5 +1,9 @@
 En la figura que muestra el pseudocódigo de nuestro algoritmo situada arriba podemos ver que la complejidad de este algoritmo se representa con esta cuenta:
 
+$O(n) + 2*O(1) + n*(2*O(1) + j*(2*O(1) +O(n) + 6*O(1)) + O(n)$
+
+Como $0 \leq j \leq n$ entonces $j$ está acotado superiormente por $n$. Entonces:
+
 $O(n) + 2*O(1) + n*(2*O(1) + n*(2*O(1) +O(n) + 6*O(1)) + O(n)$
 
 Por álgebra de órdenes esto se puede reducir a:
@@ -20,14 +24,14 @@ $O(n^3)$
 
 Entonces podemos decir que la complejidad de nuestro algoritmo es $O(n^3)$, pero primero tenemos que demostrar que los algoritmos $escribirSalida$ y $buscarMinimo$ realmente tienen una complejidad lineal.
 
-El algoritmo de $buscarMinimo$ es el siguiente
+El algoritmo de $buscarMinimo$ es el siguiente:
 
 \begin{center}
  \begin{figure}[H]
   \begin{pseudo}
    \Procedure{buscarMinimo}{opt,i,j,iSiguiente,jSiguiente,minCantPuntos}
     \State $k \leftarrow 1$\Ode{1}
-    \While{$k \leq j-1$} \hfill $n*O(1)$
+    \While{$k \leq j-i$} \hfill $(j-i)*O(1)$
       \If{$opt[i+k][j].cantPuntos < minCantPuntos$ }\Ode{1}
 	\State $iSiguiente \leftarrow i+k$\Ode{1}
 	\State $jSiguiente \leftarrow j$\Ode{1}
@@ -48,6 +52,14 @@ El algoritmo de $buscarMinimo$ es el siguiente
 
 La complejidad del algoritmo es:
 
+$O(1) + (j-i)*(8*O(1))$
+
+Sabemos que $0 \leq i \leq j-1$ y $0 \leq j \leq n-1$, entonces $0 \leq j-i \leq n-j$. Y como j esta acotado inferiormente por cero, entonces $n-j \leq n$. Finalmente:
+
+$0 \leq j-i \leq n$
+
+Entonces la complejidad del algoritmo está acotada por:
+
 $O(1) + n*(8*O(1))$
 
 Por álgebra de órdenes:
@@ -56,6 +68,53 @@ $O(1) + O(8*n)$
 
 $O(n)$
 
-Ahora veamos que el algoritmo $escribirSalida$ también tiene complejidad lineal:
+Ahora veamos que el algoritmo $escribirSalida$ también tiene complejidad lineal.
 
-%Continuará
+Vale aclarar que en este algoritmo usamos una estructura llamada $Salida$, que tiene un campo llamado $cantTurnos$ que indica la cantidad total de turnos hasta que se acaba el juego, un campo llamado $turnos$ que es un vector que indica todos los turnos que hubo, y dos campos que indican la cantidad de puntos que hizo cada jugador, sus nombres son $puntajeJ1$ y $puntajeJ2$.
+
+El pseudo código del algoritmo es el siguiente:
+
+\begin{center}
+ \begin{figure}[H]
+  \begin{pseudo}
+   \Procedure{escribirSalida}{opt, sumasParciales, n}
+    \State $Salida$  s \Ode{1}
+    \State $i \leftarrow 0, j \leftarrow n-1$ \Ode{1}
+    \State $turno \leftarrow opt[i][j]$ \Ode{1}
+    \While{$turno.iSiguiente \neq -1 \wedge turno.jSiguiente \neq -1$} \hfill $n*O(1)$
+      \If{$0 < turno.iSuguiente -i$} \Ode{1}
+	\State $s.turnos.agregar(\langle izq, turno.iSiguiente - i \rangle)$ \Ode{1}
+      \Else 
+	\State $s.turnos.agregar(\langle der, j - turno.jSiguiente \rangle)$ \Ode{1}
+      \EndIf
+      \State $i \leftarrow turno.iSiguiente, j \leftarrow turno.jSiguiente$ \Ode{1}
+      \State $turno \leftarrow opt[i][j]$ \Ode{1}
+    \EndWhile
+    \State $s.turnos.agregar(\langle izq, j - turno.jSiguiente \rangle)$ \Ode{1}
+    \State $s.cantTurnos \leftarrow s.turnos.size()$ \Ode{1}
+    \If{$s.cantTurnos$ mod $2 = 0$} \Ode{1}
+      \State $s.puntajeJ1 = opt[0][n-1].cantPuntos$ \Ode{1}
+      \State $s.puntajeJ2 = sumasParciales[n-1] - s.puntajeJ1$ \Ode{1}
+    \Else
+      \State $s.puntajeJ2 = opt[0][n-1].cantPuntos$ \Ode{1}
+      \State $s.puntajeJ1 = sumasParciales[n-1] - s.puntajeJ2$ \Ode{1}
+    \EndIf
+    \State $\textbf{return}$ s \Ode{1}
+   \EndProcedure
+  \end{pseudo}
+
+ \end{figure}
+
+\end{center}
+
+Vale aclarar que al haber $n$ cartas, la máxima cantidad de turnos posible es $n$. El juego tendrá $n$ turnos cuando cada jugador robe de a una carta por turno.
+
+La complejidad de este algoritmo es:
+
+$3*O(1) + n*(5*O(1)) + 8*O(1)$
+
+$O(1) + O(n) + O(1)$
+
+$O(n+2)$
+
+$O(n)$

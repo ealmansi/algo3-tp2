@@ -1,8 +1,8 @@
-Para resolver este problema diseñamos un algoritmo que utilize la técnica de programación dinámica. Lo primero que hicimos fue pensar la función recursiva que utilizará el algoritmo para detérminar cual es el movimiento óptimo para hacer dada una secuencia determinada de cartas. La signatura de la función será:
+Para resolver este problema diseñamos un algoritmo que utilice la técnica de programación dinámica. Lo primero que hicimos fue pensar la función recursiva que utilizará el algoritmo para determinar cual es el movimiento óptimo para hacer dada una secuencia determinada de cartas. La signatura de la función será:
 
 $opt(i,j) = c$
 
-Donde $C$ es el total de los puntos que sumamos e $i$ y $j$ son los indices de las cartas que quedan en juego, $i$ es la primer carta que queda desde la izquierda, y $j$ es la primer carta desde la derecha.
+Donde $C$ es el total de los puntos que sumamos e $i$ y $j$ son los índices de las cartas que quedan en juego, $i$ es la primer carta que queda desde la izquierda, y $j$ es la primer carta desde la derecha.
 
 \subsubsection{Función Recursiva}
 
@@ -10,9 +10,9 @@ Pensamos la función según el siguiente enfoque: Al finalizar el juego, la suma
 
 $\sum_{i=0}^{n} c_i = \sum_{j \in A} c_j + \sum_{k \in B} c_k$
 
-Donde A es el conjunto de cartas que robó el jugador uno y B es el conjunto de caartas que robó el jugador dos.
+Donde A es el conjunto de cartas que robó el jugador uno y B es el conjunto de cartas que robó el jugador dos.
 
-Lo que pensamos es que maximizar la sumatoria de puntos que robemos nosotros es lo mismo que minimizar la suma de puntos robada por el jugador contrario. Además sabemos que el otro jugador también jugara de forma óptima, por lo que en su turno pensará de la misma forma que nosotros. Por eso llegamos a la conclusión de que la función recusrsiva para resolver este problema es la siguiente:
+Lo que pensamos es que maximizar la sumatoria de puntos que robemos nosotros es lo mismo que minimizar la suma de puntos robada por el jugador contrario. Además sabemos que el otro jugador también jugara de forma óptima, por lo que en su turno pensará de la misma forma que nosotros. Por eso llegamos a la conclusión de que la función recursiva para resolver este problema es la siguiente:
 
 $opt(0,0) = 0$ \\
 $oppt(i,i) = c_i$ \\
@@ -22,7 +22,7 @@ Vale aclarar que por cómo pensamos la función, siempre pasa que $i \leq j$ ya 
 
 Los casos base ocurren cuando no queda ninguna carta, o cuando queda una sola carta. Al no quedar cartas el jugador no puede ganar ningún punto, y al quedar una sola carta, las reglas del juego indican que el jugador debe robarla.
 
-Lo que dice el paso recursivo de esta función es que el jugador debe robar cartas de forma tal que minimize los puntos que pueda ganar el contrincante, sabiendo que este también jugará de forma óptima. Por ejemplo, si el valor mínimo de la función $opt$ es $opt(i+3,j)$ significa que el jugador debe robar las primeras 3 cartas empezando por la izuquierda para minimizar la puntuación del jugador rival.
+Lo que dice el paso recursivo de esta función es que el jugador debe robar cartas de forma tal que minimice los puntos que pueda ganar el contrincante, sabiendo que este también jugará de forma óptima. Por ejemplo, si el valor mínimo de la función $opt$ es $opt(i+3,j)$ significa que el jugador debe robar las primeras 3 cartas empezando por la izquierda para minimizar la puntuación del jugador rival.
 
 \subsubsection{Implementación}
 
@@ -36,7 +36,7 @@ Por ejemplo si en la casilla $opt[i][j]$ tiene los valores $i+k, j$ como $iSigui
 
 Ahora vamos a explicar como se llena una casilla de la matriz. Primero vale aclarar que como asumimos que $i \leq j$ sólo llenamos los elementos de la diagonal de la matriz y los que se encuentran arriba de la misma.
 
-Para comenzar pensemos en la situación de estar en una casilla de la diagonal $opt[i][i]$, esto significa que queda una única carta en el juego, y por las reglas del mismo el jugador debe robarla y el juego terminará allí. Es por esto que el valor $cantPuntos$ de la casilla correspondiente a la puntuación será $c_i$ y los valores $iSiguiente$ y $jSiguiente$ que hacen referencia al próximo turno seran iguales a -1, ya que no puede haber un próximo turno.
+Para comenzar pensemos en la situación de estar en una casilla de la diagonal $opt[i][i]$, esto significa que queda una única carta en el juego, y por las reglas del mismo el jugador debe robarla y el juego terminará allí. Es por esto que el valor $cantPuntos$ de la casilla correspondiente a la puntuación será $c_i$ y los valores $iSiguiente$ y $jSiguiente$ que hacen referencia al próximo turno serán iguales a -1, ya que no puede haber un próximo turno.
 
 A partir de ahora explicaremos cómo llenamos las casillas que están fuera de la diagonal, por lo tanto $i < j$.
 
@@ -69,19 +69,19 @@ Nuestro algoritmo va llenando la matriz con los valores correspondientes, lo hac
 
 Una vez completa la matriz, sólo debemos consultar la casilla $opt[0][n-1]$ que es la que nos dice la mayor puntuación posible cuando todavía no se inició el juego, con todas las cartas aún disponibles. Y para realizar el seguimiento de todos los turnos que se jugarán en el juego se revisan periódicamente los valores $iSiguiente$ y $jSiguiente$ por donde nos lleven, hasta estos valores sean iguales a -1. En ese caso sabremos que ese fue el último turno y el jugador robó todas las cartas disponibles.
 
-A continuación incluiremos un pseudocódigo del algoritmo que utilizamos para resolver el problema:
+A continuación incluiremos un pseudocódigo del algoritmo que utilizamos para resolver el problema, vale aclarar que utilizamos una estructura llamada $subproblema$ que tiene los campos $i,Siguiente$, $jSiguiente$ t $cantPuntos$, que ya explicamos anteriormente. 
 
 \begin{center}
 \begin{figure}[H]
     \begin{pseudo}
-        \Procedure{Robanumeros}{$n, \langle c_1, \ldots, c_n \rangle$}
+        \Procedure{Robanumeros}{$n, \langle c_0, \ldots, c_n-1 \rangle$}
             \State $vector\langle int \rangle sumasParciales \leftarrow computar\_sumasParciales(c_1, \ldots, c_n)$ \Ode{n}
             \State $matriz\langle subproblema \rangle opt(n)$ \Ode{1}
             \State $j \leftarrow 0$ \Ode{1}
-            \While{$j \leq n$} \hfill $n*O(1)$
+            \While{$j < n$} \hfill $n*O(1)$
                 \State $opt[j][j] \leftarrow c_j$\Ode{1}
                 \State $i \leftarrow j-1$\Ode{1}
-                \While{$i \geq 0$} \hfill $n*O(1)$
+                \While{$i \geq 0$} \hfill $j*O(1)$
                     \State $iSiguiente$,$jSiguiente$, $minCantPuntos \leftarrow INT\_MAX$ \Ode{1}
 		    \State $buscarMinimo(opt,i,j,iSiguiente,jSiguiente,minCantPuntos)$ \Ode{n}
 		    \State $sumaRango \leftarrow sumasParciales[j]$ \Ode{1}
