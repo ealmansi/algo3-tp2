@@ -2,21 +2,19 @@ Modelamos este problema de la sigueinte manera:
 
 $\bullet$ Un pueblo es un par ordenado (x,y).
 
-$\bullet$ Que dos pueblos esten conectados es que sean adyacentes.
+$\bullet$ Que dos pueblos sean adyacentes, significa que están conectados.
 
-$\bullet$ El peso de la arista entre los pueblos p1 y p2 es igual a la distancia euclidiana entre ambos.
+$\bullet$ El peso de la arista entre los pueblos $p_1$ y $p_2$ es igual a la distancia euclidiana entre ambos.
 
-$\bullet$ Un pueblo esta provisto de gas si existe un camino entre el y un pueblo con central distribuidora.
+$\bullet$ Un pueblo esta provisto de gas si existe un camino entre éste y un pueblo con central distribuidora.
 
-$\bullet$ Queremos hayar conjunto de pares no ordenados de pueblos y un conjunto de k pueblos / %TODO no se como escribir lo del minimo maximo
+$\bullet$ Tenemos k centrales de gas, las cuales van a ser colocadas en algún pueblo. Queremos minimizar los pesos de las aristas de forma tal que el peso máximo, sea lo mínimo posible %TODO no se como escribir lo del minimo maximo. (Santi) Asi va?
 
+Para encontrar esto vamos a buscar un bosque generador mínimo con k componentes conexas. Ahora presentaremos una idea de por qué funciona. Luego vamos a demostrar formalmente que esto resuelve el problema.
 
-Para encontrar esto vamos a buscar un bosque generador mínimo con k componentes conexas.
-Aunque lo demostraremos después esto esta basado en lo siguiente:
+$\bullet$ Un árbol generador mínimo también minimiza el peso máximo entre las aristas.
 
-$\bullet$ Un árbol generador mínimo tambien minimiza la máxima arista.
+$\bullet$ Teniendo k centrales, puedo tener a lo sumo k componentes conexas, sino sera imposible proveer de gas a todos los pueblos.
 
-$\bullet$ Teniendo k centrales, puedo tener a lo sumo k componentes conexas, sino sera imposible proveer de gas a todos los pueblos
-
-$\bullet$ Dada una solucions con C componentes conexas (C < k), existe una solucion mejor o igual con C+1 componentes conexas.
+$\bullet$ Dada una solución con C componentes conexas (siendo C $<$ k), existe una solución mejor o igual con C+1 componentes conexas.
 

@@ -8,7 +8,7 @@ Donde $C$ es el total de los puntos que sumamos e $i$ y $j$ son los índices de 
 
 Pensamos la función según el siguiente enfoque: Al finalizar el juego, la suma de las cartas que robamos será la suma de todas las cartas menos la suma de las cartas que robo el rival, esto es así porque según las reglas del juego no podemos elegir no robar cartas.
 
-Lo que pensamos es que maximizar la sumatoria de puntos que robemos nosotros es lo mismo que minimizar la suma de puntos robada por el jugador contrario\footnote{Esto esta demostrado en la sección de ``Demostración de correctitud´´}. Además sabemos que el otro jugador también jugara de forma óptima, por lo que en su turno pensará de la misma forma que nosotros. Por eso llegamos a la conclusión de que la función recursiva para resolver este problema es la siguiente:
+Lo que pensamos es que maximizar la sumatoria de puntos que robemos nosotros es lo mismo que minimizar la suma de puntos robada por el jugador contrario \footnote{Esto esta demostrado en la sección de ``Demostración de correctitud''}. Además sabemos que el otro jugador también jugara de forma óptima, por lo que en su turno pensará de la misma forma que nosotros. Por eso llegamos a la conclusión de que la función recursiva para resolver este problema es la siguiente:
 
 $opt(0,0) = 0$ \\
 $oppt(i,i) = c_i$ \\
