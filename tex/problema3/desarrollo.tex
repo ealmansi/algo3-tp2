@@ -1,49 +1,17 @@
-Para resolver el problema implementamos el algoritmo presentado debajo. Cabe aclarar que en ResolverBacktracking, SolucionOptima y SolucionParcial son \textbf{in/out}, es decir, pasados por referencia y por eso esta función no contiene un \textbf{return}
 
-\begin{pseudo}
-\State Tipo de dato Pieza es Tupla $\langle$ id : entero, inferior : entero, superior : entero, izquierda : entero, derecha : entero $\rangle$
-\State Tipo de dato Tablero es Tupla $\langle$ cantFichas : entero, casillas : Matriz$\langle$Pieza$\rangle$ $\rangle$
-    \Procedure{Rompecolores}{$n,m,c,\langle p_1, \ldots, p_{n*m} \rangle$}
-        \State SolucionParcial, SolucionOptima$\leftarrow$ nuevo Tablero
-        \State ResolverBacktracking(SolucionOptima,SolucionParcial,0,0,...) 
-        \State \textbf{return} SolucionOptima
-    \EndProcedure
-\end{pseudo}
+Para resolver este problema, lo modelamos de la siguiente manera:
 
-\begin{pseudo}
+$\bullet$ Cada estado posible en el juego es estar en una casilla dada con cierta cantidad de unidades de potencia, esto lo representamos con (int x,int y, int k) que representa estar posicionado en la casilla de la fila x y la columna y, con k unidades de potencia para usar.
 
-    \Procedure{ResolverBacktracking}{SolucionOptima,SolucionParcial,i,j,...}
-        \For{Cada Ficha}
-	  \If{EstaDisponible $\wedge$ esCompatible}
-	    \State Agrego ficha a SolucionParcial
-	    \If{SolucionParcial mejor que SolucionOptima}
-	      \State SolucionOptima = SolucionParcial
-	    \EndIf
-	    \If{!Podo}
-	      \State ResolverBacktracking en siguiente posicion
-	    \EndIf
-	    \State Remuevo ficha 
-	  \EndIf
-	\EndFor
-        \State Agrego ficha blanca a SolucionParcial
-        \State ResolverBacktracking en siguiente posicion
-    \EndProcedure
-\end{pseudo}
+$\bullet$ Dado un la cantidad de filas y columnas n y la cantidad de unidades de potencia maxima $k_max$, a priori los estados posibles son (x,y,k) / $0 < x,y \leq n \wedge 0 \leq k \leq k\_max$. 
 
-Donde: 
+$\bullet$ Dado un estado $e_i = (x_0,y_0,k_0)$ se puede saltar sin consumir unidades de potencia, salto a un estado con el mismo k, pero con alguna de mis coordenadas x o y cambiadas entre 1 y la potencia de la casilla en la que me encuentro. Osea  $(\forall 0 < j \leq p ) e_i$ puede saltar a $(x_0,y_0+j,k_0), (x_0,y_0-j,k_0), (x_0+j,y_0,k_0), (x_0-j,y_0,k_0)$.
 
-$\bullet$ EstaDisponible devuelve si la ficha no fue usada todavía (verdadero), o si ya fue agregada al tablero (falso).
+$\bullet$ Por otro lado tambien se puede saltar consumiendo alguna cantidad de potencia entre 1 y k, de esta manera se saltaría a un estado con con k igual a $k_0$ menos la cantidad de potencia gastada y cambiando el x e y en alguna direccion unna cantidad de unidades igual a la potencia máxima de la casilla en la que me encuentro más la cantidad de unidades de potencia gastadas. Osea $(\forall 0 < j \leq k ) e_i$ puede saltar a $(x_0,y_0+p+j,k_0-j), (x_0,y_0-p-j,k_0-j), (x_0+p+j,y_0,k_0-j), (x_0-p-j,y_0,k_0-j)$. En ambos casos solo tendremos en cuenta los estados posibles vistos en la condicion anterior (que su x e y no salgan del rango [1,n]).
 
-$\bullet$ esCompatible devuelve verdadero si al agregar la ficha en la posición en la cual se esta trabajando en el tablero SolucionParcial, no se genera ninguna contradicción.
+Queremos encontrar la forma de llegar desde la casilla de entrada $x_e,y_e$ hasta la casilla de salida $x_s,y_s$ con una cantidad de unidades de potencia igual a k\_max en la mínima cantidad de saltos posibles. En nuestro modelo seria partiendo del estado $(x_e,y_e,k\_max)$ queremos llegar al estado $(x_s,y_s,i)$ para algun i entre 0 y k\_max en la mínima cantidad de saltos. Como en nuestro modelo cada cambio de estado equivale a un salto queremos hayar el mínimo camino mínimo entre $(x_e,y_e,k\_max)$ y $(x_s,y_s,i)$ para algun i entre 0 y k\_max en nuestro digrafo donde los vertices son los posibles estados y las incidencias estan dadas si se puede saltar de un estado $e_i$ a uno $e_j$ .
 
-$\bullet$ Podo devuelve verdadero si a travez de alguna de nuestras podas podemos asegurar que en esa rama no se encuentra ninguna solución mejor a SolucionOptima.
+Para encontrar esto usamos BFS terminando la primera vez que encontramos un vértice $(x_s,y_s,i)$.
 
-Implementamos tres posibles funciones Podo(), la primera es la mas simple que solo devuelve falso cuando se llega al final del tablero. Si bien no poda, la utilizamos como corte en el caso en que encuentre una solución donde las fichas llenan todo el tablero, por lo que seguir recorriendo es inútil.
 
-La segunda opción se fija si la cantidad de fichas que puse en el tablero más la cantidad de lugares del tablero que todavía no recorrí, es menor que la cantidad de fichas de SolucionOptima. Si es menor sabemos que no hay ninguna forma que por esa rama se llegue a una solución mejor que SolucionOptima y por esto, la descartamos.
 
-La tercer poda que realizamos incluye a la anterior pero realiza algo extra: En las posiciones que todavía no recorrimos pero ya sabemos que tienen una restricción (como por ejemplo, que necesitan el color 1 en superior), queremos saber cuantas fichas tenemos disponible para esos lugares. Para esto contamos para cada color, cuantos de estos lugares necesitan una ficha con ese color en la posición superior. Luego recorremos las fichas disponibles y restamos 1 al número calculado anteriormente para ese color.
-
-Si sumamos todos los contadores de color que no nos quedaron negativos, conseguimos el numero de estos casilleros a los que no le vamos a poder agregar fichas. Luego, el numero de fichas posibles calculado en la opción 2 le restamos lo que acabamos de calcular obteniendo una cota mas ajustada de la cantidad de fichas que puede llegar a tener esta rama del árbol.
-
-Estas podas nos ayudan a descartar casos para no tener que observarlos. En la etapa de experimentación vamos a evaluar si el uso de estas podas es favorable o no. Esto se debe a que por más que se pode una rama (o algunas ramas), la poda utilizada puede llegar a ser más costosa que recorrer dicha rama (o ramas).
