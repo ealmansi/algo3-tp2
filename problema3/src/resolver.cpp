@@ -146,6 +146,4 @@ void Problema3::imprimoSalida(Salida& s){
 		cout << itCamino->f << " " << itCamino->c << " " << itPadre->k - itCamino->k << endl;
 		++itPadre;
 	}
-
-
 }
