@@ -2,32 +2,52 @@ Primero vamos a demostrar que un bosque generador mínimo con k componentes cone
 
 Para eso primero vamos a demostrar los siguiente lemas:
 
-\textbf{Lema 1:} Un árbol generador mínimo tambien minimiza la máxima arista.
+\textbf{Lema 1:} Un bosque de k componentes conexas generador mínimo tambien minimiza la máxima arista.
 
 \textbf{Lema 2:} G grafo es solucion $\Leftrightarrow \#$ (componentes conexas (G)) $\leq$ k. Osea,  G(V,E) grafo y C un conjunto de k vertices $\in $ V q.v.q. $(\forall v \in V)(\exists c \in C)$ v esta conecado a c $\Leftrightarrow \#$ (componentes conexas (G)) $\leq$ k
 
-\textbf{Lema 3:} Dada una solucions con C componentes conexas (C $<$ k), existe una solucion mejor o igual con C+1 componentes conexas.
+\textbf{Lema 3:} Dada una solucions con C componentes conexas (C $<$ k), existe una solucion mejor o igual con C+1 componentes conexas. \\ \\ 
 
 
-\textbf{Lema 1:} Un árbol generador mínimo tambien minimiza la máxima arista.
+\textbf{Lema 1:} Un bosque de k componentes conexas generador mínimo tambien minimiza la máxima arista. Equivalentemente, sea B un bosque de k componentes conexas generador mínimo $(\nexists$ G subgrafo generador con k componentes conexas) MaxArista(G) $<$ MaxArista(B).
 
-Sea G(V,E) un árbol generador mínimo y e su máxima arista.
+Por el absurdo, sea B(V,E) un bosque de k componentes conexas generador mínimo supongo que existe un G(N,A) subgrafo generador con k componentes conexastal que MaxArista(G) < MaxArista(B).
 
-Sea G'(V,E-e), tiene dos componentes conexas C1 y C2 por ser G un árbol.
+Sea e la MaxArista(B), sabemos que toda arista en en G va a ser menor que e.
 
-Por el absurdo supongo que existe otro grafo conexo H(V,E') cuya arista máxima es e' y f(e') $<$ f(e).
-Como H es conexa tiene que existir algun e'' tal que un extremo pertenezca a C1 y el otro a C2. y f(e'') $\leq$ f(e') ya que e'es la máxima.
+Si las k componentes conexas de B y G son las mismas:
 
-Sea G''(V,E-e+e'') G'' es árbol ya que e'' tiene un extremo en cada componente conexa q se forma al quitar e, osea q sigue siendo conexo y la cantidad de arista se mantiene en m = n-1. Sea l la arista de mayor peso de G''.
+Sea B'(V,E-e), tiene k-1 componentes conexas iguales a las de B, y C,la componente en la que estaba e, se divide en dos componentes conexas C1 y C2, ambas árboles.
 
-Sabemos que $f(e'') < f(e) \Rightarrow f(e'') - f(e) < 0$
+Como G tiene las mismas componentes conexas que B, C es una componente conexa de G.Por lo cual existe una arista e' con un extremo en C1 y otro en C2.
 
-$\sum_{i \in E-e+e''} f(i) = \sum_{i \in E} f(i) - f(e) + f(e'') < \sum_{i \in E} f(i)$.
+Sea B''(V,E-e+e') B'' es un subgrafo generador con k componentes conexas ya que al quitar e se generan un subgrafo con k+1 componentes conexas. Y al agregar e', como este  tiene extremos en dos componente conexa diferentes, quedan k componentes conexas. Y como no se modifican los vertices sigue siendo generador.
 
-Tambien sabemos que $\sum_{i \in E} f(i) \leq \sum_{i \in E-e+e''} f(i)$ ya que G es un árbol generador mínimo.
+Sabemos que $f(e') < f(e) $por e' pertenecer a G $\Rightarrow f(e') - f(e) < 0$
 
-Entonces: $\sum_{i \in E} f(i) > \sum_{i \in E-e+e''} f(i) \wedge \sum_{i \in E} f(i) \leq \sum_{i \in E-e+e''} f(i)$
+$\sum_{i \in E-e+e'} f(i) = \sum_{i \in E} f(i) - f(e) + f(e') < \sum_{i \in E} f(i)$.
+
+Tambien sabemos que $\sum_{i \in E} f(i) \leq \sum_{i \in E-e+e'} f(i)$ ya que B es un bosque de k componentes conexas generador mínimo.
+
+Entonces: $\sum_{i \in E} f(i) > \sum_{i \in E-e+e'} f(i) \wedge \sum_{i \in E} f(i) \leq \sum_{i \in E-e+e'} f(i)$
 Lo cual es absurdo.
+
+El otro caso es que G tenga aunque sea dos componentes conexas diferentes:
+
+Si las componentes conexas de G son diferentes a las de B, entonces existe en G una arista e' tal que cada extremo de la arista pertenece a componentes conexas diferentes de B (Sino terndría las mismas componentes conexas).
+
+Sea B''(V,E-e+e') igual que en el caso anterior B'' es un subgrafo generador con k componentes conexas.
+
+Y de la misma manera que en el caso anterior se llega a un absurdo.
+
+abemos que $f(e') < f(e) $por e' pertenecer a G $\Rightarrow f(e') - f(e) < 0$
+
+$\sum_{i \in E-e+e'} f(i) = \sum_{i \in E} f(i) - f(e) + f(e') < \sum_{i \in E} f(i)$.
+
+Tambien sabemos que $\sum_{i \in E} f(i) \leq \sum_{i \in E-e+e'} f(i)$ ya que B es un bosque de k componentes conexas generador mínimo.
+
+Entonces: $\sum_{i \in E} f(i) > \sum_{i \in E-e+e'} f(i) \wedge \sum_{i \in E} f(i) \leq \sum_{i \in E-e+e'} f(i)$. \\ \\
+
 
 \textbf{Lema 2:} G(V,E) grafo y C un conjunto de k vertices $\in $ V q.v.q. $(\forall v \in V)(\exists c \in C)$ v esta conecado a c $\Leftrightarrow \#$ (componentes conexas (G)) $\leq$ k
 
@@ -48,7 +68,8 @@ Sea ${v_1,...,v_{k'}}$ un conjuntos de vertices de V tal que $v_i \in S_i$. $(\f
 
 Ahora tomo cada uno de los $c_i \in$ C y los asocio al $v_j$ / exista un camino entre $c_i$ y $v_j$. Veamos que un $c_i$ no puede estar asociado a dos v diferentes. ya que si existe un camino entre $c_i$ y $v_j$ y tambien entre $c_i$ y $v_q$ tambien existira el camino entre $v_j$ y $v_q$ lo cual es absurdo salvo que j = q.
 
-Cuando terminamos de asignar los k $c_i$ tendremos a lo sumo (ya que dos c diferentes si pueden corresponder al mismo v) k $v_i$ con un c asignado. Pero como k $<$ k' tendremos como mínimo un $v_i$ que no esta conectado a ningun c. Demostrando asi el lema.
+Cuando terminamos de asignar los k $c_i$ tendremos a lo sumo (ya que dos c diferentes si pueden corresponder al mismo v) k $v_i$ con un c asignado. Pero como k $<$ k' tendremos como mínimo un $v_i$ que no esta conectado a ningun c. Demostrando asi el lema. \\ \\
+
 
 \textbf{Lema 3:} Dada una solucions con C componentes conexas (C $<$ k), existe una solucion mejor o igual con C+1 componentes conexas.
 
@@ -57,4 +78,11 @@ Primero veamos que G' es solucion, como G tenia C componentes conexas, G' tiene 
 Ahora quiero ver que es mejor o igual que G.
 G' es mejor o igual que G $\Leftrightarrow$ MaxArista(G') $\leq$ MaxArista(G).
 Como las aristas de G' estan incluidas en las de G, no puede existir una arista de G' que sea mayor a la máxima arista de G.
-Entonces probamos G' es mejor o igual que G.
+Entonces probamos G' es mejor o igual que G. \\ \\
+
+Ahora utilizando los 2 y 3 lemas, se llega a que siempre existe una solución optima con k componentes conexas.
+Ya que por 2 si tiene menos que k no puede ser solución, y por 3 si tiene mas que k siempre se puede encontrar una mejor o igual con k.
+
+Ahora usando el lema uno sabemos que entre todas las soluciones posibles con k componentes conexas, el bosque generador mínimo es óptimo.
+
+Por lo cual concluimos que el bosque generador mínimo con k componentes conexas es una solución óptima para nuestro problema.

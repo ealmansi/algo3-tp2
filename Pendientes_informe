@@ -10,7 +10,7 @@ Problema 2:
 	-Descripcion
 	-Desarrollo (Casi terminado, falta un TODO, revisar)
 	-Demo complejidad
-	-Demo correctitud(Media falta terminar)
+	-Demo correctitud(Falta demostrar que nuestro algo hace un bosque generador minimo con k comp conexas)
 	-Experimentacion(graficos, tests)
 	-Conclusion
 
