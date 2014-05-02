@@ -4,6 +4,8 @@
 #include <list>
 #include <utility>
 #include <iostream>
+#include <vector>
+#include <queue>
 
 using namespace std;
 
@@ -18,6 +20,8 @@ namespace Problema2
 		
 	};
 
+	typedef pair < Pueblo, Pueblo >  Conexion;
+	
 	struct Entrada
 	{
 	  int cantCentrales;
@@ -26,8 +30,8 @@ namespace Problema2
 
 	struct Salida
 	{
-	  list < Pueblo > centrales;
-	  list < pair < Pueblo,Pueblo > > tuberias;
+	  list < int > centrales;
+	  list < Conexion > tuberias;
 	};
 
 	Entrada leerEntrada();

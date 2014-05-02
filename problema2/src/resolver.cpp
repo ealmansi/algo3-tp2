@@ -22,37 +22,84 @@ int distanciaCuadrada(const Pueblo& a, const Pueblo& b){
 		+ (a.coord.second - b.coord.second) * (a.coord.second - b.coord.second);
 }
 
+bool mayorDistancia(const Conexion& a ,const Conexion& b){
+	return distanciaCuadrada(a.first,a.second) > distanciaCuadrada(b.first,b.second); 
+}
+
+list < int > losAdyacentes(list < Conexion > &conectados , int c){
+	list < int > res;
+	list < Conexion >::iterator it = conectados.begin();
+	for (; it != conectados.end(); ++it)	{
+		if(it->first.id == c){
+			res.push_back(it->second.id);
+		}
+		else if (it->second.id == c ){
+			res.push_back(it->first.id);	
+		}
+	}
+	return res;
+}
+
 Salida Problema2::resolver(Entrada& e){
 	Salida s;
 	///creo conectados, y agrego el primero a conectados
-	list< Pueblo > conectados;
-	conectados.push_back(e.pueblos.front());
-	e.pueblos.pop_front();
 	int n = e.pueblos.size();
-	int min;
-	pair< Pueblo, Pueblo > conexion;
-	list< Pueblo >::iterator itMejorPueblo;
-	///usamos Prim
-	for(int i = 1; i < n; ++i){
-		min = INT_MAX;
-		list< Pueblo >::iterator itPuebloConectados = conectados.begin();
-		for(;itPuebloConectados != conectados.end(); ++itPuebloConectados){
-			
-			list< Pueblo >::iterator itPueblos = e.pueblos.begin();
-			for(;itPueblos != e.pueblos.end(); ++itPueblos){
-				if(distanciaCuadrada(*itPuebloConectados, *itPueblos) < min){
-					min = distanciaCuadrada(*itPuebloConectados, *itPueblos);
-					conexion = make_pair(*itPuebloConectados, *itPueblos);
-					itMejorPueblo = itPueblos;
+	list < pair < int , Conexion > > mejorConexionDe;
+	list < pair < int , Conexion > >::iterator itConexion, itMejor ;
+
+	list < Pueblo >::iterator itPueblos = e.pueblos.begin();
+	Pueblo actual = e.pueblos.front();
+	itPueblos++;
+	for(;itPueblos != e.pueblos.end(); ++itPueblos){
+		mejorConexionDe.push_back(make_pair(distanciaCuadrada(actual,(*itPueblos)),make_pair((*itPueblos),actual)));
+	}
+	for(int i = 0; i < n-1 ; ++i){
+		itConexion = mejorConexionDe.begin();
+		itMejor = mejorConexionDe.begin();
+		for (; itConexion != mejorConexionDe.end(); ++itConexion){
+			if(itConexion->first < itMejor->first){
+				itMejor = itConexion;
+			}
+		}
+		s.tuberias.push_back(itMejor->second);
+		actual = itMejor->second.first;
+		mejorConexionDe.erase(itMejor);
+
+		itConexion = mejorConexionDe.begin();
+		for (; itConexion != mejorConexionDe.end(); ++itConexion){
+			int dist = distanciaCuadrada(actual,itConexion->second.first);
+			if(dist < itConexion->first){
+				itConexion->first = dist;
+				itConexion->second.second = actual;
+			}
+		}
+	}
+	s.tuberias.sort(mayorDistancia);
+	for (int i = 1; i < e.cantCentrales; ++i){
+		s.tuberias.pop_front();
+	}
+
+	vector < bool > yaPase(e.pueblos.size()+1,false);
+	queue< int > q;
+	for ( int i = 1; i <= (int) e.pueblos.size(); ++i){
+		if(!yaPase[i]){
+			s.centrales.push_back(i);
+			q.push(i);
+			yaPase[i] = true;
+			while(!q.empty()){
+				int c = q.front();
+				q.pop();				
+				list< int > adyacentes = losAdyacentes(s.tuberias, c);
+				list< int >::iterator itAdy = adyacentes.begin();
+				for(;itAdy != adyacentes.end(); ++itAdy){
+					if(!yaPase[*itAdy]){
+						yaPase[*itAdy] = true;
+						q.push(*itAdy);
+					}
 				}
 			}
 		}
-		conectados.push_back(*itMejorPueblo);
-		e.pueblos.erase(itMejorPueblo);
-		s.tuberias.push_back(conexion);
 	}
-	///ahora ya estan todos conectados, vamos a sacar las conexiones 
-
 	
 	
 	return s;
@@ -60,12 +107,13 @@ Salida Problema2::resolver(Entrada& e){
 
 
 void Problema2::imprimoSalida(Salida& s){
-	cout << s.centrales.size() << " ";
-	cout << s.tuberias.size() << endl;
-	list< Pueblo >::iterator itCentr = s.centrales.begin();
+	cout << s.tuberias.size() << " ";
+	cout << s.centrales.size() << endl;
+	list< int >::iterator itCentr = s.centrales.begin();
 	for(;itCentr != s.centrales.end(); ++itCentr){
-		cout << itCentr->id << " ";
+		cout << (*itCentr) << " ";
 	}
+	cout << endl;
 	list< pair < Pueblo,Pueblo > >::iterator itTub = s.tuberias.begin();
 	for(;itTub != s.tuberias.end(); ++itTub){
 		cout << itTub->first.id << " " << itTub->second.id << endl;
