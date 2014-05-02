@@ -42,7 +42,7 @@ Sin embargo, cabe aclarar que después realizamos una asignación (ya que la Ent
 			\EndIf
 			
 			\For{cada Casillero c en losAdyacentes(e,c)} \Ode{n}
-				\State u $\leftarrow$ siguienteAdyacente() \Ode{1}
+				\State u $\leftarrow$ siguienteAdyacente(c) \Ode{1}
         		\If{!estaEn(u,V)} \Ode{1}
 					\State marcoComo(u, yaPase, cantSaltos(c) + 1) \Ode{1}
 					\State encolar(u, q) \Ode{1}
@@ -63,7 +63,7 @@ Vamos a empezar diciendo que un casillero cualquiera puede tener a lo sumo $2*(n
 
 Teniendo en cuenta esto, vamos a correr el ciclo while grande a lo sumo una vez por casillero. Cabe recordar que tenemos $n*n*k$ casilleros en total: un casillero por cada celda del tablero, y ese tablero lo tenemos k veces. Lo peor que puede suceder es tener que correr el while para cada casillero, por lo que tendríamos un costo total de $O(n*n*n*k)$, que es igual a $O(n^3*k)$.
 
-Al escribir la salida, escribimos la cantidad de saltos, y cuáles fueron dichos saltos. Podemos observar que la cantidad de saltos es $O(n)$. En el peor caso, todos los casilleros tienen potencia 1 (lo menor que pueden valer) y el jugador no tiene potencias extras (los kaes) para gastar. En este caso, estamos en el primer ejemplo de la sección  \ref{problema3-descripcion}. En este caso, una solución óptima es recorrer desde la fila origen hasta la fila destino, y luego de la columna origen hasta la columna destino. Tanto las filas como las columnas pueden estar separadas a lo sumo por $n-1$ casilleros. Por esto, el camino más corto esta claramente acotado por $2*n$, por lo que tenemos a lo sumo $O(2*n)$ ciclos. Por todo esto, podemos afirmar que \textbf{Imprimir(S)} tiene una complejidad de $O(n)$
+Al escribir la salida, escribimos la cantidad de saltos, y cuáles fueron dichos saltos, osea cuál fue el camino que se tomó desde el inicio hasta el dstino. Podemos observar que la cantidad de saltos es $O(n)$. En el peor caso, todos los casilleros tienen potencia 1 (lo menor que pueden valer) y el jugador no tiene potencias extras para gastar ($k=0$). En este caso, estamos en el primer ejemplo de la sección  \ref{problema3-descripcion}. En este caso, una solución óptima es recorrer desde la fila origen hasta la fila destino, y luego de la columna origen hasta la columna destino. Tanto las filas como las columnas pueden estar separadas a lo sumo por $n-1$ casilleros. Por esto, el camino más corto esta claramente acotado por $2*n$, por lo que tenemos a lo sumo $O(2*n)$ ciclos. Por todo esto, podemos afirmar que \textbf{Imprimir(S)} tiene una complejidad de $O(n)$
 
 Finalmente, \textbf{Imprimir(S)} es la función encargada de imprimir el resultado por pantalla. Vamos a utilizar un pseudocodigo para probar su complejidad.
 
