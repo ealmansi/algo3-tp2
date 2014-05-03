@@ -1,12 +1,10 @@
-Este problema trata de varios pueblos a los que hay que hacerles llegar gas natural. Para esto se colocarán centrales en algunos pueblos, y se construirán tuberías desde estos pueblos a los otros pueblos a los que no se les ponga una central. 
+Este problema trata de varios pueblos a los que queremos proveer con gas natural. Para esto colocaremos centrales en algunos pueblos, y se construiremos tuberías desde estos pueblos a los otros pueblos para que así todos los pueblos tengan gas. 
 
-Estas tuberías no deben ir necesariamente de luna central al pueblo de forma directa, por ejemplo si el pueblo 1 tiene una central y los pueblos 2 y 3 no las tienen, se puede hacer una tubería del pueblo 1 al pueblo 2 y una del pueblo 2 al pueblo 3, de esta forma no se necesita una tubería que vaya directamente del pueblo 1 al pueblo 3.
+Cabe aclarar que estas tuberías no deben ir necesariamente de un pueblo con una central a otro pueblo de forma directa para que este último tenga gas. Por ejemplo si el pueblo 1 tiene una central y los pueblos 2 y 3 no las tienen, se puede hacer una tubería del pueblo 1 al pueblo 2 y una del pueblo 2 al pueblo 3, y de esta forma no se necesita una tubería que vaya directamente del pueblo 1 al pueblo 3.
 
-La ubicación de los esta determinada por una coordenada $x$ y una coordenada $y$.
+La ubicación de los pueblos está determinada por una coordenada $x$ y una coordenada $y$.
 
-Tenemos $k$ centrales que debemos distribuir en $n$ pueblos. El problema es que mientras más largas sean las tuberías hay un mayor riesgo de que se produzca una fuga de gas.
-
-Lo que se nos pide es distribuir las $k$ centrales en los $n$ pueblos minimizando la máxima longitud de tuberías entre un pueblo y otro.
+Tenemos $k$ centrales que debemos distribuir en $n$ pueblos. El problema es que mientras más largas sean las tuberías hay un mayor riesgo de que se produzca una fuga de gas. Por esta razón, buscamos minimizar la máxima longitud de tuberías. De esta manera, vamos a distribuir a los sumo $k$ centrales entre los $n$ pueblos minimizando la máxima longitud de tuberías entre un pueblo y otro.
 
 \subsubsection{Ejemplos y observaciones}
 

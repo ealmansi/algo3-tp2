@@ -8,8 +8,8 @@ Problema 1:
 
 Problema 2:
 	-Codigo (terminado falta revisar y testear (hice un solo test pero funciono))
-	-Descripcion
-	-Desarrollo (Casi terminado, falta un TODO, revisar)
+	-Descripcion (faltan Ejemplos y observaciones)
+	-Desarrollo (TERMINADO, REVISAR)
 	-Demo complejidad
 	-Demo correctitud(Falta demostrar que nuestro algo hace un bosque generador minimo con k comp conexas)
 	-Experimentacion(graficos, tests)
