@@ -29,7 +29,7 @@ bool mayorDistancia(const Conexion& a ,const Conexion& b){
 list < int > losAdyacentes(list < Conexion > &conectados , int c){
 	list < int > res;
 	list < Conexion >::iterator it = conectados.begin();
-	for (; it != conectados.end(); ++it)	{
+	for (; it != conectados.end(); ++it){
 		if(it->first.id == c){
 			res.push_back(it->second.id);
 		}
@@ -42,11 +42,12 @@ list < int > losAdyacentes(list < Conexion > &conectados , int c){
 
 Salida Problema2::resolver(Entrada& e){
 	Salida s;
-	///creo conectados, y agrego el primero a conectados
+	///creamos conectados, y agregamos el primero a conectados
 	int n = e.pueblos.size();
 	list < pair < int , Conexion > > mejorConexionDe;
 	list < pair < int , Conexion > >::iterator itConexion, itMejor ;
 
+	///generamos AGM
 	list < Pueblo >::iterator itPueblos = e.pueblos.begin();
 	Pueblo actual = e.pueblos.front();
 	itPueblos++;
@@ -74,11 +75,15 @@ Salida Problema2::resolver(Entrada& e){
 			}
 		}
 	}
+	///las ordenamos de forma tal que las mas grandes queden al principio, para removerlas facilmente
 	s.tuberias.sort(mayorDistancia);
-	for (int i = 1; i < e.cantCentrales; ++i){
+	
+	///ahora tenenmos un AGM, queremos un bosque generador minimo de a lo sumo k componentes conexas.
+	for (int i = 1; i < e.cantCentrales && i < n; ++i){
 		s.tuberias.pop_front();
 	}
 
+	///vemos donde poner las centrales.
 	vector < bool > yaPase(e.pueblos.size()+1,false);
 	queue< int > q;
 	for ( int i = 1; i <= (int) e.pueblos.size(); ++i){
