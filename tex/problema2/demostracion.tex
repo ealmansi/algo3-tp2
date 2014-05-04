@@ -120,6 +120,7 @@ Lo cual es absurdo igual que en el caso anterior porque $\sum_{i \in E} f(i) \le
 
 Ahora veamos que nuestro algoritmo consigue un bosque de k componentes conexas generador mínimo.
 
+\begin{center}
 \begin{pseudo}
 \State Tipo de dato Pueblo es Tupla $\langle$ x : entero, y : entero $\rangle$
 \State Tipo de dato Conexion es Tupla $\langle p_1 : Pueblo, p_2 : Pueblo \rangle$
@@ -142,6 +143,7 @@ Ahora veamos que nuestro algoritmo consigue un bosque de k componentes conexas g
         \State \textbf{return} Centrales,Conexiones \Ode{n}
     \EndProcedure
 \end{pseudo}
+\end{center}
 
 Prim nos genera el árbol generador mínimo, que tambien puede ser considerado un bosque genrador mínimo con una componente conexa. Por el \textbf{Lema 4}, cada vez que quitamos la arista máxima nos queda un bosque generador mínimo con una componente conexa más, al hacerlo k-1 veces nos queda el bosque generador mínimo con k componentes conexas.
 
