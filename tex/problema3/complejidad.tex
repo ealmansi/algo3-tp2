@@ -41,17 +41,16 @@ Sin embargo, cabe aclarar que después realizamos una asignación (ya que la Ent
 				\State break
 			\EndIf
 			
-			\For{cada Casillero c en losAdyacentes(e,c)} \Ode{n}
-				\State u $\leftarrow$ siguienteAdyacente(c) \Ode{1}
-        		\If{!estaEn(u,V)} \Ode{1}
+			\For{cada Casillero u en losAdyacentes(e,c)} \Ode{n}
+			    \If{!estaEn(u,yaPase)} \Ode{1}
 					\State marcoComo(u, yaPase, cantSaltos(c) + 1) \Ode{1}
 					\State encolar(u, q) \Ode{1}
 				\EndIf
       		\EndFor
 		\EndWhile
 
-      	\Comment{Terminamos BFS. Escribimos Salida}
-      	\State escriboSalida(S) \Ode{n}
+      	\Comment{Terminamos BFS y pasamos a escribir la salida. escriboSalida en nuestro codigo no es una funcion aparte, pero para este pseudocodigo lo decidimos dejar así.}
+      	\State escriboSalida(S, yaPase) \Ode{n}
       	\State \textbf{return} S
         
     \EndProcedure
@@ -68,7 +67,7 @@ Al escribir la salida, escribimos la cantidad de saltos, y cuáles fueron dichos
 Finalmente, \textbf{Imprimir(S)} es la función encargada de imprimir el resultado por pantalla. Vamos a utilizar un pseudocodigo para probar su complejidad.
 
 \begin{pseudo}
-    \Procedure{imprimoSalida}{$Salida s$}
+    \Procedure{Imprimir}{$Salida s$}
         \State imprimir(s.saltos) \Ode{1}
 
 		\For{cada Casillero c en s.caminoMinimo} \Ode{1}
