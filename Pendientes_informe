@@ -11,7 +11,7 @@ Problema 2:
 	-Descripcion (faltan Ejemplos y observaciones)
 	-Desarrollo (TERMINADO, REVISAR)
 	-Demo complejidad
-	-Demo correctitud(Falta demostrar que nuestro algo hace un bosque generador minimo con k comp conexas)
+	-Demo correctitud(Casi terminada, falta ver si es necesario demostrar q nuestro prim es prim y como escribir el pseudo del BFS)
 	-Experimentacion(graficos, tests)
 	-Conclusion
 
