@@ -6,12 +6,12 @@ Para eso primero vamos a demostrar los siguiente lemas:
 
 \textbf{Lema 2:} G grafo es solucion $\Leftrightarrow \#$ (componentes conexas (G)) $\leq$ k. Osea,  G(V,E) grafo y C un conjunto de k vertices $\in $ V q.v.q. $(\forall v \in V)(\exists c \in C)$ v esta conecado a c $\Leftrightarrow \#$ (componentes conexas (G)) $\leq$ k
 
-\textbf{Lema 3:} Dada una solucions con C componentes conexas (C $<$ k), existe una solucion mejor o igual con C+1 componentes conexas. \\ \\ 
+\textbf{Lema 3:} Dada una solucion con C componentes conexas (C $<$ k), existe una solucion mejor o igual con C+1 componentes conexas. \\ \\ 
 
 
-\textbf{Lema 1:} Un bosque de k componentes conexas generador mínimo tambien minimiza la máxima arista. Equivalentemente, sea B un bosque de k componentes conexas generador mínimo $(\nexists$ G subgrafo generador con k componentes conexas) MaxArista(G) $<$ MaxArista(B).
+\textbf{Lema 1:} Un bosque de k componentes conexas generador mínimo tambien minimiza la máxima arista. Equivalentemente, sea B un bosque de k componentes conexas generador mínimo: $(\nexists$ G subgrafo generador con k componentes conexas) $MaxArista(G) < MaxArista(B)$.
 
-Por el absurdo, sea B(V,E) un bosque de k componentes conexas generador mínimo supongo que existe un G(N,A) subgrafo generador con k componentes conexastal que MaxArista(G) < MaxArista(B).
+Vamos a demostrar este lema por el absurdo, sea B(V,E) un bosque de k componentes conexas generador mínimo supongo que existe un G(N,A) subgrafo generador con k componentes conexas tal que $MaxArista(G) < MaxArista(B)$.
 
 Sea e la MaxArista(B), sabemos que toda arista en en G va a ser menor que e.
 
@@ -32,7 +32,7 @@ Tambien sabemos que $\sum_{i \in E} f(i) \leq \sum_{i \in E-e+e'} f(i)$ ya que B
 Entonces: $\sum_{i \in E} f(i) > \sum_{i \in E-e+e'} f(i) \wedge \sum_{i \in E} f(i) \leq \sum_{i \in E-e+e'} f(i)$
 Lo cual es absurdo.
 
-El otro caso es que G tenga aunque sea dos componentes conexas diferentes:
+El otro caso es que G y B tengan aunque sea dos componentes conexas diferentes:
 
 Si las componentes conexas de G son diferentes a las de B, entonces existe en G una arista e' tal que cada extremo de la arista pertenece a componentes conexas diferentes de B (Sino terndría las mismas componentes conexas).
 
@@ -51,11 +51,11 @@ Entonces: $\sum_{i \in E} f(i) > \sum_{i \in E-e+e'} f(i) \wedge \sum_{i \in E} 
 
 \textbf{Lema 2:} G(V,E) grafo y C un conjunto de k vertices $\in $ V q.v.q. $(\forall v \in V)(\exists c \in C)$ v esta conecado a c $\Leftrightarrow \#$ (componentes conexas (G)) $\leq$ k
 
-Sea k' la cantidad de $\#$ (componentes conexas (G)).
+Sea k' la cantidad de componentes conexas de G.
 
 Primero probemos $\Leftarrow$
 
-Tomo $c_i \in S_i$ con $c_i$ el i-esimo vertice de C y $S_i$ la i-esima componente conexa de S para $1 \leq i \leq k'$ puedo elegir k' elemento porque C tiene k elementos y k' $\leq$ k.
+Tomo $c_i \in S_i$ con $c_i$ el i-esimo vertice de C y $S_i$ la i-esima componente conexa de G para $1 \leq i \leq k'$ puedo elegir k' elementos porque C tiene k elementos y k' $\leq$ k.
 
 Ahora tomo cualquier v $\in$ V, sea $S_j$ la componente conexa de G a la que v pertenece. Existe un camino entre v y $c_j$ ya que ambos pertenecen a la misma componente conexa.
 
@@ -74,13 +74,18 @@ Cuando terminamos de asignar los k $c_i$ tendremos a lo sumo (ya que dos c difer
 \textbf{Lema 3:} Dada una solucions con C componentes conexas (C $<$ k), existe una solucion mejor o igual con C+1 componentes conexas.
 
 Tomo una solución G(V,E) con C componentes conexas (C $<$ k), Sea e $\in$ E y G'(V,E-e).
-Primero veamos que G' es solucion, como G tenia C componentes conexas, G' tiene a lo sumo C+1. Como C $<$ k $\Rightarrow$ C+1 $\leq$ k. Por el \textbf{Lema 2} G' es solución. 
+
+Primero veamos que G' es solucion. Como G tenia C componentes conexas, G' tiene a lo sumo C+1. Como C $<$ k $\Rightarrow$ C+1 $\leq$ k. Por el \textbf{Lema 2} G' es solución.
+
 Ahora quiero ver que es mejor o igual que G.
-G' es mejor o igual que G $\Leftrightarrow$ MaxArista(G') $\leq$ MaxArista(G).
+
+Recordemos que, G' es mejor o igual que G $\Leftrightarrow$ MaxArista(G') $\leq$ MaxArista(G).
+
 Como las aristas de G' estan incluidas en las de G, no puede existir una arista de G' que sea mayor a la máxima arista de G.
+
 Entonces probamos G' es mejor o igual que G. \\ \\
 
-Ahora utilizando los 2 y 3 lemas, se llega a que siempre existe una solución optima con k componentes conexas.
+Ahora utilizando los lemas 2 y 3, se llega a que siempre existe una solución optima con k componentes conexas.
 Ya que por 2 si tiene menos que k no puede ser solución, y por 3 si tiene mas que k siempre se puede encontrar una mejor o igual con k.
 
 Ahora usando el lema uno sabemos que entre todas las soluciones posibles con k componentes conexas, el bosque generador mínimo es óptimo.
