@@ -1,5 +1,7 @@
 Primero vamos a demostrar que un bosque generador mínimo con k componentes conexas resuelve el problema. Osea que todos los pueblos estan conectados y su máxima arista es la mínima entre todas las soluciones posibles.
 
+Cabe aclarar que como estamos el peso de una arista es la distancia entre sus dos extremos, los pesos de las arista nunca van a ser negativos.
+
 Para eso primero vamos a demostrar los siguiente lemas:
 
 \textbf{Lema 1:} Un bosque de k componentes conexas generador mínimo tambien minimiza la máxima arista.
@@ -91,3 +93,54 @@ Ya que por 2 si tiene menos que k no puede ser solución, y por 3 si tiene mas q
 Ahora usando el lema uno sabemos que entre todas las soluciones posibles con k componentes conexas, el bosque generador mínimo es óptimo.
 
 Por lo cual concluimos que el bosque generador mínimo con k componentes conexas es una solución óptima para nuestro problema.
+
+Ahora demostraremos que nuestro algoritmo realmente calcula un bosque de k componentes conexas generador mínimo.
+
+\textbf{Lema 4:} Dado B(V,E) un boque generador mínimo con k componentes conexas y e su arista máxima, B'(V,E-e) es un bosque generador mínimo con k+1 componentes conexas.
+
+Primero veamos que B'(V,E-e) es un boque generador con k+1 componentes conexas. Es un subgrafo generador ya que sus vertices son V, los mismos que los de B que era un subgrafo generador. Y es un bosque con k+1 componentes conexas ya que las k-1 componentes conexas de B a las que e no pertenecia se mantienen igual, y a la que pertenecia e (que era tambien un árbol), se divide en dos componentes conexas, cada una un árbol. Lo que nos genera un bosque con k+1 componentes conexas.
+
+Ahora veamos que es mínimo, supongo por el absurdo que existe un subgrafo generador con k+1 componentes conexas G(V,E') tal que $\sum_{i \in E'} f(i) < \sum_{i \in E-e} f(i)$.
+
+Si G tiene las mismas componentes conexas que B' entonces G'(V, E'+e) es un subgrafo generador con k componentes conexas, cada extremo de e pertenece a un componente conexa diferente en G.
+
+$\sum_{i \in E'+e} f(i) = \sum_{i \in E'} f(i) + f(e) < \sum_{i \in E-e} f(i) + f(e) = \sum_{i \in E} f(i)$
+
+Lo cual es absurdo ya que $\sum_{i \in E} f(i) \leq \sum_{i \in E'+e} f(i)$ por ser B mínimo.
+
+El otro caso posible es que las componentes conexas de G sean diferentes de las de B', entonces existe un a $\in$ E-e tal que cada extremo de a pertence a componentes conexas distintas de G(sino tendía las mismas componentes conexas que B').
+
+Sea G'(V,E'+ a) por la misma razon que el caso anterior, G' es un subgrafo generador con k componentes conexas.
+
+$\sum_{i \in E'+a} f(i) = \sum_{i \in E'} f(i) + f(a) < \sum_{i \in E-e} f(i) + f(a) \leq \sum_{i \in E} f(i)$ ya que f(a) $\leq$ f(e) por ser e la máxima arista en E.
+
+Lo cual es absurdo igual que en el caso anterior porque $\sum_{i \in E} f(i) \leq \sum_{i \in E'+e} f(i)$ por ser B mínimo.
+
+Ahora veamos que nuestro algoritmo consigue un bosque de k componentes conexas generador mínimo.
+
+\begin{pseudo}
+\State Tipo de dato Pueblo es Tupla $\langle$ x : entero, y : entero $\rangle$
+\State Tipo de dato Conexion es Tupla $\langle p_1 : Pueblo, p_2 : Pueblo \rangle$
+    \Procedure{La centralita}{$\langle Pueblo_1 , \ldots , Pueblo_n \rangle , k$}
+        \State $Pueblos \leftarrow$ nuevo conjunto de Pueblo \Ode{1}
+        \State Cargo\_Pueblos(Pueblos) \Ode{n}
+        \State $Conexiones \leftarrow$ nuevo conjunto de Conexion \Ode{1}
+        \State Conexiones = Prim(Pueblos) \Ode{n^2}
+        \State Sort(Conexiones) \Ode{n*log(n)}
+        \For 1 to min(k,n)-1 \Ode{min(k,n)}
+	  \State Eliminar máximo Conexiones \Ode{1}
+	\EndFor
+        \State Centrales $\leftarrow$ nuevo conjunto de Pueblo \Ode{1}
+        %TODO mejorar esta parte
+        \While no viste p $\in$ Pueblos
+        \State agregar p a Centrales
+        \State BFS(p,Pueblos)
+        \EndWhile
+        %\Comment Este sort se hace de menor a mayor según el coeficiente anteriormente dicho
+        \State \textbf{return} Centrales,Conexiones \Ode{n}
+    \EndProcedure
+\end{pseudo}
+
+Prim nos genera el árbol generador mínimo, que tambien puede ser considerado un bosque genrador mínimo con una componente conexa. Por el \textbf{Lema 4}, cada vez que quitamos la arista máxima nos queda un bosque generador mínimo con una componente conexa más, al hacerlo k-1 veces nos queda el bosque generador mínimo con k componentes conexas.
+
+Ahora solo nos queda lograr distinguir esas k componentes conexas para construir una central en algun vértice de cada una de las componentes conexas. Por esto, mientras no hayamos encontrado todas las componentes conexas, incluimos un nodo todavia no alcnazado a la lista de centrales y utilizamos BFS desde ese nodo, ya que encuentra todos los nodos en una componente conexa.
