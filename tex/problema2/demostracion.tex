@@ -100,7 +100,9 @@ Ahora demostraremos que nuestro algoritmo realmente calcula un bosque de k compo
 
 Primero veamos que B'(V,E-e) es un boque generador con k+1 componentes conexas. Es un subgrafo generador ya que sus vertices son V, los mismos que los de B que era un subgrafo generador. Y es un bosque con k+1 componentes conexas ya que las k-1 componentes conexas de B a las que e no pertenecia se mantienen igual, y a la que pertenecia e (que era tambien un árbol), se divide en dos componentes conexas, cada una un árbol. Lo que nos genera un bosque con k+1 componentes conexas.
 
-Ahora veamos que es mínimo, supongo por el absurdo que existe un subgrafo generador con k+1 componentes conexas G(V,E') tal que $\sum_{i \in E'} f(i) < \sum_{i \in E-e} f(i)$.
+Ahora veamos que es mínimo, vamos a demostrarlo por el absurdo.
+
+Supongamos que existe un subgrafo generador con k+1 componentes conexas G(V,E') tal que $\sum_{i \in E'} f(i) < \sum_{i \in E-e} f(i)$.
 
 Si G tiene las mismas componentes conexas que B' entonces G'(V, E'+e) es un subgrafo generador con k componentes conexas, cada extremo de e pertenece a un componente conexa diferente en G.
 
@@ -127,12 +129,12 @@ Ahora veamos que nuestro algoritmo consigue un bosque de k componentes conexas g
         \State $Conexiones \leftarrow$ nuevo conjunto de Conexion \Ode{1}
         \State Conexiones = Prim(Pueblos) \Ode{n^2}
         \State Sort(Conexiones) \Ode{n*log(n)}
-        \For 1 to min(k,n)-1 \Ode{min(k,n)}
+        \For {1 to min(k,n)-1} \Ode{min(k,n)}
 	  \State Eliminar máximo Conexiones \Ode{1}
 	\EndFor
         \State Centrales $\leftarrow$ nuevo conjunto de Pueblo \Ode{1}
         %TODO mejorar esta parte
-        \While no viste p $\in$ Pueblos
+        \While {no viste p $\in$ Pueblos}
         \State agregar p a Centrales
         \State BFS(p,Pueblos)
         \EndWhile
