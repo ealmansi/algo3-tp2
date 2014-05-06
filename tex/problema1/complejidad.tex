@@ -24,33 +24,8 @@ $O(n^3)$
 
 Entonces podemos decir que la complejidad de nuestro algoritmo es $O(n^3)$, pero primero tenemos que demostrar que los algoritmos $escribirSalida$ y $buscarMinimo$ realmente tienen una complejidad lineal.
 
-El algoritmo de $buscarMinimo$ es el siguiente:
 
-\begin{center}
- \begin{figure}[H]
-  \begin{pseudo}
-   \Procedure{buscarMinimo}{opt,i,j,iSiguiente,jSiguiente,minCantPuntos}
-    \State $k \leftarrow 1$\Ode{1}
-    \While{$k \leq j-i$} \hfill $(j-i)*O(1)$
-      \If{$opt[i+k][j].cantPuntos < minCantPuntos$ }\Ode{1}
-	\State $iSiguiente \leftarrow i+k$\Ode{1}
-	\State $jSiguiente \leftarrow j$\Ode{1}
-	\State $minCantPuntos \leftarrow opt[i+k][j].cantPuntos$\Ode{1}
-      \EndIf
-      \If{$opt[i][j-k].cantPuntos < mincantPuntos$}\Ode{1}
-	\State $iSiguiente \leftarrow i$\Ode{1}
-	\State $jSiguiente \leftarrow j-k$\Ode{1}
-	\State $mincantPuntos \leftarrow opt[i][j-k].cantPuntos$\Ode{1}
-      \EndIf
-    \EndWhile
-   \EndProcedure
-  \end{pseudo}
-
- \end{figure}
-
-\end{center}
-
-La complejidad del algoritmo es:
+La complejidad del algoritmo BuscarMínimo es:
 
 $O(1) + (j-i)*(8*O(1))$
 
