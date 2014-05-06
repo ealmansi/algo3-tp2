@@ -1,6 +1,8 @@
 SRC_DIR						= src
 OBJ_DIR 					= obj
 BIN_DIR						= bin
+CSV_DIR						= csv
+EPS_DIR						= eps
 
 MAKE	 = Makefile
 
@@ -38,14 +40,22 @@ $(OBJ_MEDIR): $(SRC_MEDIR) $(SRC_RESOLVER) $(HDR) $(MAKE)
 $(OBJ_RESOLVER): $(SRC_RESOLVER) $(HDR) $(MAKE)
 	$(CXX) -c $(CXXFLAGS) -o $@ $<
 
-.PHONY: crear_carpetas clean clean_ejecutables
+.PHONY: crear_carpetas clean clean_ejecutables clean_csv clean_eps
 
 crear_carpetas:
 	@mkdir -p $(OBJ_DIR)
 	@mkdir -p $(BIN_DIR)
+	@mkdir -p $(CSV_DIR)
+	@mkdir -p $(EPS_DIR)
 
 clean:
 	rm -rf $(OBJ_DIR)
 
-clean_ejecutables:
+clean_bin:
 	rm -rf $(BIN_DIR)
+
+clean_csv:
+	rm -rf $(CSV_DIR)
+
+clean_eps:
+	rm -rf $(EPS_DIR)
