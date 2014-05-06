@@ -10,9 +10,8 @@ Pensamos la función según el siguiente enfoque: Al finalizar el juego, la suma
 
 Lo que pensamos es que maximizar la sumatoria de puntos que robemos nosotros es lo mismo que minimizar la suma de puntos robada por el jugador contrario \footnote{Esto esta demostrado en la sección de ``Demostración de correctitud''}. Además sabemos que el otro jugador también jugara de forma óptima, por lo que en su turno pensará de la misma forma que nosotros. Por eso llegamos a la conclusión de que la función recursiva para resolver este problema es la siguiente:
 
-$opt(0,0) = 0$ \\
-$oppt(i,i) = c_i$ \\
-$opt(i,j) = \sum cartas - min(opt(i+1, j), ..., opt(j,j), opt(i, j-1), ... ,opt(i,i), opt(0,0))$
+$opt(i,i) = c_i$ \\
+$opt(i,j) = \sum cartas - min(opt(i+1, j), ..., opt(j,j), opt(i, j-1), ... ,opt(i,i), 0)$
 
 Vale aclarar que por cómo pensamos la función, siempre pasa que $i \leq j$ ya que, como dijimos antes, tomamos a $i$ como el valor de la primer carta disponible desde la izquierda y $j$ como el primer valor disponible desde la derecha.
 
@@ -58,15 +57,15 @@ $opt= \left(
 
 El procedimiento para llenar una casilla es el siguiente:
 
-Al estar en la casilla $opt[i][j]$ se ven todos los valores de $cantPuntos$ de las casillas correspondientes de la matriz, desde $opt[i+1][j]$ hasta $opt[j][j]$ y desde $opt[i][j-1]$ hasta $opt[i][i]$ (como lo muestra la figura más arriba) y se queda con el se menor puntuación (ya que ese valor indica el puntaje que hará el jugador contrincante si se realiza una jugada que lleve a esa casilla), a partir de ahora llamemos a la casilla elegida $opt[i'][j']$. Una vez hecho esto se fija si es mejor realizar la jugada que lleve a $opt[i'][j']$ o robar todas las cartas y terminar el juego en ese turno. 
+Al estar en la casilla $opt[i][j]$ se ven todos los valores de $cantPuntos$ de las casillas correspondientes de la matriz, desde $opt[i+1][j]$ hasta $opt[j][j]$ y desde $opt[i][j-1]$ hasta $opt[i][i]$ (como lo muestra la figura más arriba) y se queda con el de menor puntuación (ya que ese valor indica el puntaje que hará el jugador contrincante si se realiza una jugada que lleve a esa casilla), a partir de ahora llamemos a la casilla elegida $opt[i'][j']$. Una vez hecho esto se fija si es mejor realizar la jugada que lleve a $opt[i'][j']$ o robar todas las cartas y terminar el juego en ese turno. 
 
 Si es mejor no terminar el juego e ir a $opt[i'][j']$,  en la casilla a rellenar se ponen los valores $i'$ y $j'$ como $opt[i][j].iSiguiente$ y $opt[i][j].jSiguiente$ respectivamente. Y el otro valor es el siguiente:
 
-$opt[i][j].cantPuntos = \sum_{k=i}^{k=j} c_k - opt[i'][j']$
+$opt[i][j].cantPuntos = \sum_{k=i}^{j} c_k - opt[i'][j']$
 
 Y si es mejor terminar el juego en ese turno se pone -1 como valores $iSiguiente$ y $jSiguiente$, y el valor $cantPuntos$ es la sumatoria de todas las cartas que quedan.
 
-Nuestro algoritmo va llenando la matriz con los valores correspondientes, lo hace por columnas, de izquierda a derecha y de abajo hacia arriba. De esta forma una vez que hay que completar una casilla ya se cuenta con todos los valores necesarios para hacerlo. Ya que a la hora de completar una casilla, ya están completas todas las casillas de la izquierda y las de abajo. 
+Nuestro algoritmo va llenando la matriz con los valores correspondientes, lo hace por orden creciente de columnas,  y cada columna la recorre en forma decreciente. De esta forma una vez que hay que completar una casilla ya se cuenta con todos los valores necesarios para hacerlo. Ya que a la hora de completar una casilla, ya están completas todas las casillas de la izquierda y las de abajo. 
 
 Una vez completa la matriz, sólo debemos consultar la casilla $opt[0][n-1]$ que es la que nos dice la mayor puntuación posible cuando todavía no se inició el juego, con todas las cartas aún disponibles. Y para realizar el seguimiento de todos los turnos que se jugarán en el juego se revisan periódicamente los valores $iSiguiente$ y $jSiguiente$ por donde nos lleven, hasta estos valores sean iguales a -1. En ese caso sabremos que ese fue el último turno y el jugador robó todas las cartas disponibles.
 
@@ -78,30 +77,45 @@ A continuación incluiremos un pseudocódigo del algoritmo que utilizamos para r
         \Procedure{Robanumeros}{$n, \langle c_0, \ldots, c_n-1 \rangle$}
             \State $vector\langle int \rangle sumasParciales \leftarrow computar\_sumasParciales(c_1, \ldots, c_n)$ \Ode{n}
             \State $matriz\langle subproblema \rangle opt(n)$ \Ode{1}
-            \State $j \leftarrow 0$ \Ode{1}
-            \While{$j < n$} \hfill $n*O(1)$
+            \For{$j = 0$ to $n-1$} \hfill $n*O(1)$
                 \State $opt[j][j] \leftarrow c_j$\Ode{1}
-                \State $i \leftarrow j-1$\Ode{1}
-                \While{$i \geq 0$} \hfill $j*O(1)$
-                    \State $iSiguiente$,$jSiguiente$, $minCantPuntos \leftarrow INT\_MAX$ \Ode{1}
+                \For{$i = j-1 to 0$} \hfill $j*O(1)$
+                    \State $iSiguiente$,$jSiguiente$, $ \leftarrow -1$ \Ode{1}
+                    \State minCantPuntos $\leftarrow -1$ \Ode{1}
 		    \State $buscarMinimo(opt,i,j,iSiguiente,jSiguiente,minCantPuntos)$ \Ode{n}
-		    \State $sumaRango \leftarrow sumasParciales[j]$ \Ode{1}
-		    \If{$i != 0$} \Ode{1}
-			\State $sumaRango \leftarrow sumaRango - sumasParciales[i-1]$ \Ode{1}
-		    \EndIf
-		    \If{$0 \leq minCantPuntos$} \Ode{1}
-			\State $opt[i][j] \leftarrow Subproblema(-1,-1,sumaRango)$ \Ode{1}
-		    \Else
-			\State $opt[i][j] \leftarrow Subproblema(iSiguiente,jSiguiente, sumaRango - minCantPuntos)$ \Ode{1}
-		    \EndIf
-		    \State $i \leftarrow i-1$\Ode{1}
-		 \EndWhile
-		 \State $j \leftarrow j+1$\Ode{1}
-            \EndWhile
+		    \State $sumaRango \leftarrow sumaEntre[i,j]$ \Ode{1}
+		    \State $opt[i][j] \leftarrow Subproblema(iSiguiente,jSiguiente, sumaRango - minCantPuntos)$ \Ode{1}
+		 \EndFor
+            \EndFor
             \State $escribirSalida(opt)$ \Ode{n}
         \EndProcedure
     \end{pseudo}
     \caption{Robanúmeros. Pseudocódigo.}
     \label{problema1-pseudo}
 \end{figure}
+\end{center}
+
+El algoritmo de $buscarMinimo$ es el siguiente:
+
+\begin{center}
+ \begin{figure}[H]
+  \begin{pseudo}
+   \Procedure{buscarMinimo}{opt,i,j,iSiguiente,jSiguiente,minCantPuntos}
+    \For{$k = 1 $ to $ j-i$} \hfill $(j-i)*O(1)$
+      \If{$opt[i+k][j].cantPuntos < minCantPuntos$ }\Ode{1}
+	\State $iSiguiente \leftarrow i+k$\Ode{1}
+	\State $jSiguiente \leftarrow j$\Ode{1}
+	\State $minCantPuntos \leftarrow opt[i+k][j].cantPuntos$\Ode{1}
+      \EndIf
+      \If{$opt[i][j-k].cantPuntos < mincantPuntos$}\Ode{1}
+	\State $iSiguiente \leftarrow i$\Ode{1}
+	\State $jSiguiente \leftarrow j-k$\Ode{1}
+	\State $mincantPuntos \leftarrow opt[i][j-k].cantPuntos$\Ode{1}
+      \EndIf
+    \EndFor
+   \EndProcedure
+  \end{pseudo}
+
+ \end{figure}
+
 \end{center}
