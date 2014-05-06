@@ -33,26 +33,14 @@ La forma óptima de jugar para el jugador que empieza es robar todas las cartas 
 
 Otro ejemplo es si todas las cartas son positivas. En ese caso el jugador uno debe robar todas las cartas para obtener la mayor diferencia posible.
 
-Un caso interesante es el que denominamos ''Montaña``. En Este caso se tiene una cantidad impar de cartas, la carta del medio tiene un valor muy alto y hacia ambos lados hay igual cantidad de cartas, todas ellas de valor bajo (podría ser menor a cero), pero similar. Un ejemplo de ''Montaña`` sería el siguiente:
+Un caso interesante el siguiente, sería tener en el medio una carta de valor muy bajo (menor a cero) y a ambos lados cartas de valor parecido. Podría ser:
 
 \begin{center}
 \begin{tabular}{|c|c|c|c|c|c|c|}
 \hline
-1 &1 & 1 & 1000 & 1 & 1 & 1 \\
+1 & 1 & -100 & 1 & 1 \\
 \hline
 \end{tabular}
 \end{center}
 
-En este caso siempre resultará vencedor el jugador uno ya que al jugar ambos jugadores de forma óptima, siempre el que juegue primero será el que, por una cuestión de orden, logre robar la carta del medio.
-
-Y el caso contrario a ''Montaña``, sería tener en el medio una carta de valor muy bajo (menor a cero) y a ambos lados cartas de valor parecido. Podría ser:
-
-\begin{center}
-\begin{tabular}{|c|c|c|c|c|c|c|}
-\hline
-10 & 10 & 999 & 10 & 10 \\
-\hline
-\end{tabular}
-\end{center}
-
-En este caso por la misma rezón que en el caso ''Montaña`` el vencedor sería el que juegue en segundo lugar.
+En este caso el que robe la carta del medio va a perder ya que tiene un valor muy bajo. Y si ambos juegan óptimo el que deba robar esa carta será el jugador 1. Ya que ambos jugadores irán robando de a una carta y el jugador uno va a terminar teinendo que robar la carta con valor negativo.
