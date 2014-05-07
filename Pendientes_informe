@@ -3,14 +3,14 @@ Problema 1:
 	-Desarrollo(TERMMINADO, REVISAR)
 	-Demo complejidad(TERMINADO, REVISAR)
 	-Demo correctitud(TERMINADO REVISAR)
-	-Experimentacion(graficos, tests)
-	-Conclusion
+	-Experimentacion(TERMINADO REVISAR)
+	-Conclusion(TERMINADO REVISAR)
 
 Problema 2:
 	-Codigo (terminado falta revisar y testear (hice un solo test pero funciono))
 	-Descripcion (faltan Ejemplos y observaciones)
 	-Desarrollo (TERMINADO, REVISAR)
-	-Demo complejidad
+	-Demo complejidad(Empezada)
 	-Demo correctitud(Casi terminada, falta ver si es necesario demostrar q nuestro prim es prim y como escribir el pseudo del BFS)
 	-Experimentacion(graficos, tests)
 	-Conclusion
