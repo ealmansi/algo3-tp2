@@ -6,37 +6,41 @@
 
 namespace Problema3
 {
-	struct Casillero
-	{
-	  int f;
-	  int c;
-	  int k;
-	  Casillero() {}
-	  Casillero(int f, int c, int k)
-	    : f(f), c(c), k(k) {}
-	};
+  struct Casillero
+  {
+    Casillero() {}
+    Casillero(int f, int c, int k)
+      : f(f), c(c), k(k) {}
+    bool operator==(const Casillero& otro)
+    	{ return f == otro.f && c == otro.c && k == otro.k; }
+    bool operator!=(const Casillero& otro)
+    	{ return f != otro.f || c != otro.c || k != otro.k; }
+    
+    int f;
+    int c;
+    int k;
+  };
 
-	struct Entrada
-	{
-	  int n;
-	  Casillero origen;
-	  Casillero destino;
-	  int k_max;
-	  std::vector< std::vector < int > > tablero;
-	};
+  struct Entrada
+  {
+    int n;
+    Casillero origen;
+    Casillero destino;
+    int k;
+    std::vector< std::vector < int > > tablero;
+  };
 
-	struct Salida
-	{
-	  int saltos;
-	  std::list< Casillero > caminoMinimo;
-	};
+  struct Salida
+  {
+    int saltos;
+    std::list< Casillero > caminoMinimo;
+  };
 
-	Entrada leerEntrada();
+  Entrada leerEntrada();
 
-	Salida resolver(Entrada &e);
+  Salida resolver(Entrada &e);
 
-	void imprimoSalida(Salida &s);
-	std::list< Casillero > losAdyacentes(const Entrada &e, const Casillero &c);
+  void imprimoSalida(Salida &s);
 }
 
 #endif /* PROBLEMA_3_H */
