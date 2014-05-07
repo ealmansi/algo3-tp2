@@ -1,4 +1,4 @@
-Modelamos este problema de la sigueinte manera:
+Modelamos este problema de la siguiente manera:
 
 $\bullet$ Un pueblo es un par ordenado (x,y).
 
@@ -8,14 +8,28 @@ $\bullet$ El peso de la arista entre los pueblos $p_1$ y $p_2$ es igual a la dis
 
 $\bullet$ Un pueblo esta provisto de gas si existe un camino entre éste y un pueblo con central distribuidora.
 
-$\bullet$ Tenemos k centrales de gas, las cuales van a ser colocadas en algún pueblo. Queremos minimizar los pesos de las aristas de forma tal que el peso máximo, sea lo mínimo posible %TODO no se como escribir lo del minimo maximo. (Santi) Asi va?
+$\bullet$ Dado V un conjunto de pueblos y k la cantidad de centrales de gas, una solución es un C subconjunto de k pueblos de V y un grafo B(V,E).
 
-Para encontrar esto vamos a buscar un bosque generador mínimo con k componentes conexas. Ahora presentaremos una idea de por qué funciona. Luego vamos a demostrar formalmente que esto resuelve el problema.
+$\bullet$Una solución C, B(V,E) es valida si $(\forall v \in V)(\exists c \in C) \exists$ un camino entre v y c. 
 
-$\bullet$ Un árbol generador mínimo también minimiza el peso máximo entre las aristas.
+$\bullet$ Queremos encontrar el C , B(V,E) tal que sea una solución valida y entre todas las soluciones validas tenga la mínima máxima arista.
 
-$\bullet$ Teniendo k centrales, puedo tener a lo sumo k componentes conexas, sino sera imposible proveer de gas a todos los pueblos.
+Para encontrar esto vamos a buscar B(V,E) un bosque generador mínimo con k componentes conexas de G el grafo completo generado por los vértices de V y C tenga un pueblo de cada una de las componentes conexas de G.
 
-$\bullet$ Dada una solución con C componentes conexas (siendo C $<$ k), existe una solución mejor o igual con C+1 componentes conexas.
+Definiendo un bosque generador mínimo con k componentes conexas de G, como un grafo que cumple las siguientes condiciones:
 
-Vamos a suponer que k $\leq$ n, ya que en el caso contrario la solucion es trivial. Cada pueblo tiene una central y no se necesitan construir ninguna tubería.
+$\bullet$Es un subgrafo generador de G. 
+
+$\bullet$Es un bosque de k componentes conexas.
+
+$\bullet$ Entre todos los subgrafos generador de G de k componentes conexas tiene la mínima suma de aristas.
+
+Ahora presentaremos una idea de por qué funciona. Luego vamos a demostrar formalmente que esto resuelve el problema. 
+
+$\bullet$ Un bosque de k componentes conexas generador mínimo también minimiza la máxima arista.
+
+$\bullet$ Dada una solución C, B(V,E), es valida $\Longleftrightarrow$ $(\forall D componente conexa de B)(\exists v \in D) v \in C$.  
+
+$\bullet$ Dada una solución con i componentes conexas (siendo i $<$ k), existe una solución mejor o igual con i+1 componentes conexas.
+
+Vamos a suponer que k $\leq$ n, ya que en el caso contrario la solución es trivial. Cada pueblo tiene una central y no se necesitan construir ninguna tubería.
