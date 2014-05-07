@@ -1,39 +1,47 @@
-Nuestro algoritmo tiene una complejidad de $O(n*log n)$ operaciones. Para eso vamos a analizar el pseudocódigo de a partes.
+Vamos a probar que nuestro algoritmo tiene una complejidad de $O(n^2)$ operaciones. Para eso vamos a analizar el pseudocódigo de a partes.
 
+\begin{center}
 \begin{pseudo}
-\State Tipo de dato Pieza es Tupla $\langle$ id : entero, pérdida : entero, tiempo : entero $\rangle$
-    \Procedure{La joya del Río de la Plata}{$\langle p_1, \ldots, p_n \rangle, L$}
-        \State $V \leftarrow$ nuevo vector de Pieza \Ode{1}
-        \State Cargo\_Piezas(V) \Ode{n}
-        \State Sort(V) \Ode{n*log(n)}
-        
-        \Comment Este sort se hace de menor a mayor según el coeficiente anteriormente dicho
-        \State \textbf{return} V, Calcular\_perdida(V) \Ode{n}
+\State Tipo de dato Pueblo es Tupla $\langle$ x : entero, y : entero $\rangle$
+\State Tipo de dato Conexion es Tupla $\langle p_1 : Pueblo, p_2 : Pueblo \rangle$
+    \Procedure{La centralita (de gas)}{$\langle Pueblo_1 , \ldots , Pueblo_n \rangle , k$}
+        \State $Pueblos \leftarrow$ nuevo conjunto de Pueblo \Ode{1}
+        \State Cargo\_Pueblos(Pueblos) \Ode{n}
+        \State $Conexiones \leftarrow$ nuevo conjunto de Conexion \Ode{1}
+        \State Conexiones = Prim(Pueblos) \Ode{n^2}
+        \State Sort(Conexiones) \Ode{n*log(n)}
+        \For {1 to k-1} \Ode{1}
+	  \State Eliminar máximo Conexiones \Ode{1}
+	\EndFor
+        \State Centrales $\leftarrow$ nuevo lista de Pueblos \Ode{1}
+        \State yaPase $\leftarrow$ vector $<$ bool $>$ de tamaño n + 1 \Ode{n}
+        %TODO mejorar esta parte
+        \For {cada p $\in$ Pueblos} \Ode{1}
+        \If{!leLlegaGas(p)} \Ode{1}
+        \State agregar p a Centrales \Ode{1}
+        \Comment Esto es para poner que les llega gas a los pueblos.
+        \State BFS(p,Pueblos, Conexiones, yaPase) \Ode{$n$}
+        \EndIf
+        \EndFor
+        \State \textbf{return} Centrales,Conexiones \Ode{n}
     \EndProcedure
 \end{pseudo}
+\end{center}
 
-\begin{pseudo}
- \State  \textbf{$V \leftarrow$ nuevo vector de Pieza}
-\end{pseudo}
+Las incializaciones del princpio son (hasta Prim) tienen una complejidad temporal de $O(n)$ debido a que cargamos n pueblos, y cargar cada pueblo tiene una complejidad temporal constate.
 
-Tiene complejidad O(1), ya que es simplemente crear un vector.
+Realizar Prim tiene un costo temporal de $O(n^2)$ ya que lo implementamos sobre listas.
 
-\begin{pseudo}
- \State \textbf{Cargo\_Piezas(V)}
-\end{pseudo}
+Por otro lado, reordenar las conexiones cuesta $O(n*log(n))$ teniendo en cuenta que Prim nos va a dar n-1 conexiones. Conocemos algoritmos de sorting que tengan esa complejidad temporal, como por ejemplo Merge Sort.
 
-Lo que hace la función Cargo\_Piezas, es leer la entrada que nos pasan y agregar las piezas al vector creado anteriormente. Esto tiene complejidad O(n), ya que agregar n elementos a un vector tiene costo O(n).
+Para eliminar las k-1 conexiones más grandes, simplemente las borramos de la lista de conexiones. Como están ordenadas, eliminar una conexión cuesta $O(1)$ por lo que eliminar k-1 conexiones cuesta $O(k)$. Como estamos contemplando casos donde k  $<$ n, también podemos decir que tiene un costo temporal de $O(n)$.
 
-\begin{pseudo}
- \State \textbf{Sort(V)}
-\end{pseudo}
+Luego, realizamos más inicializaciones que tienen un costo temporal de $O(n)$.
 
-Como vimos en la sección del ejercicio 1, la función Sort tiene complejidad $O(n*log(n))$.
+Ahora vamos a pasar a analizar el ciclo for del final. Para cada pueblo preguntamos si le llega gas o no. En el caso en que sí le llegue gas, pasamos al siguiente. En el caso en que no, colocamos una central en dicho pueblo, y recorremos sus vecinos para recordar que a todos ellos les llega gas.
 
-\begin{pseudo}
- \State \textbf{return V, Calcular\_perdida(V)}
-\end{pseudo}
+La guarda del if es true k veces (una por cada componente conexa). Como solo realizamos el BFS si entra a la guarda, podemos afirmar que la complejidad temporal del ciclo for es de $O(n*k)$. Recordando que k $<$ n, podemos decir que tiene una complejidad temporal de $O(n^2)$.
 
-Devolver el vector es O(1), y calcular la pérdida es O(n), ya que hay que recorrer todas las piezas. Para cada calcular la pérdida de cada pieza, tenemos que tener en cuenta el tiempo que pasó hasta ese momento sumar el tiempo que tarda en hacer la pieza (una suma), calcular la pérdida y sumarlo a la pérdida hasta ese momento (multiplicación y suma). Estas operaciones son $O(1)$ ya que trabajamos con enteros.
+Finalmente, devolvemos las centrales y las conexiones que cuesta $O(1)$.
 
-Luego, por álgebra de ordenes $O(1) + O(n) + O(n*log(n)) + O(1) + O(n) = O(n*log(n))$, como queríamos demostrar.
+Por álgebra de órdenes, la complejidad total de nuestro algoritmo es: $O(1)$ + $O(n)$ + $O(n^2)$ + $O(n*log(n))$ = $O(n^2)$. Omitimos las constantes que multiplican a los órdenes, ya que no cambia la complejidad temporal asintótica y las consideramos despreciables.
