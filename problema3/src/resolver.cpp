@@ -1,10 +1,12 @@
 #include "problema3.h"
 #include "utils.h"
 
-#include <iostream>
-#include <queue>
-#include <utility>
 #include <climits>
+#include <iostream>
+#include <utility>
+#include <vector>
+#include <queue>
+#include <algorithm>
 
 using namespace std;
 using namespace Problema3;
