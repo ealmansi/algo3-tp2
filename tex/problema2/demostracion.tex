@@ -1,17 +1,19 @@
-Primero vamos a demostrar que un bosque generador mínimo con k componentes conexas resuelve el problema. Osea que todos los pueblos estan conectados y su máxima arista es la mínima entre todas las soluciones posibles.
+Primero vamos a demostrar que un bosque generador mínimo con k componentes conexas resuelve el problema. Osea que todos los pueblos están conectados y su máxima arista es la mínima entre todas las soluciones posibles.
 
 Cabe aclarar que como estamos el peso de una arista es la distancia entre sus dos extremos, los pesos de las arista nunca van a ser negativos.
 
 Para eso primero vamos a demostrar los siguiente lemas:
 
-\textbf{Lema 1:} Un bosque de k componentes conexas generador mínimo tambien minimiza la máxima arista.
+\textbf{Lema 1:} Un bosque de k componentes conexas generador mínimo también minimiza la máxima arista.
 
-\textbf{Lema 2:} G grafo es solucion $\Leftrightarrow \#$ (componentes conexas (G)) $\leq$ k. Osea,  G(V,E) grafo y C un conjunto de k vertices $\in $ V q.v.q. $(\forall v \in V)(\exists c \in C)$ v esta conecado a c $\Leftrightarrow \#$ (componentes conexas (G)) $\leq$ k
+\textbf{Lema 2:}Dada una solución C, B(V,E), es valida $\Longleftrightarrow$ $(\forall D componente conexa de B)(\exists v \in D) v \in C$.  $(\forall v \in V)(\exists c \in C)$ v esta conectado a c $\Leftrightarrow (\forall D componente conexa de B)(\exists v \in D) v \in C$.
 
-\textbf{Lema 3:} Dada una solucion con C componentes conexas (C $<$ k), existe una solucion mejor o igual con C+1 componentes conexas. \\ \\ 
+\textbf{Corolario 2.1:} Dada una solución C, B(V,E) es valida $\Rightarrow$ \# C $\geq$ \# componentes conexas (B).
+
+\textbf{Lema 3:} Dada una solución con C componentes conexas , existe una solución mejor o igual con C+1 componentes conexas (No necesariamente valida). \\ \\ 
 
 
-\textbf{Lema 1:} Un bosque de k componentes conexas generador mínimo tambien minimiza la máxima arista. Equivalentemente, sea B un bosque de k componentes conexas generador mínimo: $(\nexists$ G subgrafo generador con k componentes conexas) $MaxArista(G) < MaxArista(B)$.
+\textbf{Lema 1:} Un bosque de k componentes conexas generador mínimo también minimiza la máxima arista. Equivalentemente, sea B un bosque de k componentes conexas generador mínimo: $(\nexists$ G subgrafo generador con k componentes conexas) $MaxArista(G) < MaxArista(B)$.
 
 Vamos a demostrar este lema por el absurdo, sea B(V,E) un bosque de k componentes conexas generador mínimo supongo que existe un G(N,A) subgrafo generador con k componentes conexas tal que $MaxArista(G) < MaxArista(B)$.
 
@@ -23,72 +25,81 @@ Sea B'(V,E-e), tiene k-1 componentes conexas iguales a las de B, y C,la componen
 
 Como G tiene las mismas componentes conexas que B, C es una componente conexa de G.Por lo cual existe una arista e' con un extremo en C1 y otro en C2.
 
-Sea B''(V,E-e+e') B'' es un subgrafo generador con k componentes conexas ya que al quitar e se generan un subgrafo con k+1 componentes conexas. Y al agregar e', como este  tiene extremos en dos componente conexa diferentes, quedan k componentes conexas. Y como no se modifican los vertices sigue siendo generador.
+Sea B''(V,E-e+e') B'' es un subgrafo generador con k componentes conexas ya que al quitar e se generan un subgrafo con k+1 componentes conexas. Y al agregar e', como este  tiene extremos en dos componente conexa diferentes, quedan k componentes conexas. Y como no se modifican los vértices sigue siendo generador.
 
 Sabemos que $f(e') < f(e) $por e' pertenecer a G $\Rightarrow f(e') - f(e) < 0$
 
 $\sum_{i \in E-e+e'} f(i) = \sum_{i \in E} f(i) - f(e) + f(e') < \sum_{i \in E} f(i)$.
 
-Tambien sabemos que $\sum_{i \in E} f(i) \leq \sum_{i \in E-e+e'} f(i)$ ya que B es un bosque de k componentes conexas generador mínimo.
+También sabemos que $\sum_{i \in E} f(i) \leq \sum_{i \in E-e+e'} f(i)$ ya que B es un bosque de k componentes conexas generador mínimo.
 
 Entonces: $\sum_{i \in E} f(i) > \sum_{i \in E-e+e'} f(i) \wedge \sum_{i \in E} f(i) \leq \sum_{i \in E-e+e'} f(i)$
 Lo cual es absurdo.
 
 El otro caso es que G y B tengan aunque sea dos componentes conexas diferentes:
 
-Si las componentes conexas de G son diferentes a las de B, entonces existe en G una arista e' tal que cada extremo de la arista pertenece a componentes conexas diferentes de B (Sino terndría las mismas componentes conexas).
+Si las componentes conexas de G son diferentes a las de B, entonces existe en G una arista e' tal que cada extremo de la arista pertenece a componentes conexas diferentes de B (Sino tendría las mismas componentes conexas).
 
 Sea B''(V,E-e+e') igual que en el caso anterior B'' es un subgrafo generador con k componentes conexas.
 
 Y de la misma manera que en el caso anterior se llega a un absurdo.
 
-abemos que $f(e') < f(e) $por e' pertenecer a G $\Rightarrow f(e') - f(e) < 0$
+Sabemos que $f(e') < f(e) $por e' pertenecer a G $\Rightarrow f(e') - f(e) < 0$
 
 $\sum_{i \in E-e+e'} f(i) = \sum_{i \in E} f(i) - f(e) + f(e') < \sum_{i \in E} f(i)$.
 
-Tambien sabemos que $\sum_{i \in E} f(i) \leq \sum_{i \in E-e+e'} f(i)$ ya que B es un bosque de k componentes conexas generador mínimo.
+También sabemos que $\sum_{i \in E} f(i) \leq \sum_{i \in E-e+e'} f(i)$ ya que B es un bosque de k componentes conexas generador mínimo.
 
 Entonces: $\sum_{i \in E} f(i) > \sum_{i \in E-e+e'} f(i) \wedge \sum_{i \in E} f(i) \leq \sum_{i \in E-e+e'} f(i)$. \\ \\
 
 
-\textbf{Lema 2:} G(V,E) grafo y C un conjunto de k vertices $\in $ V q.v.q. $(\forall v \in V)(\exists c \in C)$ v esta conecado a c $\Leftrightarrow \#$ (componentes conexas (G)) $\leq$ k
-
-Sea k' la cantidad de componentes conexas de G.
-
-Primero probemos $\Leftarrow$
-
-Tomo $c_i \in S_i$ con $c_i$ el i-esimo vertice de C y $S_i$ la i-esima componente conexa de G para $1 \leq i \leq k'$ puedo elegir k' elementos porque C tiene k elementos y k' $\leq$ k.
-
-Ahora tomo cualquier v $\in$ V, sea $S_j$ la componente conexa de G a la que v pertenece. Existe un camino entre v y $c_j$ ya que ambos pertenecen a la misma componente conexa.
-
-Ahora probemos $\Rightarrow$
-Para esto probaremos el contra reciproco:
-
-$\#$ (componentes conexas (G)) $>$ k  $\Leftrightarrow$ $(\exists v \in V)(! \exists c \in C)$ v esta conecado a c. 
-
-Sea ${v_1,...,v_{k'}}$ un conjuntos de vertices de V tal que $v_i \in S_i$. $(\forall 1 \leq i,j \leq k', i \neq j)$ no existe camino entre $v_i$ y $v_j$, ya que pertenecen a componentes conexas diferentes.
-
-Ahora tomo cada uno de los $c_i \in$ C y los asocio al $v_j$ / exista un camino entre $c_i$ y $v_j$. Veamos que un $c_i$ no puede estar asociado a dos v diferentes. ya que si existe un camino entre $c_i$ y $v_j$ y tambien entre $c_i$ y $v_q$ tambien existira el camino entre $v_j$ y $v_q$ lo cual es absurdo salvo que j = q.
-
-Cuando terminamos de asignar los k $c_i$ tendremos a lo sumo (ya que dos c diferentes si pueden corresponder al mismo v) k $v_i$ con un c asignado. Pero como k $<$ k' tendremos como mínimo un $v_i$ que no esta conectado a ningun c. Demostrando asi el lema. \\ \\
+\textbf{Lema 2:}Dada una solución C, B(V,E) es valida $\Longleftrightarrow$ $(\forall D componente conexa de B)(\exists v \in D) v \in C$.  $(\forall v \in V)(\exists c \in C)$ v esta conectado a c $\Leftrightarrow (\forall D componente conexa de B)(\exists v \in D) v \in C$.
 
 
-\textbf{Lema 3:} Dada una solucions con C componentes conexas (C $<$ k), existe una solucion mejor o igual con C+1 componentes conexas.
+Primero probemos $\Rightarrow$
 
-Tomo una solución G(V,E) con C componentes conexas (C $<$ k), Sea e $\in$ E y G'(V,E-e).
+Tomo D una componente conexa cualquiera de B y v uno de sus vértices.
 
-Primero veamos que G' es solucion. Como G tenia C componentes conexas, G' tiene a lo sumo C+1. Como C $<$ k $\Rightarrow$ C+1 $\leq$ k. Por el \textbf{Lema 2} G' es solución.
+se que existe un c $\in$ C / v esta conectado a c, osea c pertenece a la misma componente conexa que v. c $\in$ C $\wedge$ c $\in$ D.
 
-Ahora quiero ver que es mejor o igual que G.
+Ahora probemos $\Leftarrow$
+
+Tomemos un u cualquiera, u pertenece a la componente conexa D.
+
+Se que existe un v / $v \in C \wedge v \in D$. como v y u pertenecen a la misma componente conexa, entonces existe un camino entre v y u.
+
+\textbf{Corolario 2.1:} Dada una solución C, B(V,E) es valida $\Rightarrow$ \# C $\geq$ \# componentes conexas (B).
+
+Por \textbf{Lema 2} sabemos que el C de una solución valida tiene como mínimo un vértice de cada componente conexa. Como un vértice no puede pertenecer a dos componentes conexas diferentes sabemos que C tiene como mínimo tantos vértices como componentes conexas tenga B.
+
+%Ahora tomo cualquier v $\in$ V, sea $S_j$ la componente conexa de G a la que v pertenece. Existe un camino entre v y $c_j$ ya que ambos pertenecen a la misma componente conexa.
+%
+%Ahora probemos $\Rightarrow$
+%Para esto probaremos el contra reciproco:
+%
+%$\#$ (componentes conexas (G)) $>$ k  $\Leftrightarrow$ $(\exists v \in V)(! \exists c \in C)$ v esta conectado a c. 
+%
+%Sea ${v_1,...,v_{k'}}$ un conjuntos de vértices de V tal que $v_i \in S_i$. $(\forall 1 \leq i,j \leq k', i \neq j)$ no existe camino entre $v_i$ y $v_j$, ya que pertenecen a componentes conexas diferentes.
+%
+%Ahora tomo cada uno de los $c_i \in$ C y los asocio al $v_j$ / exista un camino entre $c_i$ y $v_j$. Veamos que un $c_i$ no puede estar asociado a dos v diferentes. ya que si existe un camino entre $c_i$ y $v_j$ y también entre $c_i$ y $v_q$ también existirá el camino entre $v_j$ y $v_q$ lo cual es absurdo salvo que j = q.
+%
+%Cuando terminamos de asignar los k $c_i$ tendremos a lo sumo (ya que dos c diferentes si pueden corresponder al mismo v) k $v_i$ con un c asignado. Pero como k $<$ k' tendremos como mínimo un $v_i$ que no esta conectado a ningún c. Demostrando así el lema. \\ \\
+
+
+\textbf{Lema 3:} Dada una solución con i componentes conexas , existe una solución mejor o igual con i+1 componentes conexas.
+
+Tomo una solución G(V,E) con i componentes conexas , Sea e $\in$ E y G'(V,E-e).
+
+Quiero ver que es mejor o igual que G.
 
 Recordemos que, G' es mejor o igual que G $\Leftrightarrow$ MaxArista(G') $\leq$ MaxArista(G).
 
-Como las aristas de G' estan incluidas en las de G, no puede existir una arista de G' que sea mayor a la máxima arista de G.
+Como las aristas de G' están incluidas en las de G, no puede existir una arista de G' que sea mayor a la máxima arista de G.
 
 Entonces probamos G' es mejor o igual que G. \\ \\
 
-Ahora utilizando los lemas 2 y 3, se llega a que siempre existe una solución optima con k componentes conexas.
-Ya que por 2 si tiene menos que k no puede ser solución, y por 3 si tiene mas que k siempre se puede encontrar una mejor o igual con k.
+Ahora utilizando los lemas 2 y 3, se llega a que siempre existe una solución óptima con k componentes conexas(con k = \# C).
+Ya que por 3 sabemos que cuanto mayor sea el número de componentes conexas, mejor (o igual) va a ser la solución. Y por dos sabemos que para que la solución sea valida tiene que tener a lo sumo k componentes conexas. Por lo cual la solución valida y mínima va a tener k componentes conexas. 
 
 Ahora usando el lema uno sabemos que entre todas las soluciones posibles con k componentes conexas, el bosque generador mínimo es óptimo.
 
@@ -96,9 +107,9 @@ Por lo cual concluimos que el bosque generador mínimo con k componentes conexas
 
 Ahora demostraremos que nuestro algoritmo realmente calcula un bosque de k componentes conexas generador mínimo.
 
-\textbf{Lema 4:} Dado B(V,E) un boque generador mínimo con k componentes conexas y e su arista máxima, B'(V,E-e) es un bosque generador mínimo con k+1 componentes conexas.
+\textbf{Lema 4:} Dado B(V,E) un bosque generador mínimo con k componentes conexas y e su arista máxima, B'(V,E-e) es un bosque generador mínimo con k+1 componentes conexas.
 
-Primero veamos que B'(V,E-e) es un boque generador con k+1 componentes conexas. Es un subgrafo generador ya que sus vertices son V, los mismos que los de B que era un subgrafo generador. Y es un bosque con k+1 componentes conexas ya que las k-1 componentes conexas de B a las que e no pertenecia se mantienen igual, y a la que pertenecia e (que era tambien un árbol), se divide en dos componentes conexas, cada una un árbol. Lo que nos genera un bosque con k+1 componentes conexas.
+Primero veamos que B'(V,E-e) es un bosque generador con k+1 componentes conexas. Es un subgrafo generador ya que sus vértices son V, los mismos que los de B que era un subgrafo generador. Y es un bosque con k+1 componentes conexas ya que las k-1 componentes conexas de B a las que e no pertenecía se mantienen igual, y a la que pertenecía e (que era también un árbol), se divide en dos componentes conexas, cada una un árbol. Lo que nos genera un bosque con k+1 componentes conexas.
 
 Ahora veamos que es mínimo, vamos a demostrarlo por el absurdo.
 
@@ -110,15 +121,15 @@ $\sum_{i \in E'+e} f(i) = \sum_{i \in E'} f(i) + f(e) < \sum_{i \in E-e} f(i) + 
 
 Lo cual es absurdo ya que $\sum_{i \in E} f(i) \leq \sum_{i \in E'+e} f(i)$ por ser B mínimo.
 
-El otro caso posible es que las componentes conexas de G sean diferentes de las de B', entonces existe un a $\in$ E-e tal que cada extremo de a pertence a componentes conexas distintas de G(sino tendía las mismas componentes conexas que B').
+El otro caso posible es que las componentes conexas de G sean diferentes de las de B', entonces existe un a $\in$ E-e tal que cada extremo de a pertenece a componentes conexas distintas de G(sino tendía las mismas componentes conexas que B').
 
-Sea G'(V,E'+ a) por la misma razon que el caso anterior, G' es un subgrafo generador con k componentes conexas.
+Sea G'(V,E'+ a) por la misma razón que el caso anterior, G' es un subgrafo generador con k componentes conexas.
 
 $\sum_{i \in E'+a} f(i) = \sum_{i \in E'} f(i) + f(a) < \sum_{i \in E-e} f(i) + f(a) \leq \sum_{i \in E} f(i)$ ya que f(a) $\leq$ f(e) por ser e la máxima arista en E.
 
 Lo cual es absurdo igual que en el caso anterior porque $\sum_{i \in E} f(i) \leq \sum_{i \in E'+e} f(i)$ por ser B mínimo.
 
-Ahora veamos que nuestro algoritmo consigue un bosque de k componentes conexas generador mínimo.
+Ahora veamos que nuestro algoritmo consigue un bosque de k componentes conexas generador mínimo y un conjunto de k vértices donde cada vértice pertenece a una componenete conexa distinta del bosque.
 
 \begin{center}
 \begin{pseudo}
@@ -130,7 +141,7 @@ Ahora veamos que nuestro algoritmo consigue un bosque de k componentes conexas g
         \State $Conexiones \leftarrow$ nuevo conjunto de Conexion \Ode{1}
         \State Conexiones = Prim(Pueblos) \Ode{n^2}
         \State Sort(Conexiones) \Ode{n*log(n)}
-        \For {1 to min(k,n)-1} \Ode{min(k,n)}
+        \For {1 to k-1} \Ode{k}
 	  \State Eliminar máximo Conexiones \Ode{1}
 	\EndFor
         \State Centrales $\leftarrow$ nuevo conjunto de Pueblo \Ode{1}
@@ -145,6 +156,6 @@ Ahora veamos que nuestro algoritmo consigue un bosque de k componentes conexas g
 \end{pseudo}
 \end{center}
 
-Prim nos genera el árbol generador mínimo, que tambien puede ser considerado un bosque genrador mínimo con una componente conexa. Por el \textbf{Lema 4}, cada vez que quitamos la arista máxima nos queda un bosque generador mínimo con una componente conexa más, al hacerlo k-1 veces nos queda el bosque generador mínimo con k componentes conexas.
+Prim nos genera el árbol generador mínimo, que también puede ser considerado un bosque generador mínimo con una componente conexa. Por el \textbf{Lema 4}, cada vez que quitamos la arista máxima nos queda un bosque generador mínimo con una componente conexa más, al hacerlo k-1 veces nos queda el bosque generador mínimo con k componentes conexas. 
 
-Ahora solo nos queda lograr distinguir esas k componentes conexas para construir una central en algun vértice de cada una de las componentes conexas. Por esto, mientras no hayamos encontrado todas las componentes conexas, incluimos un nodo todavia no alcnazado a la lista de centrales y utilizamos BFS desde ese nodo, ya que encuentra todos los nodos en una componente conexa.
+Ahora solo nos queda lograr distinguir esas k componentes conexas para construir una central en algún vértice de cada una de las componentes conexas. Por esto, mientras no hayamos encontrado todas las componentes conexas, incluimos un nodo todavía no alcanzado a la lista de centrales y utilizamos BFS desde ese nodo, ya que encuentra todos los nodos en la misma componente conexa que el nodo de inicio.
