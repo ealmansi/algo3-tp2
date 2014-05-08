@@ -1,4 +1,8 @@
-function grafico_complejidad_varios_k(ms_n_5, ms_n_10, ms_n_15, ms_n_20, ms_n_25, fig_title, labels)
+function grafico_complejidad_varios_k(ms_n_5, ms_n_10, ms_n_15, ms_n_20, ms_n_25, fig_title, labels, unidades)
+
+  if ~exist('unidades','var')
+    unidades='ns';
+  end
 
   cc=hsv(5);
   figure;
@@ -10,7 +14,7 @@ function grafico_complejidad_varios_k(ms_n_5, ms_n_10, ms_n_15, ms_n_20, ms_n_25
   plot(ms_n_25(:,1), ms_n_25(:,2), 'color', cc(5,:));
 
   title([fig_title]);
-  ylabel('Tiempo de ejecucion (ns)');
+  ylabel(['Tiempo de ejecucion (' unidades ')']);
   xlabel('Unidades de salto extra (k)');
   legend(labels);
 
