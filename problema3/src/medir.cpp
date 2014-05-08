@@ -68,7 +68,7 @@ vector<Medicion> tomar_mediciones(int n_max, Entrada (*generar_instancia)(int))
       clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &inicio);
       resolver(e);
       clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &fin);
-      mediciones_por_n[n - 1][i] = (fin.tv_sec - inicio.tv_sec) * 1e9 + (fin.tv_nsec - inicio.tv_nsec);
+      mediciones_por_n[n - 1][i] = (fin.tv_sec - inicio.tv_sec) * 1e6 + (fin.tv_nsec - inicio.tv_nsec) * 1e-3;
     }
   }
 
@@ -91,67 +91,77 @@ void escribir_datos(vector<Medicion> &mediciones, string variable, string nombre
   archivo_salida.open(path_archivo_salida.c_str());
   if(!archivo_salida) { cout << "No se pudo abrir el archivo: " << path_archivo_salida << endl; exit(-1); }
 
-  archivo_salida << "\"" << variable << "\"" << "," << "\"tiempo (ns)\"" << endl;
+  archivo_salida << "\"" << variable << "\"" << "," << "\"tiempo (us)\"" << endl;
   for (vector<Medicion>::const_iterator i = mediciones.begin(); i != mediciones.end(); ++i)
     archivo_salida << i->n << "," << i->tiempo << endl;
 
   archivo_salida.close();
 }
 
+void imprimir_modo_de_uso(string path_al_ejecutable)
+{
+  cout << "Modo de uso: " << path_al_ejecutable << " <variable> <valor_max>" << endl;
+  cout << "Ejemplos:" << endl;
+  cout << "\t" << path_al_ejecutable << " n 50" << endl;
+  cout << "\t" << path_al_ejecutable << " k 300" << endl;
+}
+
 int main(int argc, char const *argv[])
 {
-  string variable = (argc > 1) ? string(argv[1]) : "n";
+  if(argc != 3)
+  {
+    imprimir_modo_de_uso(argv[0]);
+    return 0;
+  }
 
+  string variable = string(argv[1]);
+  int valor_max = atoi(argv[2]);
+
+  vector<Medicion> ms;
   if(variable == "n")
   {
-    vector<Medicion> ms;
-    int n_max = (argc > 2) ? atoi(argv[2]) : 200;
+    cout << "n_max " << valor_max << ", k " << 0 << endl;
+    ms = tomar_mediciones(valor_max, generar_instancia_p_1_k_fijo<0>);
+    escribir_datos(ms, variable, "instancia_p_1_k_0.csv");
 
-    cout << "n_max " << n_max << ", k " << 0 << endl;
-    ms = tomar_mediciones(n_max, generar_instancia_p_1_k_fijo<0>);
-    escribir_datos(ms, "n", "instancia_p_1_k_0.csv");
+    cout << "n_max " << valor_max << ", k " << 10 << endl;
+    ms = tomar_mediciones(valor_max, generar_instancia_p_1_k_fijo<10>);
+    escribir_datos(ms, variable, "instancia_p_1_k_10.csv");
 
-    cout << "n_max " << n_max << ", k " << 10 << endl;
-    ms = tomar_mediciones(n_max, generar_instancia_p_1_k_fijo<10>);
-    escribir_datos(ms, "n", "instancia_p_1_k_10.csv");
+    cout << "n_max " << valor_max << ", k " << 20 << endl;
+    ms = tomar_mediciones(valor_max, generar_instancia_p_1_k_fijo<20>);
+    escribir_datos(ms, variable, "instancia_p_1_k_20.csv");
 
-    cout << "n_max " << n_max << ", k " << 20 << endl;
-    ms = tomar_mediciones(n_max, generar_instancia_p_1_k_fijo<20>);
-    escribir_datos(ms, "n", "instancia_p_1_k_20.csv");
+    cout << "n_max " << valor_max << ", k " << 30 << endl;
+    ms = tomar_mediciones(valor_max, generar_instancia_p_1_k_fijo<30>);
+    escribir_datos(ms, variable, "instancia_p_1_k_30.csv");
 
-    cout << "n_max " << n_max << ", k " << 30 << endl;
-    ms = tomar_mediciones(n_max, generar_instancia_p_1_k_fijo<30>);
-    escribir_datos(ms, "n", "instancia_p_1_k_30.csv");
-
-    cout << "n_max " << n_max << ", k " << 40 << endl;
-    ms = tomar_mediciones(n_max, generar_instancia_p_1_k_fijo<40>);
-    escribir_datos(ms, "n", "instancia_p_1_k_40.csv");
+    cout << "n_max " << valor_max << ", k " << 40 << endl;
+    ms = tomar_mediciones(valor_max, generar_instancia_p_1_k_fijo<40>);
+    escribir_datos(ms, variable, "instancia_p_1_k_40.csv");
 
   }
   else if(variable == "k")
   {
-    vector<Medicion> ms;
-    int k_max = (argc > 2) ? atoi(argv[2]) : 50;
+    cout << "k_max " << valor_max << ", n " << 5 << endl;
+    ms = tomar_mediciones(valor_max, generar_instancia_p_1_n_fijo<5>);
+    escribir_datos(ms, variable, "instancia_p_1_n_5.csv");
 
-    cout << "k_max " << k_max << ", n " << 5 << endl;
-    ms = tomar_mediciones(k_max, generar_instancia_p_1_n_fijo<5>);
-    escribir_datos(ms, "k", "instancia_p_1_n_5.csv");
+    cout << "k_max " << valor_max << ", n " << 10 << endl;
+    ms = tomar_mediciones(valor_max, generar_instancia_p_1_n_fijo<10>);
+    escribir_datos(ms, variable, "instancia_p_1_n_10.csv");
 
-    cout << "k_max " << k_max << ", n " << 10 << endl;
-    ms = tomar_mediciones(k_max, generar_instancia_p_1_n_fijo<10>);
-    escribir_datos(ms, "k", "instancia_p_1_n_10.csv");
+    cout << "k_max " << valor_max << ", n " << 15 << endl;
+    ms = tomar_mediciones(valor_max, generar_instancia_p_1_n_fijo<15>);
+    escribir_datos(ms, variable, "instancia_p_1_n_15.csv");
 
-    cout << "k_max " << k_max << ", n " << 15 << endl;
-    ms = tomar_mediciones(k_max, generar_instancia_p_1_n_fijo<15>);
-    escribir_datos(ms, "k", "instancia_p_1_n_15.csv");
+    cout << "k_max " << valor_max << ", n " << 20 << endl;
+    ms = tomar_mediciones(valor_max, generar_instancia_p_1_n_fijo<20>);
+    escribir_datos(ms, variable, "instancia_p_1_n_20.csv");
 
-    cout << "k_max " << k_max << ", n " << 20 << endl;
-    ms = tomar_mediciones(k_max, generar_instancia_p_1_n_fijo<20>);
-    escribir_datos(ms, "k", "instancia_p_1_n_20.csv");
-
-    cout << "k_max " << k_max << ", n " << 25 << endl;
-    ms = tomar_mediciones(k_max, generar_instancia_p_1_n_fijo<25>);
-    escribir_datos(ms, "k", "instancia_p_1_n_25.csv");
+    cout << "k_max " << valor_max << ", n " << 25 << endl;
+    ms = tomar_mediciones(valor_max, generar_instancia_p_1_n_fijo<25>);
+    escribir_datos(ms, variable, "instancia_p_1_n_25.csv");
   }
 
   return 0;

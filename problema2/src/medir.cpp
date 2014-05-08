@@ -12,7 +12,7 @@
 using namespace std;
 using namespace Problema2;
 
-#define CANT_MEDICIONES_POR_N 5
+#define CANT_MEDICIONES_POR_N 11
 
 struct Medicion
 {
