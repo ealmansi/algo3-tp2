@@ -78,9 +78,22 @@ void escribir_datos(vector<Medicion> &mediciones, string nombre_archivo_salida)
   archivo_salida.close();
 }
 
+void imprimir_modo_de_uso(string path_al_ejecutable)
+{
+  cout << "Modo de uso: " << path_al_ejecutable << " <valor_max>" << endl;
+  cout << "Ejemplo:" << endl;
+  cout << "\t" << path_al_ejecutable << " 200" << endl;
+}
+
 int main(int argc, char const *argv[])
 {
-  int n = (argc == 2) ? atoi(argv[1]) : 200;
+  if(argc != 2)
+  {
+    imprimir_modo_de_uso(argv[0]);
+    return 0;
+  }
+
+  int n = atoi(argv[1]);
 
   vector<Medicion> ms = tomar_mediciones(n, generar_instancia_aleatoria);
   escribir_datos(ms, "instancia_aleatoria.csv");
