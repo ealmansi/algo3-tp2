@@ -14,10 +14,8 @@ namespace Problema2
 	struct Pueblo{
 		int id;
 		pair <int, int> coord;
-		Pueblo(){;} ///por el linker. Nosotros no lo usamos. Culpen al linker.
 		Pueblo(int id ,int x ,int y)
 			: id(id), coord(make_pair(x,y)){}
-		
 	};
 
 	typedef pair < Pueblo, Pueblo >  Conexion;
