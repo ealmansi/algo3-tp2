@@ -23,11 +23,10 @@ struct Medicion
 
 /*    Funciones generadoras    *    *    *    *    *    *    *    *    *    *    *    *    *    */
 
-template<int k>
-Entrada generar_instancia_p_1_k_fijo(int n)
+template<int p, int k>
+Entrada generar_instancia_p_fijo_k_fijo(int n)
 {
   Entrada e;
-  int p = 1;
   e.n = n;
   e.origen = Casillero(1, 1, k);
   e.destino = Casillero(n, n, 0);
@@ -37,16 +36,55 @@ Entrada generar_instancia_p_1_k_fijo(int n)
   return e;
 }
 
-template<int n>
-Entrada generar_instancia_p_1_n_fijo(int k)
+template<int p, int n>
+Entrada generar_instancia_p_fijo_n_fijo(int k)
 {
   Entrada e;
-  int p = 1;
   e.n = n;
   e.origen = Casillero(1, 1, k);
   e.destino = Casillero(n, n, 0);
   e.k = k;
   e.tablero = vector< vector < int > >(e.n + 1, vector < int >(e.n + 1, p));
+
+  return e;
+}
+
+template<int k>
+Entrada generar_instancia_p_rand_k_fijo(int n)
+{
+  Entrada e;
+  e.n = n;
+  e.origen = Casillero(1, 1, k);
+  e.destino = Casillero(n, n, 0);
+  e.k = k;
+  e.tablero = vector< vector < int > >(e.n + 1, vector < int >(e.n + 1));
+  for (int i = 1; i <= n; ++i)
+  {
+    for (int j = 1; j <= n; ++j)
+    {
+      e.tablero[i][j] = (rand() % n) + 1;
+    }
+  }
+
+  return e;
+}
+
+template<int n>
+Entrada generar_instancia_p_rand_n_fijo(int k)
+{
+  Entrada e;
+  e.n = n;
+  e.origen = Casillero(1, 1, k);
+  e.destino = Casillero(n, n, 0);
+  e.k = k;
+  e.tablero = vector< vector < int > >(e.n + 1, vector < int >(e.n + 1));
+  for (int i = 1; i <= n; ++i)
+  {
+    for (int j = 1; j <= n; ++j)
+    {
+      e.tablero[i][j] = (rand() % n) + 1;
+    }
+  }
 
   return e;
 }
@@ -121,47 +159,47 @@ int main(int argc, char const *argv[])
   if(variable == "n")
   {
     cout << "n_max " << valor_max << ", k " << 0 << endl;
-    ms = tomar_mediciones(valor_max, generar_instancia_p_1_k_fijo<0>);
-    escribir_datos(ms, variable, "instancia_p_1_k_0.csv");
+    ms = tomar_mediciones(valor_max, generar_instancia_p_rand_k_fijo<0>);
+    escribir_datos(ms, variable, "instancia_p_rand_k_0.csv");
 
     cout << "n_max " << valor_max << ", k " << 10 << endl;
-    ms = tomar_mediciones(valor_max, generar_instancia_p_1_k_fijo<10>);
-    escribir_datos(ms, variable, "instancia_p_1_k_10.csv");
+    ms = tomar_mediciones(valor_max, generar_instancia_p_rand_k_fijo<10>);
+    escribir_datos(ms, variable, "instancia_p_rand_k_10.csv");
 
     cout << "n_max " << valor_max << ", k " << 20 << endl;
-    ms = tomar_mediciones(valor_max, generar_instancia_p_1_k_fijo<20>);
-    escribir_datos(ms, variable, "instancia_p_1_k_20.csv");
+    ms = tomar_mediciones(valor_max, generar_instancia_p_rand_k_fijo<20>);
+    escribir_datos(ms, variable, "instancia_p_rand_k_20.csv");
 
     cout << "n_max " << valor_max << ", k " << 30 << endl;
-    ms = tomar_mediciones(valor_max, generar_instancia_p_1_k_fijo<30>);
-    escribir_datos(ms, variable, "instancia_p_1_k_30.csv");
+    ms = tomar_mediciones(valor_max, generar_instancia_p_rand_k_fijo<30>);
+    escribir_datos(ms, variable, "instancia_p_rand_k_30.csv");
 
     cout << "n_max " << valor_max << ", k " << 40 << endl;
-    ms = tomar_mediciones(valor_max, generar_instancia_p_1_k_fijo<40>);
-    escribir_datos(ms, variable, "instancia_p_1_k_40.csv");
+    ms = tomar_mediciones(valor_max, generar_instancia_p_rand_k_fijo<40>);
+    escribir_datos(ms, variable, "instancia_p_rand_k_40.csv");
 
   }
   else if(variable == "k")
   {
     cout << "k_max " << valor_max << ", n " << 5 << endl;
-    ms = tomar_mediciones(valor_max, generar_instancia_p_1_n_fijo<5>);
-    escribir_datos(ms, variable, "instancia_p_1_n_5.csv");
+    ms = tomar_mediciones(valor_max, generar_instancia_p_rand_n_fijo<5>);
+    escribir_datos(ms, variable, "instancia_p_rand_n_5.csv");
 
     cout << "k_max " << valor_max << ", n " << 10 << endl;
-    ms = tomar_mediciones(valor_max, generar_instancia_p_1_n_fijo<10>);
-    escribir_datos(ms, variable, "instancia_p_1_n_10.csv");
+    ms = tomar_mediciones(valor_max, generar_instancia_p_rand_n_fijo<10>);
+    escribir_datos(ms, variable, "instancia_p_rand_n_10.csv");
 
     cout << "k_max " << valor_max << ", n " << 15 << endl;
-    ms = tomar_mediciones(valor_max, generar_instancia_p_1_n_fijo<15>);
-    escribir_datos(ms, variable, "instancia_p_1_n_15.csv");
+    ms = tomar_mediciones(valor_max, generar_instancia_p_rand_n_fijo<15>);
+    escribir_datos(ms, variable, "instancia_p_rand_n_15.csv");
 
     cout << "k_max " << valor_max << ", n " << 20 << endl;
-    ms = tomar_mediciones(valor_max, generar_instancia_p_1_n_fijo<20>);
-    escribir_datos(ms, variable, "instancia_p_1_n_20.csv");
+    ms = tomar_mediciones(valor_max, generar_instancia_p_rand_n_fijo<20>);
+    escribir_datos(ms, variable, "instancia_p_rand_n_20.csv");
 
     cout << "k_max " << valor_max << ", n " << 25 << endl;
-    ms = tomar_mediciones(valor_max, generar_instancia_p_1_n_fijo<25>);
-    escribir_datos(ms, variable, "instancia_p_1_n_25.csv");
+    ms = tomar_mediciones(valor_max, generar_instancia_p_rand_n_fijo<25>);
+    escribir_datos(ms, variable, "instancia_p_rand_n_25.csv");
   }
 
   return 0;
