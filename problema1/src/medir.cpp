@@ -6,11 +6,12 @@
 #include <algorithm>
 #include <sys/time.h>
 #include "problema1.h"
+#include "utils.h"
 
 using namespace std;
 using namespace Problema1;
 
-#define CANT_MEDICIONES_POR_N 11
+#define CANT_MEDICIONES_POR_N 5
 
 struct Medicion
 {
@@ -32,25 +33,6 @@ Entrada generar_instancia_aleatoria(int n)
 
 /*    main *    *    *    *    *    *    *    *    *    *    *    *    *    *    *    *    *    */
 
-vector<Medicion> tomar_mediciones(int n_max, Entrada (*generar_instancia)(int));
-void escribir_datos(vector<Medicion> &mediciones, string nombre_archivo_salida);
-
-int main(int argc, char const *argv[])
-{
-  int n;
-  if (argc == 2)
-    n = atoi(argv[1]);
-  else
-    n = 200;
-
-  srand(time(0));
-
-  vector<Medicion> ms = tomar_mediciones(n, generar_instancia_aleatoria);
-  escribir_datos(ms, "instancia_aleatoria.csv");
-
-  return 0;
-}
-
 vector<Medicion> tomar_mediciones(int n_max, Entrada (*generar_instancia)(int))
 {
   timespec inicio, fin;
@@ -58,9 +40,10 @@ vector<Medicion> tomar_mediciones(int n_max, Entrada (*generar_instancia)(int))
 
   for (int i = 0; i < CANT_MEDICIONES_POR_N; ++i)
   {
+    srand(10);
+    cout << (i + 1) << "/" << CANT_MEDICIONES_POR_N << endl;
     for (int n = 1; n <= n_max; ++n)
     {
-      if((i * n_max + (n-1)) % (CANT_MEDICIONES_POR_N * n_max / 10) == 0) cout << ((i * n_max + (n-1)) / (CANT_MEDICIONES_POR_N * n_max / 10) * 10) << "%" << endl;
       Entrada e = generar_instancia(n);
       clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &inicio);
       resolver(e);
@@ -93,4 +76,14 @@ void escribir_datos(vector<Medicion> &mediciones, string nombre_archivo_salida)
     archivo_salida << i->n << "," << i->tiempo << endl;
 
   archivo_salida.close();
+}
+
+int main(int argc, char const *argv[])
+{
+  int n = (argc == 2) ? atoi(argv[1]) : 200;
+
+  vector<Medicion> ms = tomar_mediciones(n, generar_instancia_aleatoria);
+  escribir_datos(ms, "instancia_aleatoria.csv");
+
+  return 0;
 }

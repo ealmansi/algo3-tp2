@@ -30,4 +30,10 @@
 #define __print15(a,...) __print01(a) __print14(__VA_ARGS__)
 #define __print16(a,...) __print01(a) __print15(__VA_ARGS__)
 
+#define if_(cond) ((cond) ?
+#define then_(expr) (expr) :
+#define else_(expr) (expr))
+
+#define if_then_else(c,t,f) ((c) ? (t) : (f))
+
 #endif /* UTILS_H */
