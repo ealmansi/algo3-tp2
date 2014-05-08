@@ -6,8 +6,8 @@ EPS_DIR						= eps
 
 MAKE	 = Makefile
 
-BIN_MAIN 		= $(BIN_DIR)/main
-BIN_MEDIR 	= $(BIN_DIR)/medir
+BIN_MAIN 		= $(BIN_DIR)/problema3
+BIN_MEDIR 	= $(BIN_DIR)/medir_problema3
 
 OBJ_MAIN 			= $(OBJ_DIR)/main.o
 OBJ_MEDIR 		= $(OBJ_DIR)/medir.o
@@ -17,7 +17,7 @@ SRC_MAIN 			= $(SRC_DIR)/main.cpp
 SRC_MEDIR 		= $(SRC_DIR)/medir.cpp
 SRC_RESOLVER 	= $(SRC_DIR)/resolver.cpp
 
-HDR	= $(SRC_DIR)/problema3.h
+HDRS	= $(SRC_DIR)/problema3.h $(SRC_DIR)/utils.h
 
 CXX     	= g++
 CXXFLAGS	= -g -Wall -Wno-unused-parameter -Wextra
@@ -31,16 +31,16 @@ $(BIN_MAIN): $(OBJ_MAIN) $(OBJ_RESOLVER)
 $(BIN_MEDIR): $(OBJ_MEDIR) $(OBJ_RESOLVER)
 	$(CXX) -o $@ $^ $(LDFLAGS)
 
-$(OBJ_MAIN): $(SRC_MAIN) $(SRC_RESOLVER) $(HDR) $(MAKE)
+$(OBJ_MAIN): $(SRC_MAIN) $(SRC_RESOLVER) $(HDRS) $(MAKE)
 	$(CXX) -c $(CXXFLAGS) -o $@ $<
 
-$(OBJ_MEDIR): $(SRC_MEDIR) $(SRC_RESOLVER) $(HDR) $(MAKE)
+$(OBJ_MEDIR): $(SRC_MEDIR) $(SRC_RESOLVER) $(HDRS) $(MAKE)
 	$(CXX) -c $(CXXFLAGS) -o $@ $<
 
-$(OBJ_RESOLVER): $(SRC_RESOLVER) $(HDR) $(MAKE)
+$(OBJ_RESOLVER): $(SRC_RESOLVER) $(HDRS) $(MAKE)
 	$(CXX) -c $(CXXFLAGS) -o $@ $<
 
-.PHONY: crear_carpetas clean clean_ejecutables clean_csv clean_eps
+.PHONY: crear_carpetas clean clean_bin clean_csv clean_eps
 
 crear_carpetas:
 	@mkdir -p $(OBJ_DIR)
