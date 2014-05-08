@@ -59,13 +59,13 @@ Salida Problema3::resolver(Entrada &e)
   queue< Casillero > q;
   q.push(e.origen);
   
-  Casillero c;
+  Casillero c, c1;
   while (!q.empty())
   {
     c = q.front();
     q.pop();
     if (c.c == e.destino.c && c.f == e.destino.f)
-      break;
+      c1 = c;
 
     list< Casillero > adyacentes = losAdyacentes(e, c);
     list< Casillero >::const_iterator it = adyacentes.begin();
@@ -77,8 +77,8 @@ Salida Problema3::resolver(Entrada &e)
       }
   }
 
-  for (; c!= e.origen; c = predecesor[c.f][c.c][c.k])
-    s.caminoMinimo.push_front(c);
+  for (; c1!= e.origen; c1 = predecesor[c1.f][c1.c][c1.k])
+    s.caminoMinimo.push_front(c1);
   s.caminoMinimo.push_front(e.origen);
   s.saltos = s.caminoMinimo.size() - 1;
 
