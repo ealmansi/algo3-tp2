@@ -26,16 +26,12 @@ bool mayorDistancia(const Conexion& a ,const Conexion& b){
 	return distanciaCuadrada(a.first,a.second) > distanciaCuadrada(b.first,b.second); 
 }
 
-list < int > losAdyacentes(list < Conexion > &conectados , int c){
-	list < int > res;
+vector < list < int > > losAdyacentes( list < Conexion > &conectados, int n){
+	vector < list < int > > res(n+1);
 	list < Conexion >::iterator it = conectados.begin();
 	for (; it != conectados.end(); ++it){
-		if(it->first.id == c){
-			res.push_back(it->second.id);
-		}
-		else if (it->second.id == c ){
-			res.push_back(it->first.id);	
-		}
+		res[it->first.id].push_back(it->second.id);
+		res[it->second.id].push_back(it->first.id);
 	}
 	return res;
 }
@@ -82,7 +78,9 @@ Salida Problema2::resolver(Entrada& e){
 	for (int i = 1; i < e.cantCentrales && i < n; ++i){
 		s.tuberias.pop_front();
 	}
-
+	
+	vector < list < int > > adyacentes = losAdyacentes(s.tuberias,e.pueblos.size());
+	
 	///vemos donde poner las centrales.
 	vector < bool > yaPase(e.pueblos.size()+1,false);
 	queue< int > q;
@@ -94,9 +92,9 @@ Salida Problema2::resolver(Entrada& e){
 			while(!q.empty()){
 				int c = q.front();
 				q.pop();				
-				list< int > adyacentes = losAdyacentes(s.tuberias, c);
-				list< int >::iterator itAdy = adyacentes.begin();
-				for(;itAdy != adyacentes.end(); ++itAdy){
+				list< int > losAdyacentes = adyacentes[c];
+				list< int >::iterator itAdy = losAdyacentes.begin();
+				for(;itAdy != losAdyacentes.end(); ++itAdy){
 					if(!yaPase[*itAdy]){
 						yaPase[*itAdy] = true;
 						q.push(*itAdy);
