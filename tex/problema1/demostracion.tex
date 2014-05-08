@@ -21,19 +21,33 @@ $opt(i,j) = \sum cartas - min(opt(i+1, j), ..., opt(j,j), opt(i, j-1), ... ,opt(
 
 Por lo dicho anteriormente demostrar que nuestra función resuelve el problema es lo mismo que demostrar que nuestra función minimiza el puntaje del jugador contrario.
 
+Vamos a demostrar esto por inducción en las cartas restantes, que en este caso son $j-i+1$. La propiedad que queremos demostrar es la siguiente:
+
+$P(i,j) : (\forall i,j, 0 \leq i \leq j < n)opt(i,j)$ maximiza nuestro puntaje para las cartas desde $c_i$ hasta $c_j$
+
 Primero analicemos el caso base:
 
 $opt(i,i) = c_i$
 
-Este caso significa que sólo queda una carta. Como el juego nos obliga a, de ser posible, robar al menos una carta por turno, la única opción posible es robar esta carta. Como es la última opción, al igual que en el caso anterior el movimiento es óptimo.
+Queremos ver que se cumple $P(i,i)$.
+
+Este caso significa que sólo queda una carta. Como el juego nos obliga a, de ser posible, robar al menos una carta por turno, la única opción posible es robar esta carta. Como es la última opción, también es la opción óptima, por lo tanto se cumple $P(i,i)$.
 
 Ahora analicemos el caso recursivo:
 
 $opt(i,j) = \sum cartas - min(opt(i+1, j), ..., opt(j,j), opt(i, j-1), ... ,opt(i,i), 0)$
 
+Tenemos que realizar el paso inductivo, esto significa que tenemos que probar que $P(i,j)$ seguro vale si vale $P(i',j')$ para todas las subsecuencias de cartas que $opt(i,j)$ utiliza, osea, para probar $P(i,j)$ queremos ver que:
+
+$[(\forall i',j',(( i < i' \wedge j = j') \vee (i' = i \wedge j' < j))) P(i',j')]  \implies P(i,j)$
+
+\textbf{HI:} $((\forall i',j',(( i < i' \wedge j = j') \vee (i' = i \wedge j' < j))) P(i',j'))$
+
+Para demostrar esto vamos a dar como válida la hipótesis inductiva y a partir de eso probar que vale $P(i,j)$.
+
 En este caso quedan $j-i+1$ cartas, tenemos que demostrar que $opt(i,j)$ toma la decisión que minimiza el puntaje del jugador contrario. Como el problema nos dice que tenemos que asumir que el jugador contrario también juega de forma óptima, entonces su puntaje también estará determinado por la función $opt$.
 
-Lo que la función debe determinar es, de las posibles instancias del juego que se pueden generar luego de jugar nuestro turno, la que minimiza la función de $opt$ ya que el puntaje del jugador contrario será el resultado de aplicar $opt$ a la instancia que quede.
+Lo que la función debe determinar es, de las posibles instancias del juego que se pueden generar luego de jugar nuestro turno, la que minimiza la función de $opt$ ya que el puntaje del jugador contrario será el resultado de aplicar $opt$ a la instancia que quede. Y por hipótesis inductiva sabemos que al aplicar $opt$ a dicha instancia se obtendrá un resultado óptimo.
 
 Como sólo se pueden robar cartas de uno de los dos extremos las posibles instancias son las siguientes: Si se roba una carta comenzando de la izquierda la instancia generada será de $(i+1,j)$, si se roban 2, de $(i+2,j)$ y se se roban $j-i$, de $(j,j)$. De esta misma forma si se roba una carta empezando de la derecha quedará una instancia de $(i,j-1)$ y si se roban $j-i$ cartas, la instancia sera de $(i,i)$.
 
@@ -47,7 +61,7 @@ Y la puntuación óptima se determina por la cuenta:
 
 $\sum cartas - min(opt(i+1,j), ... , opt(j,j), opt(i,j-1), ... , opt(i,i), 0)$
 
-Por lo tanto nuestra función $opt$ minimiza el puntaje del jugador contrario. Osea que realmente determina nuestra puntuación óptima y el movimiento a realizar para obtenerla, que es lo que el problema pide.
+Por lo tanto, si asumimos que se cumple nuestra hipótesis inductiva, nuestra función $opt$ minimiza el puntaje del jugador contrario. Osea que realmente determina nuestra puntuación óptima y el movimiento a realizar para obtenerla, que es lo que el problema pide.
 
 Lo que queda mostrar es que completamos la matriz de forma correcta. Como cada casilla de la matriz es un subproblema y para resolver cada subproblema usamos subproblemas mas chicos, tenemos que mostrar que a la hora de completar una casilla siempre tenemos completas las casillas de los subproblemas que se necesitan.
 
