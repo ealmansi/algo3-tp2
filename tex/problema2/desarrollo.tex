@@ -4,21 +4,21 @@ $\bullet$ Un pueblo es un par ordenado (x,y).
 
 $\bullet$ Una tubería es un par no ordenado de pueblos.
 
-$\bullet$ Un conjunto de V pueblos y otro E de tuberías puede ser considerado un grafo G(V,E).
+$\bullet$ Un conjunto de V pueblos y otro E de tuberías puede ser considerado un grafo, cuyo conjunto de nodos es V y su conjunto de aristas es E.
 
 $\bullet$ El peso asociado a una arista (tubería) es igual a la distancia euclidiana entre los extremos (pueblos).
 
 $\bullet$ Una central es un pueblo.
 
-$\bullet$ Dado V un conjunto de pueblos y k la cantidad de centrales de gas, una solución es un C subconjunto de k pueblos de V y un grafo B(V,E).
+$\bullet$ Dado V un conjunto de pueblos y k la cantidad de centrales de gas, una solución es un C subconjunto de k pueblos de V y un grafo B(V,E), sea E el conjunto de tuberìas que decidimos colocar para conectar los pueblos. Si queremos conectar al pueblo 'a' y al pueblo 'b', agregamos al conjunto E la arista ('a','b'). El subonjunto C representa a los pueblos donde elegimos poner las centrales.  
 
-$\bullet$ Un pueblo esta provisto de gas si existe un camino entre éste y un pueblo con central distribuidora.
+$\bullet$ Dada una solución conformada por C y B(V,E), un pueblo $v \in V$ esta provisto de gas si existe un camino en B entre éste y un pueblo $c \in C$ con central distribuidora.
 
-$\bullet$Una solución C, B(V,E) es factible si $(\forall v \in V)(\exists c \in C) \exists$ un camino entre v y c en B. 
+$\bullet$ Una solución C, B(V,E) es factible si $(\forall v \in V)(\exists c \in C) \exists$ un camino entre v y c en B. 
 
 $\bullet$ Queremos encontrar el C , B(V,E) tal que sea una solución óptima, minimizando la máxima arista.
 
-Consideramos un solución, si cumple la aridad pedida. Una solución factible si cumple cierta condicion además de la aridad. Una solución optima es quien maximiza/minimiza cierta funcion entre todas las soluciones factibles, en este caso se busca minimizar la máxima arista.
+Consideramos una solución, si cumple la aridad pedida. Una solución factible si cumple cierta condicion además de la aridad. Una solución optima es quien maximiza/minimiza cierta funcion entre todas las soluciones factibles, en este caso se busca minimizar la máxima arista.
 
 Para encontrar esto vamos a buscar B(V,E) un bosque generador mínimo con k componentes conexas de G el grafo completo generado por los vértices de V y C tenga un pueblo de cada una de las componentes conexas de G.
 
