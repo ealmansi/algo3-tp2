@@ -6,7 +6,7 @@ Para eso primero vamos a demostrar los siguiente lemas:
 
 \textbf{Lema 1:} Un bosque de k componentes conexas generador mínimo también minimiza la máxima arista.
 
-\textbf{Lema 2:}Dada una solución C, B(V,E), es factible $\Longleftrightarrow$ $(\forall D$ componente conexa de $B)((\exists v \in D) v \in C)$.  $(\forall v \in V)((\exists c \in C)$ v esta conectado a c) $\Leftrightarrow (\forall D$ componente conexa de $B)((\exists v \in D) v \in C)$.
+\textbf{Lema 2:}Dada una solución C, B(V,E), es factible $\Longleftrightarrow$ $(\forall D$ componente conexa de $B)((\exists v \in D) v \in C)$. Que es lo mismo que decir que $(\forall v \in V)((\exists c \in C)$ v esta conectado a c) $\Leftrightarrow (\forall D$ componente conexa de $B)((\exists v \in D) v \in C)$.
 
 \textbf{Corolario 2.1:} Dada una solución C, B(V,E) es factible $\Rightarrow$ \# C $\geq$ \# componentes conexas (B).
 
@@ -25,7 +25,7 @@ Sea B'(V,E-e), tiene k-1 componentes conexas iguales a las de B, y C,la componen
 
 Como Q tiene las mismas componentes conexas que B, C es una componente conexa de Q.Por lo cual existe una arista e' con un extremo en C1 y otro en C2.
 
-Sea B''(V,E-e+e'), B'' es un subgrafo generador con k componentes conexas ya que al quitar e se generan un subgrafo con k+1 componentes conexas. Y al agregar e', como este  tiene extremos en dos componente conexa diferentes, quedan k componentes conexas. Y como no se modifican los vértices sigue siendo generador.
+Sea B''(V,E-e+e'), B'' es un subgrafo generador con k componentes conexas ya que al quitar e se generan un subgrafo con k+1 componentes conexas. Y al agregar e', como este  tiene extremos en dos componentes conexas diferentes, quedan k componentes conexas. Y como no se modifican los vértices sigue siendo generador.
 
 Sabemos que $f(e') < f(e)$ por e' pertenecer a Q $\Rightarrow f(e') - f(e) < 0$
 
@@ -53,24 +53,24 @@ También sabemos que $\sum_{i \in E} f(i) \leq \sum_{i \in E-e+e'} f(i)$ ya que 
 Entonces: $\sum_{i \in E} f(i) > \sum_{i \in E-e+e'} f(i) \wedge \sum_{i \in E} f(i) \leq \sum_{i \in E-e+e'} f(i)$. \\ \\
 
 
-\textbf{Lema 2:}Dada una solución C, B(V,E) es factible $\Longleftrightarrow$ $(\forall D componente conexa de B)(\exists v \in D) v \in C$.  $(\forall v \in V)(\exists c \in C)$ v esta conectado a c $\Leftrightarrow (\forall D componente conexa de B)(\exists v \in D) v \in C$.
+\textbf{Lema 2:}Dada una solución C, B(V,E) es factible $\Longleftrightarrow$ $(\forall D$ componente conexa de $B)((\exists v \in D) v \in C)$.  $(\forall v \in V)((\exists c \in C)$ v esta conectado a c) $\Leftrightarrow (\forall D$ componente conexa de $B)((\exists v \in D) v \in C)$.
 
 
 Primero probemos $\Rightarrow$
 
 Tomo D una componente conexa cualquiera de B y v uno de sus vértices.
 
-se que existe un c $\in$ C / v esta conectado a c, osea c pertenece a la misma componente conexa que v. c $\in$ C $\wedge$ c $\in$ D.
+se que existe un c $\in$ C tal que v esta conectado a c, osea c pertenece a la misma componente conexa que v. Por lo tanto c $\in$ C $\wedge$ c $\in$ D.
 
 Ahora probemos $\Leftarrow$
 
 Tomemos un u cualquiera, u pertenece a la componente conexa D.
 
-Se que existe un v / $v \in C \wedge v \in D$. como v y u pertenecen a la misma componente conexa, entonces existe un camino entre v y u.
+Sabemos que existe un v tal que $v \in C \wedge v \in D$. Y como v y u pertenecen a la misma componente conexa, entonces existe un camino entre v y u, osea que v y u están conectados.
 
 \textbf{Corolario 2.1:} Dada una solución C, B(V,E) es factible $\Rightarrow$ \# C $\geq$ \# componentes conexas (B).
 
-Por \textbf{Lema 2} sabemos que el C de una solución factible tiene como mínimo un vértice de cada componente conexa. Como un vértice no puede pertenecer a dos componentes conexas diferentes sabemos que C tiene como mínimo tantos vértices como componentes conexas tenga B.
+Por \textbf{Lema 2} sabemos que el C de una solución factible tiene como mínimo un vértice de cada componente conexa. Podemos decir que un vértice no puede pertenecer a dos componentes conexas diferentes (ya que de lo contrario no serían dos componentes conexas diferentes, serían una sola componente conexa), por lo tanto sabemos que C tiene como mínimo tantos vértices como componentes conexas tenga B.
 
 %Ahora tomo cualquier v $\in$ V, sea $S_j$ la componente conexa de G a la que v pertenece. Existe un camino entre v y $c_j$ ya que ambos pertenecen a la misma componente conexa.
 %
@@ -88,18 +88,18 @@ Por \textbf{Lema 2} sabemos que el C de una solución factible tiene como mínim
 
 \textbf{Lema 3:} Dada una solución con i componentes conexas , existe una solución mejor o igual con i+1 componentes conexas.
 
-Tomo una solución G(V,E) con i componentes conexas , Sea e $\in$ E y G'(V,E-e).
+Tomo una solución Q(V,E) con i componentes conexas , Sea e $\in$ E y Q'(V,E-e).
 
-Quiero ver que es mejor o igual que G.
+Quiero ver que Q' es mejor o igual que Q.
 
-Recordemos que, G' es mejor o igual que G $\Leftrightarrow$ MaxArista(G') $\leq$ MaxArista(G).
+Recordemos que, Q' es mejor o igual que Q $\Leftrightarrow$ MaxArista(Q') $\leq$ MaxArista(Q).
 
-Como las aristas de G' están incluidas en las de G, no puede existir una arista de G' que sea mayor a la máxima arista de G.
+Como las aristas de Q' están incluidas en las de Q, no puede existir una arista de Q' que sea mayor a la máxima arista de Q.
 
-Entonces probamos G' es mejor o igual que G. \\ \\
+Entonces probamos Q' es mejor o igual que Q. \\ \\
 
 Ahora utilizando los lemas 2 y 3, se llega a que siempre existe una solución óptima con k componentes conexas(con k = \# C).
-Ya que por 3 sabemos que cuanto mayor sea el número de componentes conexas, mejor (o igual) va a ser la solución. Y por dos sabemos que para que la solución sea factible tiene que tener a lo sumo k componentes conexas. Por lo cual la solución factible y mínima va a tener k componentes conexas. 
+Ya que por el lema 3 sabemos que cuanto mayor sea el número de componentes conexas, mejor (o igual) va a ser la solución. Y por el lema 2 sabemos que para que la solución sea factible tiene que tener a lo sumo k componentes conexas. Por lo cual la solución factible y que minimice la máxima arista va a tener k componentes conexas. 
 
 Ahora usando el lema uno sabemos que entre todas las soluciones posibles con k componentes conexas, el bosque generador mínimo es óptimo.
 
@@ -113,23 +113,23 @@ Primero veamos que B'(V,E-e) es un bosque generador con k+1 componentes conexas.
 
 Ahora veamos que es mínimo, vamos a demostrarlo por el absurdo.
 
-Supongamos que existe un subgrafo generador con k+1 componentes conexas G(V,E') tal que $\sum_{i \in E'} f(i) < \sum_{i \in E-e} f(i)$.
+Supongamos que existe un subgrafo generador con k+1 componentes conexas Q(V,E') tal que $\sum_{i \in E'} f(i) < \sum_{i \in E-e} f(i)$.
 
-Si G tiene las mismas componentes conexas que B' entonces G'(V, E'+e) es un subgrafo generador con k componentes conexas, cada extremo de e pertenece a un componente conexa diferente en G.
+Si Q tiene las mismas componentes conexas que B' entonces Q'(V, E'+e) es un subgrafo generador con k componentes conexas, cada extremo de e pertenece a un componente conexa diferente en Q.
 
 $\sum_{i \in E'+e} f(i) = \sum_{i \in E'} f(i) + f(e) < \sum_{i \in E-e} f(i) + f(e) = \sum_{i \in E} f(i)$
 
 Lo cual es absurdo ya que $\sum_{i \in E} f(i) \leq \sum_{i \in E'+e} f(i)$ por ser B mínimo.
 
-El otro caso posible es que las componentes conexas de G sean diferentes de las de B', entonces existe un a $\in$ E-e tal que cada extremo de a pertenece a componentes conexas distintas de G(sino tendía las mismas componentes conexas que B').
+El otro caso posible es que las componentes conexas de Q sean diferentes de las de B', entonces existe un a $\in$ E-e tal que cada extremo de a pertenece a componentes conexas distintas de Q(sino tendía las mismas componentes conexas que B').
 
-Sea G'(V,E'+ a) por la misma razón que el caso anterior, G' es un subgrafo generador con k componentes conexas.
+Sea Q'(V,E'+ a) por la misma razón que el caso anterior, Q' es un subgrafo generador con k componentes conexas.
 
 $\sum_{i \in E'+a} f(i) = \sum_{i \in E'} f(i) + f(a) < \sum_{i \in E-e} f(i) + f(a) \leq \sum_{i \in E} f(i)$ ya que f(a) $\leq$ f(e) por ser e la máxima arista en E.
 
 Lo cual es absurdo igual que en el caso anterior porque $\sum_{i \in E} f(i) \leq \sum_{i \in E'+e} f(i)$ por ser B mínimo.
 
-Ahora veamos que nuestro algoritmo consigue un bosque de k componentes conexas generador mínimo y un conjunto de k vértices donde cada vértice pertenece a una componenete conexa distinta del bosque.
+Ahora veamos que nuestro algoritmo consigue un bosque de k componentes conexas generador mínimo y un conjunto de k vértices donde cada vértice pertenece a una componente conexa distinta del bosque.
 
 \begin{center}
 \begin{pseudo}
