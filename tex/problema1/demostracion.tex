@@ -16,27 +16,20 @@ Supongamos que somos el jugador uno. Lo que el problema pide es que juguemos de 
 
 Recordemos que nuestra función recursiva es la siguiente:
 
-$opt(0,0) = 0$ \\
-$oppt(i,i) = c_i$ \\
-$opt(i,j) = \sum cartas - min(opt(i+1, j), ..., opt(j,j), opt(i, j-1), ... ,opt(i,i), opt(0,0))$
+$opt(i,i) = c_i$ \\
+$opt(i,j) = \sum cartas - min(opt(i+1, j), ..., opt(j,j), opt(i, j-1), ... ,opt(i,i), 0)$
 
 Por lo dicho anteriormente demostrar que nuestra función resuelve el problema es lo mismo que demostrar que nuestra función minimiza el puntaje del jugador contrario.
 
-Primero analicemos los casos base:
+Primero analicemos el caso base:
 
-$opt(0,0) = 0$
-
-Esta caso representa la situación en la que ya no quedan cartas, se podría interpretar como que el jugador contrario robo todas las cartas que quedaban en el turno anterior, en este no podemos hacer nada, el puntaje será de cero. Como es la única opción posible dada esta situación, también es la mejor opción posible, osea que es la óptima.
-
-El otro caso base es:
-
-$oppt(i,i) = c_i$
+$opt(i,i) = c_i$
 
 Este caso significa que sólo queda una carta. Como el juego nos obliga a, de ser posible, robar al menos una carta por turno, la única opción posible es robar esta carta. Como es la última opción, al igual que en el caso anterior el movimiento es óptimo.
 
 Ahora analicemos el caso recursivo:
 
-$opt(i,j) = \sum cartas - min(opt(i+1, j), ..., opt(j,j), opt(i, j-1), ... ,opt(i,i), opt(0,0))$
+$opt(i,j) = \sum cartas - min(opt(i+1, j), ..., opt(j,j), opt(i, j-1), ... ,opt(i,i), 0)$
 
 En este caso quedan $j-i+1$ cartas, tenemos que demostrar que $opt(i,j)$ toma la decisión que minimiza el puntaje del jugador contrario. Como el problema nos dice que tenemos que asumir que el jugador contrario también juega de forma óptima, entonces su puntaje también estará determinado por la función $opt$.
 
@@ -48,11 +41,11 @@ Pero queda una instancia más por analizar, la de levantar todas las cartas posi
 
 Por lo tanto el mínimo que debemos hallar es el siguiente:
 
-$min(opt(i+1,j), ... , opt(j,j), opt(i,j-1), ... , opt(i,i), opt(0,0))$
+$min(opt(i+1,j), ... , opt(j,j), opt(i,j-1), ... , opt(i,i), 0)$
 
 Y la puntuación óptima se determina por la cuenta:
 
-$\sum cartas - min(opt(i+1,j), ... , opt(j,j), opt(i,j-1), ... , opt(i,i), opt(0,0))$
+$\sum cartas - min(opt(i+1,j), ... , opt(j,j), opt(i,j-1), ... , opt(i,i), 0)$
 
 Por lo tanto nuestra función $opt$ minimiza el puntaje del jugador contrario. Osea que realmente determina nuestra puntuación óptima y el movimiento a realizar para obtenerla, que es lo que el problema pide.
 

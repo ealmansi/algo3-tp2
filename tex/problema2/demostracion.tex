@@ -6,11 +6,11 @@ Para eso primero vamos a demostrar los siguiente lemas:
 
 \textbf{Lema 1:} Un bosque de k componentes conexas generador mínimo también minimiza la máxima arista.
 
-\textbf{Lema 2:}Dada una solución C, B(V,E), es valida $\Longleftrightarrow$ $(\forall D componente conexa de B)(\exists v \in D) v \in C$.  $(\forall v \in V)(\exists c \in C)$ v esta conectado a c $\Leftrightarrow (\forall D componente conexa de B)(\exists v \in D) v \in C$.
+\textbf{Lema 2:}Dada una solución C, B(V,E), es factible $\Longleftrightarrow$ $(\forall D componente conexa de B)(\exists v \in D) v \in C$.  $(\forall v \in V)(\exists c \in C)$ v esta conectado a c $\Leftrightarrow (\forall D componente conexa de B)(\exists v \in D) v \in C$.
 
-\textbf{Corolario 2.1:} Dada una solución C, B(V,E) es valida $\Rightarrow$ \# C $\geq$ \# componentes conexas (B).
+\textbf{Corolario 2.1:} Dada una solución C, B(V,E) es factible $\Rightarrow$ \# C $\geq$ \# componentes conexas (B).
 
-\textbf{Lema 3:} Dada una solución con C componentes conexas , existe una solución mejor o igual con C+1 componentes conexas (No necesariamente valida). \\ \\ 
+\textbf{Lema 3:} Dada una solución con C componentes conexas , existe una solución mejor o igual con C+1 componentes conexas (No necesariamente factible). \\ \\ 
 
 
 \textbf{Lema 1:} Un bosque de k componentes conexas generador mínimo también minimiza la máxima arista. Equivalentemente, sea B un bosque de k componentes conexas generador mínimo: $(\nexists$ G subgrafo generador con k componentes conexas) $MaxArista(G) < MaxArista(B)$.
@@ -53,7 +53,7 @@ También sabemos que $\sum_{i \in E} f(i) \leq \sum_{i \in E-e+e'} f(i)$ ya que 
 Entonces: $\sum_{i \in E} f(i) > \sum_{i \in E-e+e'} f(i) \wedge \sum_{i \in E} f(i) \leq \sum_{i \in E-e+e'} f(i)$. \\ \\
 
 
-\textbf{Lema 2:}Dada una solución C, B(V,E) es valida $\Longleftrightarrow$ $(\forall D componente conexa de B)(\exists v \in D) v \in C$.  $(\forall v \in V)(\exists c \in C)$ v esta conectado a c $\Leftrightarrow (\forall D componente conexa de B)(\exists v \in D) v \in C$.
+\textbf{Lema 2:}Dada una solución C, B(V,E) es factible $\Longleftrightarrow$ $(\forall D componente conexa de B)(\exists v \in D) v \in C$.  $(\forall v \in V)(\exists c \in C)$ v esta conectado a c $\Leftrightarrow (\forall D componente conexa de B)(\exists v \in D) v \in C$.
 
 
 Primero probemos $\Rightarrow$
@@ -68,9 +68,9 @@ Tomemos un u cualquiera, u pertenece a la componente conexa D.
 
 Se que existe un v / $v \in C \wedge v \in D$. como v y u pertenecen a la misma componente conexa, entonces existe un camino entre v y u.
 
-\textbf{Corolario 2.1:} Dada una solución C, B(V,E) es valida $\Rightarrow$ \# C $\geq$ \# componentes conexas (B).
+\textbf{Corolario 2.1:} Dada una solución C, B(V,E) es factible $\Rightarrow$ \# C $\geq$ \# componentes conexas (B).
 
-Por \textbf{Lema 2} sabemos que el C de una solución valida tiene como mínimo un vértice de cada componente conexa. Como un vértice no puede pertenecer a dos componentes conexas diferentes sabemos que C tiene como mínimo tantos vértices como componentes conexas tenga B.
+Por \textbf{Lema 2} sabemos que el C de una solución factible tiene como mínimo un vértice de cada componente conexa. Como un vértice no puede pertenecer a dos componentes conexas diferentes sabemos que C tiene como mínimo tantos vértices como componentes conexas tenga B.
 
 %Ahora tomo cualquier v $\in$ V, sea $S_j$ la componente conexa de G a la que v pertenece. Existe un camino entre v y $c_j$ ya que ambos pertenecen a la misma componente conexa.
 %
@@ -99,7 +99,7 @@ Como las aristas de G' están incluidas en las de G, no puede existir una arista
 Entonces probamos G' es mejor o igual que G. \\ \\
 
 Ahora utilizando los lemas 2 y 3, se llega a que siempre existe una solución óptima con k componentes conexas(con k = \# C).
-Ya que por 3 sabemos que cuanto mayor sea el número de componentes conexas, mejor (o igual) va a ser la solución. Y por dos sabemos que para que la solución sea valida tiene que tener a lo sumo k componentes conexas. Por lo cual la solución valida y mínima va a tener k componentes conexas. 
+Ya que por 3 sabemos que cuanto mayor sea el número de componentes conexas, mejor (o igual) va a ser la solución. Y por dos sabemos que para que la solución sea factible tiene que tener a lo sumo k componentes conexas. Por lo cual la solución factible y mínima va a tener k componentes conexas. 
 
 Ahora usando el lema uno sabemos que entre todas las soluciones posibles con k componentes conexas, el bosque generador mínimo es óptimo.
 
