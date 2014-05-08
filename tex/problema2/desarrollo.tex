@@ -10,9 +10,9 @@ $\bullet$ El peso asociado a una arista (tubería) es igual a la distancia eucli
 
 $\bullet$ Una central es un pueblo.
 
-$\bullet$ Dado V un conjunto de pueblos y k la cantidad de centrales de gas, una solución es un C subconjunto de k pueblos de V y un grafo B(V,E), sea E el conjunto de tuberìas que decidimos colocar para conectar los pueblos. Si queremos conectar al pueblo 'a' y al pueblo 'b', agregamos al conjunto E la arista ('a','b'). El subonjunto C representa a los pueblos donde elegimos poner las centrales.  
+$\bullet$ Dado V un conjunto de pueblos y k la cantidad de centrales de gas, una solución es un conjunto $C \subseteq V$ de k pueblos y un grafo B(V,E), sea E el conjunto de tuberías que decidimos colocar para conectar los pueblos. Por ejemplo, si queremos conectar al pueblo 'a' y al pueblo 'b', agregamos al conjunto E la arista ('a','b'). El subonjunto C representa a los pueblos donde elegimos poner las centrales.  
 
-$\bullet$ Dada una solución conformada por C y B(V,E), un pueblo $v \in V$ esta provisto de gas si existe un camino en B entre éste y un pueblo $c \in C$ con central distribuidora.
+$\bullet$ Dada una solución conformada por C y B(V,E), un pueblo $v \in V$ esta provisto de gas si existe un camino en B entre éste y un pueblo $c \in C$ ya que estos pueblos son los que tienen central distribuidora.
 
 $\bullet$ Dada una solución C, B(V,E) decimos que la misma es factible si $(\forall v \in V)(\exists c \in C) \exists$ un camino entre v y c en B. 
 
@@ -20,7 +20,7 @@ $\bullet$ Queremos encontrar el C , B(V,E) tal que sea una solución óptima, mi
 
 Consideramos una solución, si cumple la aridad pedida. Una solución factible si cumple cierta condicion además de la aridad. Una solución optima es quien maximiza/minimiza cierta funcion entre todas las soluciones factibles, en este caso se busca minimizar la máxima arista.
 
-Supongamos que tenemos el conjunto V que contiene a todos los pueblos. Sea G(V,E) un grafo completo donde el peso de las aristas es igual a la distancia euclidiana entre los pueblos. Para encontrar la solución óptima vamos a encontrar B(V,E) un bosque generador mínimo con k componentes conexas de G y C tenga un pueblo de cada una de las componentes conexas de G.
+Supongamos que tenemos el conjunto V que contiene a todos los pueblos. Sea G(V,E) un grafo completo donde el peso de las aristas es igual a la distancia euclidiana entre los pueblos. Para encontrar la solución óptima vamos a encontrar B(V,E) un bosque generador mínimo con k componentes conexas de G y C un conjunto que  contenga un pueblo de cada una de las componentes conexas de B.
 
 Definiendo un bosque generador mínimo con k componentes conexas de G, como un grafo que cumple las siguientes condiciones:
 
@@ -30,11 +30,11 @@ $\bullet$Es un bosque de k componentes conexas.
 
 $\bullet$ Entre todos los subgrafos generador de G de k componentes conexas tiene la mínima suma de aristas.
 
-Ahora presentaremos una idea de por qué funciona. Luego vamos a demostrar formalmente que esto resuelve el problema. 
+Ahora presentaremos una idea de por este modelo efectivamente resuelve el problema. Luego lo vamos a demostrar formalmente. 
 
 $\bullet$ Un bosque de k componentes conexas generador mínimo también minimiza la máxima arista.
 
-$\bullet$ Dada una solución C, B(V,E), es factible $\Longleftrightarrow$ $(\forall D componente conexa de B)(\exists v \in D) v \in C$.  
+$\bullet$ Dada una solución C, B(V,E), es factible $\Longleftrightarrow$ $(\forall D$ componente conexa de $B)((\exists v \in D) v \in C)$.  
 
 $\bullet$ Dada una solución con i componentes conexas (siendo i $<$ k), existe una solución mejor o igual con i+1 componentes conexas.
 
