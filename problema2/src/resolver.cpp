@@ -106,22 +106,23 @@ Salida Problema2::resolver(Entrada& e){
 		}
 	}
 	
-	
 	return s;
 }
 
 
 void Problema2::imprimoSalida(Salida& s){
-	cout << s.tuberias.size() << " ";
-	cout << s.centrales.size() << endl;
+
+	cout << s.centrales.size() << " ";
+	cout << s.tuberias.size() << endl;
+
 	list< int >::iterator itCentr = s.centrales.begin();
 	for(;itCentr != s.centrales.end(); ++itCentr){
 		cout << (*itCentr) << " ";
 	}
 	cout << endl;
+
 	list< pair < Pueblo,Pueblo > >::iterator itTub = s.tuberias.begin();
 	for(;itTub != s.tuberias.end(); ++itTub){
 		cout << itTub->first.id << " " << itTub->second.id << endl;
 	}
-
 }
