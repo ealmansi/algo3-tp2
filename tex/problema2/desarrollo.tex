@@ -14,13 +14,13 @@ $\bullet$ Dado V un conjunto de pueblos y k la cantidad de centrales de gas, una
 
 $\bullet$ Dada una solución conformada por C y B(V,E), un pueblo $v \in V$ esta provisto de gas si existe un camino en B entre éste y un pueblo $c \in C$ con central distribuidora.
 
-$\bullet$ Una solución C, B(V,E) es factible si $(\forall v \in V)(\exists c \in C) \exists$ un camino entre v y c en B. 
+$\bullet$ Dada una solución C, B(V,E) decimos que la misma es factible si $(\forall v \in V)(\exists c \in C) \exists$ un camino entre v y c en B. 
 
 $\bullet$ Queremos encontrar el C , B(V,E) tal que sea una solución óptima, minimizando la máxima arista.
 
 Consideramos una solución, si cumple la aridad pedida. Una solución factible si cumple cierta condicion además de la aridad. Una solución optima es quien maximiza/minimiza cierta funcion entre todas las soluciones factibles, en este caso se busca minimizar la máxima arista.
 
-Para encontrar esto vamos a buscar B(V,E) un bosque generador mínimo con k componentes conexas de G el grafo completo generado por los vértices de V y C tenga un pueblo de cada una de las componentes conexas de G.
+Supongamos que tenemos el conjunto V que contiene a todos los pueblos. Sea G(V,E) un grafo completo donde el peso de las aristas es igual a la distancia euclidiana entre los pueblos. Para encontrar la solución óptima vamos a encontrar B(V,E) un bosque generador mínimo con k componentes conexas de G y C tenga un pueblo de cada una de las componentes conexas de G.
 
 Definiendo un bosque generador mínimo con k componentes conexas de G, como un grafo que cumple las siguientes condiciones:
 
