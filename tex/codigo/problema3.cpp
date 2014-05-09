@@ -1,135 +1,136 @@
-struct Pieza
+struct Casillero
 {
-  Pieza(int indice, int sup, int izq, int der, int inf)
-    : indice(indice), sup(sup), izq(izq), der(der), inf(inf) {}
-  int indice;
-  int sup;
-  int izq;
-  int der;
-  int inf;
+  Casillero() {}
+  Casillero(int f, int c, int k)
+    : f(f), c(c), k(k) {}
+  bool operator==(const Casillero& otro)
+    { return f == otro.f && c == otro.c && k == otro.k; }
+  bool operator!=(const Casillero& otro)
+    { return f != otro.f || c != otro.c || k != otro.k; }
+  
+  int f;
+  int c;
+  int k;
 };
 
-struct Tablero
+struct Entrada
 {
-  Tablero(int n, int m) : cantPiezas(0), casilleros(n, vector<int>(m, 0)) {}
-
-  int cantPiezas;
-  vector<vector<int> > casilleros;
+  int n;
+  Casillero origen;
+  Casillero destino;
+  int k;
+  std::vector< std::vector < int > > tablero;
 };
 
-Salida Problema3::resolver(const Entrada &e)
+struct Salida
 {
-  Tablero solucionParcial(e.n, e.m), solucionOptima(e.n, e.m);
-  vector<bool> piezaDisponible(e.n * e.m, true);
+  int saltos;
+  std::list< Casillero > caminoMinimo;
+};
 
-  resolverBacktracking(0, 0, solucionParcial, solucionOptima, piezaDisponible, e);
+Entrada Problema3::leerEntrada()
+{
+  Entrada e;
+  
+  int n, fo, co, fd, cd , k;
+  cin >> n;
+  cin >> fo;
+  cin >> co;
+  cin >> fd;
+  cin >> cd;
+  cin >> k;
+  
+  e.n = n;
+  e.origen = Casillero(fo, co, k);
+  e.destino = Casillero(fd, cd, 0);
+  e.k = k;
+  
+  int tablero_ij;
+  e.tablero = vector< vector< int > >(e.n + 1, vector< int >(e.n + 1, -1));
+  for (int i = 1; i <= e.n; ++i)
+  {
+    for (int j = 1; j <= e.n; ++j)
+    {
+      cin >> tablero_ij;
+      e.tablero[i][j] = tablero_ij;
+    }
+  }
 
+  return e;
+}
+
+static const Casillero CASILLERO_INVALIDO(-1,-1,-1);
+static list< Casillero > losAdyacentes(const Entrada &e, const Casillero &c);
+
+Salida Problema3::resolver(Entrada &e)
+{
   Salida s;
-  s.casilleros = solucionOptima.casilleros;
+
+  ///BFS
+  Matriz3D predecesor(e.n + 1, Matriz2D(e.n + 1, Matriz1D(e.k + 1, CASILLERO_INVALIDO)));
+
+  queue< Casillero > q;
+  q.push(e.origen);
+  
+  Casillero c;
+  while (!q.empty())
+  {
+    c = q.front();
+    q.pop();
+    if (c.c == e.destino.c && c.f == e.destino.f)
+      break;
+
+    list< Casillero > adyacentes = losAdyacentes(e, c);
+    list< Casillero >::const_iterator it = adyacentes.begin();
+    for (; it != adyacentes.end(); ++it)
+      if (predecesor[it->f][it->c][it->k] == CASILLERO_INVALIDO)
+      {
+        predecesor[it->f][it->c][it->k] = c;
+        q.push(*it);
+      }
+  }
+
+  for (; c!= e.origen; c = predecesor[c.f][c.c][c.k])
+    s.caminoMinimo.push_front(c);
+  s.caminoMinimo.push_front(e.origen);
+  s.saltos = s.caminoMinimo.size() - 1;
+
   return s;
 }
 
-void resolverBacktracking(int i, int j, Tablero &solucionParcial,
-  Tablero &solucionOptima, vector<bool> &piezaDisponible, const Entrada &e)
+list< Casillero > losAdyacentes(const Entrada &e, const Casillero &c)
 {
-  int sig_i, sig_j;
-  calcularSiguientePos(sig_i, sig_j, i, j, e);
+  list< Casillero > ady;
+  int potencia = e.tablero[c.f][c.c];
+  
+  ///abajo
+  for (int l = 1; (l <= potencia + c.k) && (c.f + l <= e.n); ++l)
+    ady.push_back(Casillero(c.f + l, c.c, c.k - max(l - potencia, 0)));
 
-  for (int indicePieza = 1; indicePieza <= e.n * e.m; ++indicePieza)
+  ///arriba
+  for (int l = 1; (l <= potencia + c.k) && (c.f - l >= 1); ++l)
+    ady.push_back(Casillero(c.f - l, c.c, c.k - max(l - potencia, 0)));
+
+  ///derecha
+  for (int l = 1; (l <= potencia + c.k) && (c.c + l <= e.n); ++l)
+    ady.push_back(Casillero(c.f, c.c + l, c.k - max(l - potencia, 0)));
+
+  ///izquierda
+  for (int l = 1; (l <= potencia + c.k) && (c.c - l >= 1); ++l)
+    ady.push_back(Casillero(c.f, c.c - l, c.k - max(l - potencia, 0)));
+
+  return ady;
+}
+
+void Problema3::imprimoSalida(Salida &s)
+{
+  cout << s.saltos << endl;
+  list< Casillero >::iterator itPadre = s.caminoMinimo.begin();
+  list< Casillero >::iterator itCamino = s.caminoMinimo.begin();
+  ++itCamino;
+  for (; itCamino != s.caminoMinimo.end(); ++itCamino)
   {
-    if (!piezaDisponible[indicePieza - 1]) continue;
-    if (!esCompatible(indicePieza, i, j, solucionParcial, e)) continue;
-
-    colocarPieza(indicePieza, i, j, solucionParcial, piezaDisponible);
-
-    if (solucionOptima.cantPiezas < solucionParcial.cantPiezas)
-      solucionOptima = solucionParcial;
-
-    if (llamarRecursivamente(sig_i, sig_j, solucionParcial, solucionOptima, piezaDisponible, e))
-      resolverBacktracking(sig_i, sig_j, solucionParcial, solucionOptima, piezaDisponible, e);
-
-    removerPieza(indicePieza, i, j, solucionParcial, piezaDisponible);
+    cout << itCamino->f << " " << itCamino->c << " " << itPadre->k - itCamino->k << endl;
+    ++itPadre;
   }
-
-  if (llamarRecursivamente(sig_i, sig_j, solucionParcial, solucionOptima, piezaDisponible, e))
-    resolverBacktracking(sig_i, sig_j, solucionParcial, solucionOptima, piezaDisponible, e);
 }
-
-bool llamarRecursivamente(int i, int j, Tablero &solucionParcial,
-  Tablero &solucionOptima, vector<bool> &piezaDisponible, const Entrada &e)
-{
-  if (solucionOptima.cantPiezas == e.n * e.m)
-    return false;
-
-  if (e.n <= i || e.m <= j)
-    return false;
-
-  int espaciosRestantes = e.n * e.m - (i * e.m + j);
-  vector<int> coloresNecesarios(e.c, 0);
-  int f, c, indice;
-  f = (i == 0) ? 0 : i - 1;
-  c = (i == 0) ? 0 : j;
-  for (; f != i && c != j ; calcularSiguientePos(f, c, f, c, e))
-  {
-    indice = solucionParcial.casilleros[f][c];
-    if (indice != 0)
-      ++coloresNecesarios[e.piezas[indice - 1].inf - 1];
-  }
-
-  for (int h = 0; h < e.n * e.m; ++h)
-    if (piezaDisponible[h])
-      --coloresNecesarios[e.piezas[h - 1].sup - 1];
-
-  for (int h = 0; h < e.c; ++h)
-    if (coloresNecesarios[h] > 0)
-      espaciosRestantes -= coloresNecesarios[h];
-
-  if (solucionParcial.cantPiezas + espaciosRestantes <= solucionOptima.cantPiezas)
-    return false;
-
-  return true;
-}
-
-void calcularSiguientePos(int &sig_i, int &sig_j, int i, int j, const Entrada &e)
-{
-  sig_i = i + (j + 1) / e.m;
-  sig_j = (j + 1) % e.m;
-}
-
-bool esCompatible(int indicePieza, int i, int j, Tablero &solucionParcial, const Entrada &e)
-{
-  const Pieza &pieza = e.piezas[indicePieza - 1];
-  if (0 < j)
-  {
-    int indicePiezaIzq = solucionParcial.casilleros[i][j - 1];
-    if (0 < indicePiezaIzq)
-      if (pieza.izq != e.piezas[indicePiezaIzq - 1].der)
-        return false;
-  }
-  if (0 < i)
-  {
-    int indicePiezaSup = solucionParcial.casilleros[i - 1][j];
-    if (0 < indicePiezaSup)
-      if (pieza.sup != e.piezas[indicePiezaSup - 1].inf)
-        return false;
-  }
-
-  return true;
-}
-
-void colocarPieza(int indicePieza, int i, int j,
-  Tablero &tablero, vector<bool> &piezaDisponible)
-{
-  tablero.casilleros[i][j] = indicePieza;
-  ++tablero.cantPiezas;
-  piezaDisponible[indicePieza - 1] = false;
-}
-
-void removerPieza(int indicePieza, int i, int j,
-  Tablero &tablero, vector<bool> &piezaDisponible)
-{
-  tablero.casilleros[i][j] = 0;
-  --tablero.cantPiezas;
-  piezaDisponible[indicePieza - 1] = true;
-}
-
