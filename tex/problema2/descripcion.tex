@@ -12,7 +12,7 @@ La ubicación de cada pueblo queda determinada por sus coordenadas $x$ e $y$, po
   xn yn
 \end{verbatim}
 
-Luego, lo que buscamos es distribuir a lo sumo $k$ centrales entre los $n$ pueblos y realizar las conexiones entre ellos que sean necesarias para que todos queden abastecidos, de forma tal que se minimice la máxima longitud entre todas las tuberías construidas. Para representar una solución, alcanza con determinar la cantidad $q$ de centrales construídas, la cantidad $m$ de tuberías construídas, el índice de los pueblos donde se construyeron las centrales $c_1, c_2, ... c_q$, y los índices $i$, $j$ de los pueblos conectados por cada tubería:
+Luego, lo que buscamos es distribuir a lo sumo $k$ centrales entre los $n$ pueblos y realizar las conexiones entre ellos que sean necesarias para que todos queden abastecidos, de forma tal que se minimice la máxima longitud entre todas las tuberías construidas. Para representar una solución, alcanza con determinar la cantidad $q$ de centrales construidas, la cantidad $m$ de tuberías construidas, el índice de los pueblos donde se construyeron las centrales $c_1, c_2, ... c_q$, y los índices $i$, $j$ de los pueblos conectados por cada tubería:
 
 \begin{verbatim}
   q m
@@ -24,7 +24,7 @@ Luego, lo que buscamos es distribuir a lo sumo $k$ centrales entre los $n$ puebl
 
 \subsubsection{Ejemplos y observaciones}
 
-A continuación incluímos un ejemplo donde se tienen $10$ pueblos y se pueden construir a lo sumo $3$ centrales.
+A continuación incluimos un ejemplo donde se tienen $10$ pueblos y se pueden construir a lo sumo $3$ centrales.
 \begin{verbatim}
   10 3
   1 1
@@ -39,7 +39,7 @@ A continuación incluímos un ejemplo donde se tienen $10$ pueblos y se pueden c
   27 27
 \end{verbatim}
 
-Dado que los pueblos se encuentran agrupados en tres grupos marcados $(1, 2, 3)$, $(4, 5, 6)$ y $(7, 8, 9, 10)$, es razonable que una solución óptima como la presentada aqui debajo consista en colocar una central por grupo, evitando así tuberías largas que unan pueblos alejados:
+Dado que los pueblos se encuentran agrupados en tres grupos marcados $(1, 2, 3)$, $(4, 5, 6)$ y $(7, 8, 9, 10)$, es razonable que una solución óptima como la presentada aquí debajo consista en colocar una central por grupo, evitando así tuberías largas que unan pueblos alejados:
 
 \begin{verbatim}
   3 7

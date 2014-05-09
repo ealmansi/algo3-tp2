@@ -25,3 +25,12 @@
 problema1/bin/*
 problema2/bin/*
 problema3/bin/*
+tex/informe.aux
+tex/informe.log
+tex/informe.pdf
+tex/informe.synctex.gz
+tex/informe.toc
+tex/problema1/experimentacion.log
+tex/problema1/resultados.log
+tex/problema2/desarrollo.log
+tex/problema3/complejidad.log

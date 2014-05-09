@@ -28,19 +28,19 @@ Vamos a probar que nuestro algoritmo tiene una complejidad de $O(n^2)$ operacion
 \end{pseudo}
 \end{center}
 
-Las incializaciones del princpio son (hasta Prim) tienen una complejidad temporal de $O(n)$ debido a que cargamos n pueblos, y cargar cada pueblo tiene una complejidad temporal constate.
+Las incializaciones del princpio (son hasta Prim) tienen una complejidad temporal de $O(n)$ debido a que cargamos n pueblos, y cargar cada pueblo tiene una complejidad temporal constante. Además creamos dos conjuntos en una complejidad de $O(1)$.
 
 Realizar Prim tiene un costo temporal de $O(n^2)$ ya que lo implementamos sobre listas.
 
-Por otro lado, reordenar las conexiones cuesta $O(n*log(n))$ teniendo en cuenta que Prim nos va a dar n-1 conexiones. Utilizamos el algoritmo \emph{Sort} de las librerías de C++ que tiene la complejidad mencionada \footnote{http://en.cppreference.com/w/cpp/algorithm/sort}.
+Por otro lado, reordenar las conexiones cuesta $O(n*log(n))$ teniendo en cuenta que Prim nos va a dar n-1 conexiones, esto es debido a que Prim devuelve un árbol. Utilizamos el algoritmo \emph{Sort} de las librerías de C++ que tiene la complejidad mencionada \footnote{http://en.cppreference.com/w/cpp/algorithm/sort}.
 
 Para eliminar las k-1 conexiones más grandes, simplemente las borramos de la lista de conexiones. Como están ordenadas, eliminar una conexión cuesta $O(1)$ por lo que eliminar k-1 conexiones cuesta $O(k)$. Como estamos contemplando casos donde k  $<$ n, también podemos decir que tiene un costo temporal de $O(n)$.
 
-Luego, realizamos más inicializaciones que tienen un costo temporal de $O(n)$.
+Luego, realizamos más inicializaciones que tienen un costo temporal total de $O(n)$, ya que creamos un vector de $n$ booleanos en $O(n)$ y creamos una lista de Pueblo en $O(1)$.
 
-Ahora vamos a pasar a analizar el ciclo for del final. Para cada pueblo preguntamos si le llega gas o no. En el caso en que sí le llegue gas, pasamos al siguiente. En el caso en que no, colocamos una central en dicho pueblo, y recorremos sus vecinos para recordar que a todos ellos les llega gas.
+Ahora vamos a pasar a analizar el ciclo \emph{for} del final. Para cada pueblo preguntamos si le llega gas o no. En el caso en que sí le llegue gas, pasamos al siguiente. En el caso en que no, colocamos una central en dicho pueblo, y recorremos sus vecinos para recordar que a todos ellos les llega gas.
 
-La guarda del if es true k veces (una por cada componente conexa). Como solo realizamos el BFS si entra a la guarda, podemos afirmar que la complejidad temporal del ciclo for es de $O(n*k)$. Recordando que k $<$ n, podemos decir que tiene una complejidad temporal de $O(n^2)$.
+La guarda del if es true k veces (una por cada componente conexa) ya que luego de sacar $k$ conexiones del árbol que nos devuelve Prim obtenemos $k$ componentes conexas (demostraremos eso en la próxima sección. Como sólo realizamos el BFS si entra a la guarda, podemos afirmar que la complejidad temporal del ciclo \emph{for} es de $O(n*k)$. Recordando que k $<$ n, podemos decir que tiene una complejidad temporal de $O(n^2)$.
 
 Finalmente, devolvemos las centrales y las conexiones que cuesta $O(1)$.
 
