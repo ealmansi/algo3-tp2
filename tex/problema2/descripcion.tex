@@ -1,10 +1,56 @@
-Este problema trata de varios pueblos a los que queremos proveer con gas natural. Para esto colocaremos centrales en algunos pueblos, y se construiremos tuberías desde estos pueblos a los otros pueblos para que así todos los pueblos tengan gas. 
+Dada una serie de pueblos con sus respectivas ubicaciones, se desea determinar un plan de construcción que permita abastecer a todos ellos con gas natural. Es posible construir una cantidad limitada de centrales distribuidoras de gas, cada una de ellas en un pueblo, así como tuberías uniendo las distintas ubicaciones. Un pueblo se considera abastecido de gas si existe un camino por medio de tuberías desde el mismo hasta alguna central distribuidora, incluso si dicho camino pasa por otros pueblos. Por ejemplo, si el pueblo $p_1$ tiene una central y los pueblos $p_2$ y $p_3$ no, se puede construir una tubería del pueblo $p_1$ al pueblo $p_2$ y una del pueblo $p_2$ al pueblo $p_3$, quedando abastecidos de esta forma los tres pueblos sin necesidad de realizar una tubería directa entre $p_1$ y $p_3$.
 
-Cabe aclarar que estas tuberías no deben ir necesariamente de un pueblo con una central a otro pueblo de forma directa para que este último tenga gas. Por ejemplo si el pueblo 1 tiene una central y los pueblos 2 y 3 no las tienen, se puede hacer una tubería del pueblo 1 al pueblo 2 y una del pueblo 2 al pueblo 3, y de esta forma no se necesita una tubería que vaya directamente del pueblo 1 al pueblo 3.
+Adicionalmente, se define el riesgo asociado a un plan de construcción como la mayor longitud de todas las tuberías que se deben construir para realizar el mismo. Entre todos los posibles planes que abastecen a todos los pueblos, se desea hallar aquel que tenga un riesgo asociado mínimo (o cualquiera de ellos, si hay más de uno).
 
-La ubicación de los pueblos está determinada por una coordenada $x$ y una coordenada $y$.
+La ubicación de cada pueblo queda determinada por sus coordenadas $x$ e $y$, por lo cual si tenemos $n$ pueblos y podemos construir a lo sumo $k$ centrales, cada instancia del problema se puede codificar de la siguiente manera:
 
-Tenemos $k$ centrales que debemos distribuir en $n$ pueblos. El problema es que mientras más largas sean las tuberías hay un mayor riesgo de que se produzca una fuga de gas. Por esta razón, buscamos minimizar la máxima longitud de tuberías. De esta manera, vamos a distribuir a los sumo $k$ centrales entre los $n$ pueblos minimizando la máxima longitud de tuberías entre un pueblo y otro.
+\begin{verbatim}
+  n k
+  x1 y1
+  x2 y2
+  ...
+  xn yn
+\end{verbatim}
+
+Luego, lo que buscamos es distribuir a lo sumo $k$ centrales entre los $n$ pueblos y realizar las conexiones entre ellos que sean necesarias para que todos queden abastecidos, de forma tal que se minimice la máxima longitud entre todas las tuberías construidas. Para representar una solución, alcanza con determinar la cantidad $q$ de centrales construídas, la cantidad $m$ de tuberías construídas, el índice de los pueblos donde se construyeron las centrales $c_1, c_2, ... c_q$, y los índices $i$, $j$ de los pueblos conectados por cada tubería:
+
+\begin{verbatim}
+  q m
+  c1 c2 ... cq
+  i1 j1
+  ...
+  im jm
+\end{verbatim}
 
 \subsubsection{Ejemplos y observaciones}
 
+A continuación incluímos un ejemplo donde se tienen $10$ pueblos y se pueden construir a lo sumo $3$ centrales.
+\begin{verbatim}
+  10 3
+  1 1
+  1 2
+  2 1
+  7 8
+  9 10
+  8 7
+  25 26
+  27 28
+  28 28
+  27 27
+\end{verbatim}
+
+Dado que los pueblos se encuentran agrupados en tres grupos marcados $(1, 2, 3)$, $(4, 5, 6)$ y $(7, 8, 9, 10)$, es razonable que una solución óptima como la presentada aqui debajo consista en colocar una central por grupo, evitando así tuberías largas que unan pueblos alejados:
+
+\begin{verbatim}
+  3 7
+  1 4 7 
+  5 4
+  10 7
+  6 4
+  2 1
+  3 1
+  8 10
+  9 8
+\end{verbatim}
+
+Destacamos como observación el hecho de que no es una prioridad la minimización de la cantidad de centrales ni la cantidad de tuberías construidas, y por lo tanto dada una solución óptima, cualquier otra con mayor cantidad de construcciones será equivalente mientras tenga un mismo riesgo asociado.
