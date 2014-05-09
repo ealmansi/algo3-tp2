@@ -1,6 +1,6 @@
 \subsubsection{Modelo formal}
 
-Dado que los pueblos se pueden identificar según su índice, y que las tuberías son vínculos no dirigidos entre dos pueblos, resulta natural representar un plan de construcción mediante un grafo. Para ello, se puede tomar $B(V, E)$, donde $V = \{1,\;2,\;...,\;n\}$ y vale que $(i,j) \in E$ sii se construye una tubería entre $p_i$ y $p_j$. Es necesario definir también un conjunto $C \subseteq V$, $|C| \leq k$, incluyendo los índices de aquellos pueblos donde se planea construir las centrales.
+Dado que los pueblos se pueden identificar según su índice, y que las tuberías son vínculos no dirigidos entre dos pueblos, resulta natural representar un plan de construcción mediante un grafo. Para ello, dado un plan particular se lo puede relacionar con el grafo $B(V, E)$, donde $V = \{1,\;2,\;...,\;n\}$ y vale que $(i,j) \in E$ sii se construye una tubería entre $p_i$ y $p_j$. Es necesario definir también un conjunto $C \subseteq V$, $|C| \leq k$, incluyendo los índices de aquellos pueblos donde se planea construir las centrales.
 
 A las aristas de dicho grafo se les debe asignar una función de peso $w:E\rightarrow\mathbb{R}$, determinando la longitud de las tuberías que representan; concretamente:
 $$si\;e = (i,j),\;w(e) = dist(p_i,p_j) = \sqrt{(x_i - x_j)^2 + (y_i - y_j)^2}$$
