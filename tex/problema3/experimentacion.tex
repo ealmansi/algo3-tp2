@@ -1,42 +1,6 @@
 En esta sección, vamos a comprobar empíricamente que nuestro algoritmo tiene una complejidad temporal cúbica respecto de n, y lineal respecto de k.
 
-En este primer caso utilizamos instancias controladas donde cada casillero tiene una potencia de 1. A su vez, utilizamos un k fijo en cada caso. Probamos con distintos $n$ y obtuvimos el resultado que se puede observar en las figuras debajo.
-
-\begin{figure}[H]
-  \begin{minipage}{0.5\linewidth}
-    \includegraphics[width=\linewidth]{img/problema3/instancia_p_1_varios_k.eps}
-    \caption{Tiempo de ejecución instancia controlada}\label{fig:problema3-k}
-  \end{minipage}
-  \hfill
-  \begin{minipage}{0.5\linewidth}
-    \includegraphics[width=\linewidth]{img/problema3/instancia_p_1_varios_k_div_n2.eps}
-    \caption{Idem, dividido por $n^2$}\label{fig:problema3-k-n2}
-  \end{minipage}
-\end{figure}
-
-En la figura \ref{fig:problema3-k} no podemos notar la complejidad temporal de la función. Por esto, dividimos por $n^2$ y plasmamos ese resultado en la figura \ref{fig:problema3-k-n2}. En esta última figura, vemos claramente que $T(n) / n ^ 2$ es una recta. De esta manera, pudimos comprobar empíricamente que $T(n)$ tiene una complejidad cúbica respecto de n.
-
-Observando el gráfico observamos que en los casos donde $k \geq 2*(n-2)$ resolver el problema es trivial y este caso lo cubrimos en el primer ejemplo de la seccion \ref{problema3-descripcion}. Los casos interesantes son cuando $k < 2*(n-2)$. En estos casos, la complejidad del algoritmo se vuelve cúbica respecto de n como podemos observar en la figura \ref{fig:problema3-k-n2}.
-
-Luego, realizamos otro experimento: dejamos los n fijos y variamos con distintos k.
-
-\begin{figure}[H]
-  \begin{minipage}{0.5\linewidth}
-    \includegraphics[width=\linewidth]{img/problema3/instancia_p_1_varios_n.eps}
-    \caption{Tiempo de ejecución instancia aleatoria}\label{fig:problema3-n}
-  \end{minipage}
-  \hfill
-  \begin{minipage}{0.5\linewidth}
-    \includegraphics[width=\linewidth]{img/problema3/instancia_p_1_varios_n_div_n2.eps}
-    \caption{Idem, dividido por $n^2$}\label{fig:problema3-n-n2}
-  \end{minipage}
-\end{figure}
-
-En estos casos, una vez más podemos observar que cuando $k \geq 2*(n-2)$ resolver el problema es trivial. En estas figuras, está representado por la caída del tiempo de ejecución a partir de este punto. Cabe aclarar que si bien resolver el problema es trivial, al crecer el n cuesta más crear la matriz3D ya que la misma es más grande. En estos casos, la complejidad temporal de nuestro algoritmo es lineal respecto de k.
-
-%TODO a partir de aca revisar bien
-
-En un tercer caso, utilizamos instancias donde cada casillero tiene una potencia en función de n: p(n) = $n/5$. Una vez más, utilizamos k distintos entre sí, pero fijos en cada caso. Probamos con distintos $n$ y obtuvimos el resultado que se puede observar en las figuras debajo.
+En un primer caso, utilizamos instancias donde cada casillero tiene una potencia en función de n: p(n) = $n/5$. Una vez más, utilizamos k distintos entre sí, pero fijos en cada caso. Probamos con distintos $n$ y obtuvimos el resultado que se puede observar en las figuras debajo.
 
 \begin{figure}[H]
   \begin{minipage}{0.5\linewidth}
@@ -54,7 +18,7 @@ En la figura \ref{fig:problema3-k-20} no podemos notar la complejidad temporal d
 
 Una vez que entendimos estos saltos, llegamos a la conclusión que si tomamos los puntos donde pega los saltos la función y trazamos una recta $r$, la recta correspondiente al tiempo de ejecución va a tener una pendiente menor o igual a la pendiente de la recta $r$. Es decir, que comprobamos que por más que la potencia dependa del n la complejidad temporal también es lineal respecto de $T(N)/n^2$ que es lo mismo que decir que es cúbica respecto de n.
 
-Finalmente, decidimos hacer un experimento más: utilizamos n distintos entre sí (pero fijos en cada caso) y variar el k. Una vez más p depende de n con la misma función anteriormente usada.
+Luego, decidimos hacer un experimento más: utilizamos n distintos entre sí (pero fijos en cada caso) y variar el k. Una vez más p depende de n con la misma función anteriormente usada.
 
 \begin{figure}[H]
   \begin{minipage}{0.5\linewidth}
@@ -68,7 +32,7 @@ Finalmente, decidimos hacer un experimento más: utilizamos n distintos entre s�
   \end{minipage}
 \end{figure}
 
-En estos casos, una vez más podemos observar que cuando $k \geq 2*(n-1-p)$ resolver el problema es trivial. En estas figuras, está representado por la caída del tiempo de ejecución a partir de este punto. Cabe aclarar que si bien resolver el problema es trivial, al crecer el n cuesta más crear la matriz3D ya que la misma es más grande. En estos casos, la complejidad temporal de nuestro algoritmo es lineal respecto de k.
+En estos casos, podemos observar que cuando $k \geq 2*(n-1-p)$ resolver el problema es trivial. En estas figuras, está representado por la caída del tiempo de ejecución a partir de este punto. Cabe aclarar que si bien resolver el problema es trivial, al crecer el n cuesta más crear la matriz3D ya que la misma es más grande. En estos casos, la complejidad temporal de nuestro algoritmo es lineal respecto de k.
 
 Para poder ver mejor esto último, realizamos \emph{zoom} a la figura a partir del momento de la caída, lo cual lo podemos ver en la figura \ref{fig:problema3-n-n2-20}. En esta figura, se ve claramente que la complejidad temporal de nuestro algoritmo es lineal respecto de k.
 
