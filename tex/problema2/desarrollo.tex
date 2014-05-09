@@ -16,11 +16,13 @@ $\bullet$ Dada una solución conformada por C y B(V,E), un pueblo $v \in V$ esta
 
 $\bullet$ Dada una solución C, B(V,E) decimos que la misma es factible si $(\forall v \in V)(\exists c \in C) \exists$ un camino entre v y c en B. 
 
+$\bullet$ Dadas dos soluciónes (no necesariamente factibles), llamadas C, B(V,E) y C', B'(V,E') decimos que la solución dada por B' es mejor o igual que la dada por B $\Leftrightarrow$ MaxArista(B') $\leq$ MaxArista(B).
+
 $\bullet$ Queremos encontrar el C , B(V,E) tal que sea una solución óptima, minimizando la máxima arista.
 
 Consideramos una solución, si cumple la aridad pedida. Una solución factible si cumple cierta condicion además de la aridad. Una solución optima es quien maximiza/minimiza cierta funcion entre todas las soluciones factibles, en este caso se busca minimizar la máxima arista.
 
-Supongamos que tenemos el conjunto V que contiene a todos los pueblos. Sea G(V,E) un grafo completo donde el peso de las aristas es igual a la distancia euclidiana entre los pueblos. Para encontrar la solución óptima vamos a encontrar B(V,E) un bosque generador mínimo con k componentes conexas de G y C un conjunto que  contenga un pueblo de cada una de las componentes conexas de B.
+Supongamos que tenemos el conjunto V que contiene a todos los pueblos. Sea G(V,E) un grafo completo donde el peso de las aristas es igual a la distancia euclidiana entre los pueblos. Para encontrar la solución óptima vamos a encontrar B(V,E') un bosque generador mínimo con k componentes conexas de G y C un conjunto que  contenga un pueblo de cada una de las componentes conexas de B.
 
 Definiendo un bosque generador mínimo con k componentes conexas de G, como un grafo que cumple las siguientes condiciones:
 
@@ -34,7 +36,7 @@ Ahora presentaremos una idea de por este modelo efectivamente resuelve el proble
 
 $\bullet$ Un bosque de k componentes conexas generador mínimo también minimiza la máxima arista.
 
-$\bullet$ Dada una solución C, B(V,E), es factible $\Longleftrightarrow$ $(\forall D$ componente conexa de $B)((\exists v \in D) v \in C)$.  
+$\bullet$ Dada una solución C, B(V,E'), es factible $\Longleftrightarrow$ $(\forall D$ componente conexa de $B)((\exists v \in D) v \in C)$.  
 
 $\bullet$ Dada una solución con i componentes conexas (siendo i $<$ k), existe una solución mejor o igual con i+1 componentes conexas.
 
