@@ -1,14 +1,14 @@
 Primero vamos a demostrar que un bosque generador mínimo con k componentes conexas resuelve el problema. Osea que todos los pueblos están conectados a algún pueblo con una central y su máxima arista es la mínima entre todas las soluciones posibles.
 
-Cabe aclarar que como estamos el peso de una arista es la distancia entre sus dos extremos, los pesos de las arista nunca van a ser negativos.
+Cabe aclarar que como el peso de una arista está dado por la función $w$ definida en la sección \ref{problema2-desarrollo}, los pesos de las aristas nunca van a ser negativos.
 
-Para eso primero vamos a demostrar los siguiente lemas:
+Para eso primero vamos a demostrar los siguientes lemas:
 
 \textbf{Lema 1:} Un bosque de k componentes conexas generador mínimo también minimiza la máxima arista con respecto a otros subgrafos generadores de k componentes conexas.
 
-\textbf{Lema 2:}Dada una solución C, B(V,E), es factible $\Longleftrightarrow$ $(\forall D$ componente conexa de $B)((\exists v \in D) v \in C)$. Que es lo mismo que decir que $(\forall v \in V)((\exists c \in C)$ v esta conectado a c) $\Leftrightarrow (\forall D$ componente conexa de $B)((\exists v \in D) v \in C)$.
+\textbf{Lema 2:}Dado una solucion  $<C,\;B(V,E)>$, es factible $\Longleftrightarrow$ $(\forall D$ componente conexa de $B)((\exists v \in D) v \in C)$. Que es lo mismo que decir que $(\forall v \in V)((\exists c \in C)$ v esta conectado a c) $\Leftrightarrow (\forall D$ componente conexa de $B)((\exists v \in D) v \in C)$.
 
-\textbf{Corolario 2.1:} Dada una solución C, B(V,E) es factible $\Rightarrow$ \# C $\geq$ \# componentes conexas (B).
+\textbf{Corolario 2.1:} Dada una solución $<C,\;B(V,E)>$ es factible $\Rightarrow$ \# C $\geq$ \# componentes conexas (B).
 
 \textbf{Lema 3:} Dada una solución con C componentes conexas , existe una solución mejor o igual con C+1 componentes conexas (No necesariamente factible). \\ \\ 
 
@@ -53,14 +53,14 @@ También sabemos que $\sum_{i \in E} f(i) \leq \sum_{i \in E-e+e'} f(i)$ ya que 
 Entonces: $\sum_{i \in E} f(i) > \sum_{i \in E-e+e'} f(i) \wedge \sum_{i \in E} f(i) \leq \sum_{i \in E-e+e'} f(i)$. \\ \\
 
 
-\textbf{Lema 2:}Dada una solución C, B(V,E) es factible $\Longleftrightarrow$ $(\forall D$ componente conexa de $B)((\exists v \in D) v \in C)$.  $(\forall v \in V)((\exists c \in C)$ v esta conectado a c) $\Leftrightarrow (\forall D$ componente conexa de $B)((\exists v \in D) v \in C)$.
+\textbf{Lema 2:}Dada una solución $<C,\;B(V,E)>$, si ésta es es factible $\Longleftrightarrow$ $(\forall D$ componente conexa de $B)((\exists v \in D) v \in C)$.  $(\forall v \in V)((\exists c \in C)$ v esta conectado a c) $\Leftrightarrow (\forall D$ componente conexa de $B)((\exists v \in D) v \in C)$.
 
 
 Primero probemos $\Rightarrow$
 
 Tomo D una componente conexa cualquiera de B y v uno de sus vértices.
 
-se que existe un c $\in$ C tal que v esta conectado a c, osea c pertenece a la misma componente conexa que v. Por lo tanto c $\in$ C $\wedge$ c $\in$ D.
+Sabemos que existe un c $\in$ C tal que v esta conectado a c, osea c pertenece a la misma componente conexa que v. Por lo tanto c $\in$ C $\wedge$ c $\in$ D.
 
 Ahora probemos $\Leftarrow$
 
@@ -68,7 +68,7 @@ Tomemos un u cualquiera, u pertenece a la componente conexa D.
 
 Sabemos que existe un v tal que $v \in C \wedge v \in D$. Y como v y u pertenecen a la misma componente conexa, entonces existe un camino entre v y u, osea que v y u están conectados.
 
-\textbf{Corolario 2.1:} Dada una solución C, B(V,E) es factible $\Rightarrow$ \# C $\geq$ \# componentes conexas (B).
+\textbf{Corolario 2.1:} Dada una solución $<C,\;B(V,E)>$ es factible $\Rightarrow$ \# C $\geq$ \# componentes conexas (B).
 
 Por \textbf{Lema 2} sabemos que el C de una solución factible tiene como mínimo un vértice de cada componente conexa. Podemos decir que un vértice no puede pertenecer a dos componentes conexas diferentes (ya que de lo contrario no serían dos componentes conexas diferentes, serían una sola componente conexa), por lo tanto sabemos que C tiene como mínimo tantos vértices como componentes conexas tenga B.
 
