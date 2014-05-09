@@ -1,6 +1,6 @@
-En esta sección, vamos a comprobar empíricamente que nuestro algoritmo tiene una complejidad temporal de $O(n^3)$.
+En esta sección, vamos a comprobar empíricamente que nuestro algoritmo tiene una complejidad temporal de $O(n^2)$.
 
-En este primer caso utilizamos instancia aleatorias variando el tamaño de n. A su vez, utilizamos distintos tamaños de k.
+En este primer caso utilizamos instancias aleatorias variando el tamaño de entrada T(n). A su vez, utilizamos distintos tamaños de k. En la figura \ref{fig:problema2-k} se pueden observar los resultados obtenidos.
 
 \begin{figure}[H]
   \begin{minipage}{0.5\linewidth}
@@ -14,4 +14,6 @@ En este primer caso utilizamos instancia aleatorias variando el tamaño de n. A 
   \end{minipage}
 \end{figure}
 
-En la figura \ref{fig:problema2-k} no podemos notar la complejidad temporal de la función. Por esto, dividimos por $n$ y plasmamos ese resultado en la figura \ref{fig:problema2-k-n}. En esta última figura, vemos claramente que $T(n) / n$ es una recta. De esta manera, pudimos comprobar empíricamente que $T(n)$ tiene una complejidad temporal de $O(n^2)$, lo cual demostramos anteriormente.
+Además de presentar los datos como dijimos anteriormente en la figura \ref{fig:problema2-k}, incluimos otro gráfico donde mostramos donde se puede observar el comportamiento de T(n) cuando de lo divide por $n$. Hicimos esto porque en la figura \ref{fig:problema2-k} no hay nada que nos permita notar el comportamiento de $T(n)$ para los valores medidos.
+
+Plasmamos los resultados de $T(n)/n$ en la figura \ref{fig:problema2-k-n}. En esta última figura, podemos observar claramente que $T(n) / n$ tiene un comportamiento lineal para los valores medidos, lo que nos dice que $T(n)$ tiene un comportamiento cuadrático para estos valores. De esta manera, pudimos comprobar empíricamente que $T(n)$ tiene una complejidad temporal de $O(n^2)$, lo cual demostramos anteriormente.
