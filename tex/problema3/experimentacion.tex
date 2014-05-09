@@ -16,9 +16,9 @@ En este primer caso utilizamos instancias controladas donde cada casillero tiene
 
 En la figura \ref{fig:problema3-k} no podemos notar la complejidad temporal de la función. Por esto, dividimos por $n^2$ y plasmamos ese resultado en la figura \ref{fig:problema3-k-n2}. En esta última figura, vemos claramente que $T(n) / n ^ 2$ es una recta. De esta manera, pudimos comprobar empíricamente que $T(n)$ tiene una complejidad cúbica respecto de n.
 
-Observando el gráfico observamos que en los casos donde $k \geq 2*(n-2)$ resolver el problema es trivial y este caso lo cubrimos en el primer ejemplo de la seccion \ref{problema3-descripcion}. Los casos interesantes son cuando $k < 2*(n-2)$. En estos casos, la complejidad del algoritmo se vuelve cúbica respecto de n como podemos observar en la figura \ref{fig:problema3-k-n2}.
+Observando el gráfico observamos que en los casos donde $k \geq 2*(n-2)$ resolver el problema es trivial y este caso lo cubrimos en el primer ejemplo de la sección \ref{problema3-descripcion}. Los casos interesantes son cuando $k < 2*(n-2)$. En estos casos, la complejidad del algoritmo se vuelve cúbica respecto de n como podemos observar en la figura \ref{fig:problema3-k-n2}.
 
-Elegimos un p del mismo orden que n ya que si el p fuera constante, la cantidad de aristas de un nodo sería constante cambiando la complejidad del algoritmo a $O(n^2k)$. Y tener un p mayor que n no tiene sentido ya que no se puede saltar mas de n-1 casillero para ningun lado sin salirse del tablero.
+Elegimos un p del mismo orden que n ya que si el p fuera constante, la cantidad de aristas de un nodo sería constante cambiando la complejidad del algoritmo a $O(n^2k)$. Y tener un p mayor que n no tiene sentido ya que no se puede saltar mas de n-1 casillero para ningún lado sin salirse del tablero.
 
 Luego, realizamos otro experimento: dejamos los n fijos y variamos con distintos k.
 
@@ -52,7 +52,7 @@ En un tercer caso, utilizamos instancias donde cada casillero tiene una potencia
   \end{minipage}	
 \end{figure}
 
-En la figura \ref{fig:problema3-k-20} no podemos notar la complejidad temporal de la función. Por esto, dividimos por $n^2$ y plasmamos ese resultado en la figura \ref{fig:problema3-k-n2-20}. Sin embargo, en esta última figura tampoco podemos ver claramente la complejidad temporal. Por esta razon, decidimos analizar los ``saltos'' que pega la función. Luego de experimentación y búsqueda llegamos a la conclusión que esos saltos se relacionan con el cambio de potencia de los resortes. Por ejemplo entre para n entre 10 y 15 las potencias son de la siguiente manera: 2,2,2,3,3,3. Esto se debe a que 12/5 = 2.4 (y lo redondea para abajo) y 13/5 = 2.6 (que se redondea para arriba).
+En la figura \ref{fig:problema3-k-20} no podemos notar la complejidad temporal de la función. Por esto, dividimos por $n^2$ y plasmamos ese resultado en la figura \ref{fig:problema3-k-n2-20}. Sin embargo, en esta última figura tampoco podemos ver claramente la complejidad temporal. Por esta razón, decidimos analizar los ``saltos'' que pega la función. Luego de experimentación y búsqueda llegamos a la conclusión que esos saltos se relacionan con el cambio de potencia de los resortes. Por ejemplo entre para n entre 10 y 15 las potencias son de la siguiente manera: 2,2,2,3,3,3. Esto se debe a que 12/5 = 2.4 (y lo redondea para abajo) y 13/5 = 2.6 (que se redondea para arriba).
 
 Una vez que entendimos estos saltos, llegamos a la conclusión que si tomamos los puntos donde pega los saltos la función y trazamos una recta $r$, la recta correspondiente al tiempo de ejecución va a tener una pendiente menor o igual a la pendiente de la recta $r$. Es decir, que comprobamos que por más que la potencia dependa del n la complejidad temporal también es lineal respecto de $T(N)/n^2$ que es lo mismo que decir que es cúbica respecto de n.
 
