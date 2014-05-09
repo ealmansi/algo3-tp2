@@ -4,7 +4,7 @@ Cabe aclarar que como estamos el peso de una arista es la distancia entre sus do
 
 Para eso primero vamos a demostrar los siguiente lemas:
 
-\textbf{Lema 1:} Un bosque de k componentes conexas generador mínimo también minimiza la máxima arista.
+\textbf{Lema 1:} Un bosque de k componentes conexas generador mínimo también minimiza la máxima arista con respecto a otros subgrafos generadores de k componentes conexas.
 
 \textbf{Lema 2:}Dada una solución C, B(V,E), es factible $\Longleftrightarrow$ $(\forall D$ componente conexa de $B)((\exists v \in D) v \in C)$. Que es lo mismo que decir que $(\forall v \in V)((\exists c \in C)$ v esta conectado a c) $\Leftrightarrow (\forall D$ componente conexa de $B)((\exists v \in D) v \in C)$.
 
@@ -13,17 +13,17 @@ Para eso primero vamos a demostrar los siguiente lemas:
 \textbf{Lema 3:} Dada una solución con C componentes conexas , existe una solución mejor o igual con C+1 componentes conexas (No necesariamente factible). \\ \\ 
 
 
-\textbf{Lema 1:} Un bosque de k componentes conexas generador mínimo también minimiza la máxima arista. Equivalentemente, sea B un bosque de k componentes conexas generador mínimo: $(\nexists$ Q subgrafo generador con k componentes conexas) $MaxArista(Q) < MaxArista(B)$.
+\textbf{Lema 1:} Un bosque de k componentes conexas generador mínimo también minimiza la máxima arista con respecto a otros subgrafos generadores de k componentes conexas. Equivalentemente, sea B un bosque de k componentes conexas generador mínimo: $(\nexists$ Q subgrafo generador con k componentes conexas) $MaxArista(Q) < MaxArista(B)$.
 
 Vamos a demostrar este lema por el absurdo, sea B(V,E) un bosque de k componentes conexas generador mínimo supongo que existe un Q(N,A) subgrafo generador con k componentes conexas tal que $MaxArista(Q) < MaxArista(B)$.
 
 Sea e la MaxArista(B), sabemos que toda arista en en Q va a ser menor que e.
 
-Si las k componentes conexas de B y Q son las mismas:
+Si las k componentes conexas de B y Q son las mismas (en cuanto a nodos):
 
 Sea B'(V,E-e), tiene k-1 componentes conexas iguales a las de B, y C,la componente en la que estaba e, se divide en dos componentes conexas C1 y C2, ambas árboles.
 
-Como Q tiene las mismas componentes conexas que B, C es una componente conexa de Q.Por lo cual existe una arista e' con un extremo en C1 y otro en C2.
+Como Q tiene las mismas componentes conexas que B, C es una componente conexa de Q.Por lo cual existe una arista e' con un extremo en C1 y otro en C2. Ya que como C tiene a todos los nodos de C1 y C2, para que formen una componente conexa estos dos conjuntos deben estar unidos por al menos una arista.
 
 Sea B''(V,E-e+e'), B'' es un subgrafo generador con k componentes conexas ya que al quitar e se generan un subgrafo con k+1 componentes conexas. Y al agregar e', como este  tiene extremos en dos componentes conexas diferentes, quedan k componentes conexas. Y como no se modifican los vértices sigue siendo generador.
 
