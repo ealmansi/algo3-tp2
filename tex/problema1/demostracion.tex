@@ -2,7 +2,7 @@ Para demostrar que nuestra solución resuelve el problema propuesto tenemos que 
 
 Primero vamos a demostrar que la función recursiva determina las jugadas óptimas del juego. 
 
-Para empezar recordemos lo que lo que el problema pide es jugar de una forma que maximice tu puntuación. Como al finalizar el juego no pueden quedar cartas sin robar, la suma de los valores de todas las cartas va a estar distribuida entre el jugador uno y el jugador dos, de esta forma:
+Para empezar recordemos lo que el problema pide es jugar de una forma que maximice tu puntuación. Como al finalizar el juego no pueden quedar cartas sin robar, la suma de los valores de todas las cartas va a estar distribuida entre el jugador uno y el jugador dos, de esta forma:
 
 $\sum_{i=0}^{n} c_i = \sum_{j \in A} c_j + \sum_{k \in B} c_k$
 
@@ -23,19 +23,33 @@ Por lo dicho anteriormente demostrar que nuestra función resuelve el problema e
 
 Vamos a demostrar esto por inducción en las cartas restantes, que en este caso son $j-i+1$. La propiedad que queremos demostrar es la siguiente:
 
-$P(i,j) : (\forall i,j, 0 \leq i \leq j < n)opt(i,j)$ maximiza nuestro puntaje para las cartas desde $c_i$ hasta $c_j$
+Sea P(n) = $(\forall i,j 0 < j -i + 1 \leq n) P(i,j)$
+
+P(i,j) = opt(i,j) maximiza nuestro puntaje para las cartas desde $c_i$ hasta $c_j$
 
 Primero analicemos el caso base:
 
-$opt(i,i) = c_i$
+P(1) = $(\forall i,j 0 < j -i + 1 \leq 1) P(i,j)$, osea i = j
+
+P(i,i) = opt(i,i) maximiza nuestro puntaje para las cartas desde $c_i$ hasta $c_i$
+
+Recordemos que $opt(i,i) = c_i$
 
 Queremos ver que se cumple $P(i,i)$.
 
-Este caso significa que sólo queda una carta. Como el juego nos obliga a, de ser posible, robar al menos una carta por turno, la única opción posible es robar esta carta. Como es la última opción, también es la opción óptima, por lo tanto se cumple $P(i,i)$.
+Este caso significa que sólo queda una carta, $c_i$. Como el juego nos obliga a, de ser posible, robar al menos una carta por turno, la única opción posible es robar esta carta. Como es la última opción, también es la opción óptima, por lo tanto se cumple $P(i,i)$.
 
 Ahora analicemos el caso recursivo:
 
-$opt(i,j) = \sum cartas - min(opt(i+1, j), ..., opt(j,j), opt(i, j-1), ... ,opt(i,i), 0)$
+$ P(n) \Leftarrow P(n+1)$
+
+P(n+1) = $(\forall i,j 0 < j -i + 1 \leq n+1) P(i,j)$
+
+Tomemos i,j genericos, si $0 < j-i+1 \leq n$ entonces por H.I. vale.
+
+El caso que nos queda probar es si j-i+1 = n+1
+
+Recordemos que $opt(i,j) = \sum cartas - min(opt(i+1, j), ..., opt(j,j), opt(i, j-1), ... ,opt(i,i), 0)$ ya que i $\neq$ j
 
 Tenemos que realizar el paso inductivo, esto significa que tenemos que probar que $P(i,j)$ seguro vale si vale $P(i',j')$ para todas las subsecuencias de cartas que $opt(i,j)$ utiliza, osea, para probar $P(i,j)$ queremos ver que:
 
@@ -51,7 +65,7 @@ Lo que la función debe determinar es, de las posibles instancias del juego que 
 
 Como sólo se pueden robar cartas de uno de los dos extremos las posibles instancias son las siguientes: Si se roba una carta comenzando de la izquierda la instancia generada será de $(i+1,j)$, si se roban 2, de $(i+2,j)$ y se se roban $j-i$, de $(j,j)$. De esta misma forma si se roba una carta empezando de la derecha quedará una instancia de $(i,j-1)$ y si se roban $j-i$ cartas, la instancia sera de $(i,i)$.
 
-Pero queda una instancia más por analizar, la de levantar todas las cartas posibles (no importa de cual extremo). En ese caso se generará una instancia $(0,0)$.
+Pero queda una instancia más por analizar, la de levantar todas las cartas posibles (no importa de cual extremo). En ese caso los puntos del siguiente jugador son 0.
 
 Por lo tanto el mínimo que debemos hallar es el siguiente:
 
