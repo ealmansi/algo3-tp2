@@ -1,43 +1,42 @@
-Modelamos este problema de la siguiente manera:
+\subsubsection{Modelo formal}
 
-$\bullet$ Un pueblo es un par ordenado (x,y).
+Dado que los pueblos se pueden identificar según su índice, y que las tuberías son vínculos no dirigidos entre dos pueblos, resulta natural representar un plan de construcción como el grafo $B(V, E)$ donde $V = \{1,\;2,\;...,\;n\}$ y el par $(i,j) \in E$ sii se construye una tubería entre $p_i$ y $p_j$. Se debe definir también un conjunto $C \subseteq V$, $|C| \leq k$, incluyendo los índices de aquellos pueblos donde se construyen centrales.
 
-$\bullet$ Una tubería es un par no ordenado de pueblos.
+A las aristas de dicho grafo asignamos una función de peso $w:E\rightarrow\mathbb{R}$, determinando la longitud de las tuberías que representan, o concretamente:
+$$si\;e = (i,j),\;w(e) = dist(p_i,p_j)$$
 
-$\bullet$ Un conjunto de V pueblos y otro E de tuberías puede ser considerado un grafo, cuyo conjunto de nodos es V y su conjunto de aristas es E.
+donde $dist$ representa la distancia euclidiana $\sqrt{(x_i - x_j)^2 + (y_i - y_j)^2}$.
 
-$\bullet$ El peso asociado a una arista (tubería) es igual a la distancia euclidiana entre los extremos (pueblos).
+Modelando de esta forma un plan de construcción, un determinado plan $P = <C,\;B(V, E),\;w>$ debe cumplir las siguientes características para ser solución al problema:
 
-$\bullet$ Una central es un pueblo.
+\begin{itemize}
+  \item Todo pueblo debe estar abastecido de gas. Es decir, $(\forall v \in V)(\exists c \in C)\;\exists$ un camino entre $v$ y $c$ en $B$. En este caso, decimos que el plan es una solución \emph{factible}.
+  
+  \item Dado cualquier otro plan factible $P'$, su riesgo asociado es mayor o igual al de $P$. Equivalentemente, si $P' = <C',\;B'(V', E'),\;w'>$ y $P'$ es factible, vale que $max\{w(e)\;|\;e\in E\} \leq max\{w'(e')\;|\;e'\in E'\}$. En este caso, decimos que el plan es una solución \emph{óptima}.
+\end{itemize}
 
-$\bullet$ Dado V un conjunto de pueblos y k la cantidad de centrales de gas, una solución es un conjunto $C \subseteq V$ de k pueblos y un grafo B(V,E), sea E el conjunto de tuberías que decidimos colocar para conectar los pueblos. Por ejemplo, si queremos conectar al pueblo 'a' y al pueblo 'b', agregamos al conjunto E la arista ('a','b'). El subonjunto C representa a los pueblos donde elegimos poner las centrales.  
+\subsubsection{Descripción del algoritmo}
 
-$\bullet$ Dada una solución conformada por C y B(V,E), un pueblo $v \in V$ esta provisto de gas si existe un camino en B entre éste y un pueblo $c \in C$ ya que estos pueblos son los que tienen central distribuidora.
+En primer lugar, definimos un \emph{bosque generador mínimo con $k$ componentes conexas} de un grafo $G$, como un grafo que cumple las siguientes condiciones:
 
-$\bullet$ Dada una solución C, B(V,E) decimos que la misma es factible si $(\forall v \in V)(\exists c \in C) \exists$ un camino entre v y c en B. 
+\begin{itemize}
+  \item Es un subgrafo generador de $G$.
 
-$\bullet$ Dadas dos soluciónes (no necesariamente factibles), llamadas C, B(V,E) y C', B'(V,E') decimos que la solución dada por B' es mejor o igual que la dada por B $\Leftrightarrow$ MaxArista(B') $\leq$ MaxArista(B).
+  \item Es un bosque de $k$ componentes conexas.
 
-$\bullet$ Queremos encontrar el C , B(V,E) tal que sea una solución óptima, minimizando la máxima arista.
+  \item Entre todos los subgrafos generadores de $G$ de $k$ componentes conexas tiene la mínima suma de aristas.
+\end{itemize}
 
-Consideramos una solución, si cumple la aridad pedida. Una solución factible si cumple cierta condicion además de la aridad. Una solución optima es quien maximiza/minimiza cierta funcion entre todas las soluciones factibles, en este caso se busca minimizar la máxima arista.
-
-Supongamos que tenemos el conjunto V que contiene a todos los pueblos. Sea G(V,E) un grafo completo donde el peso de las aristas es igual a la distancia euclidiana entre los pueblos. Para encontrar la solución óptima vamos a encontrar B(V,E') un bosque generador mínimo con k componentes conexas de G y C un conjunto que  contenga un pueblo de cada una de las componentes conexas de B.
-
-Definiendo un bosque generador mínimo con k componentes conexas de G, como un grafo que cumple las siguientes condiciones:
-
-$\bullet$Es un subgrafo generador de G. 
-
-$\bullet$Es un bosque de k componentes conexas.
-
-$\bullet$ Entre todos los subgrafos generador de G de k componentes conexas tiene la mínima suma de aristas.
+El algoritmo desarrollado para hallar la solución consiste en obtener el bosque generador mínimo con $k$ componentes conexas del grafo $G(V,E)$, donde $G$ representa el plan donde se contruyen todas las posibles tuberías. Denominando $B(V,E')$ al bosque obtenido, el conjunto $C$ de la solución se puede conformar tomando un pueblo de cada una de las componentes conexas de $B$.
 
 Ahora presentaremos una idea de por este modelo efectivamente resuelve el problema. Luego lo vamos a demostrar formalmente. 
 
-$\bullet$ Un bosque de k componentes conexas generador mínimo también minimiza la máxima arista.
+\begin{itemize}
+\item Un bosque de $k$ componentes conexas generador mínimo también minimiza la máxima arista.
 
-$\bullet$ Dada una solución C, B(V,E'), es factible $\Longleftrightarrow$ $(\forall D$ componente conexa de $B)((\exists v \in D) v \in C)$.  
+\item Dada una solución $<C,\;B(V,E')>$, la misma es factible sii $C$ contiene un y solo un vértice de cada componente conexa de $B$. Formalmente, sii $(\forall D$ componente conexa de $B)((\exists v \in D) v \in C)$.  
 
-$\bullet$ Dada una solución con i componentes conexas (siendo i $<$ k), existe una solución mejor o igual con i+1 componentes conexas.
+\item Dada una solución con i componentes conexas (siendo i $<$ k), existe una solución mejor o igual con i+1 componentes conexas.
+\end{itemize}
 
-Vamos a suponer que k $\leq$ n, ya que en el caso contrario la solución es trivial. Cada pueblo tiene una central y no se necesitan construir ninguna tubería.
+Vamos a suponer que k $\leq$ n, ya que en caso contrario se puede construir una central en cada pueblo sin necesidad de tuberías, y la solución es trivial.
