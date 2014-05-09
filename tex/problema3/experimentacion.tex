@@ -18,6 +18,8 @@ En la figura \ref{fig:problema3-k} no podemos notar la complejidad temporal de l
 
 Observando el gráfico observamos que en los casos donde $k \geq 2*(n-2)$ resolver el problema es trivial y este caso lo cubrimos en el primer ejemplo de la seccion \ref{problema3-descripcion}. Los casos interesantes son cuando $k < 2*(n-2)$. En estos casos, la complejidad del algoritmo se vuelve cúbica respecto de n como podemos observar en la figura \ref{fig:problema3-k-n2}.
 
+Elegimos un p del mismo orden que n ya que si el p fuera constante, la cantidad de aristas de un nodo sería constante cambiando la complejidad del algoritmo a $O(n^2k)$. Y tener un p mayor que n no tiene sentido ya que no se puede saltar mas de n-1 casillero para ningun lado sin salirse del tablero.
+
 Luego, realizamos otro experimento: dejamos los n fijos y variamos con distintos k.
 
 \begin{figure}[H]
