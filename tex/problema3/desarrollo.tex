@@ -4,7 +4,7 @@ $\bullet$ Cada estado posible en el juego es estar en una casilla dada con ciert
 
 $\bullet$ Dada la cantidad de filas y columnas n y la cantidad de unidades de potencia máxima $k\_max$, a priori los estados posibles son (x,y,k) / $0 < x,y \leq n \wedge 0 \leq k \leq k\_max$. 
 
-$\bullet$ Moverme al este representa incrementar la columna, al oeste decrementarla, al norte incrementar la fila y al sur decrementarla.
+$\bullet$ Moverme al este representa incrementar la columna, al oeste decrementarla, al norte decrementar la fila y al sur incrementarla.
 
 $\bullet$ Dado un estado $e_i = (x_0,y_0,k_0)$ se puede saltar sin consumir unidades de potencia, a un estado con el mismo k, pero con alguna de mis coordenadas x o y cambiadas entre 1 y la potencia de la casilla en la que me encuentro. Osea  $(\forall 0 < j \leq p ) e_i$ puede saltar a $(x_0,y_0+j,k_0), (x_0,y_0-j,k_0), (x_0+j,y_0,k_0), (x_0-j,y_0,k_0)$.
 
@@ -12,9 +12,9 @@ $\bullet$ Dado un estado $e_i = (x_0,y_0,k_0)$ también se puede saltar consumie
 
 En ambos casos solo tendremos en cuenta los estados posibles vistos en la condición anterior (que su x e y no salgan del rango [1,n]).
 
-Queremos encontrar la forma de llegar desde la casilla de entrada $x_e,y_e$ hasta la casilla de salida $x_s,y_s$ con una cantidad de unidades de potencia igual a k\_max en la mínima cantidad de saltos posibles. En nuestro modelo seria partiendo del estado $(x_e,y_e,k\_max)$ queremos llegar al estado $(x_s,y_s,i)$ para algún i entre 0 y k\_max en la mínima cantidad de saltos. Como en nuestro modelo cada cambio de estado equivale a un salto queremos hallar un camino mínimo entre $(x_e,y_e,k\_max)$ y $(x_s,y_s,i)$ para algún i entre 0 y k\_max en nuestro dígrafo donde los vértices son los posibles estados y las incidencias están dadas si se puede saltar de un estado $e_i$ a uno $e_j$ .
+Queremos encontrar la forma de llegar desde la casilla de entrada $x_e,y_e$ hasta la casilla de salida $x_s,y_s$ con una cantidad de unidades de potencia iniciales igual a k\_max en la mínima cantidad de saltos posibles. En nuestro modelo seria partiendo del estado $(x_e,y_e,k\_max)$ queremos llegar al estado $(x_s,y_s,i)$ para algún i entre 0 y k\_max en la mínima cantidad de saltos. Como en nuestro modelo cada cambio de estado equivale a un salto queremos hallar un camino mínimo entre $(x_e,y_e,k\_max)$ y $(x_s,y_s,i)$ para algún i entre 0 y k\_max en nuestro digrafo donde los vértices son los posibles estados y las incidencias están dadas si se puede saltar de un estado $e_i$ a uno $e_j$.
 
-Para encontrar esto usamos BFS terminando la primera vez que encontramos un vértice $(x_s,y_s,i)$.
+Para encontrar esto, usamos BFS terminando la primera vez que encontramos un vértice $(x_s,y_s,i)$.
 
 
 
