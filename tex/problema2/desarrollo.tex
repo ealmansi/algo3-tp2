@@ -1,11 +1,11 @@
 \subsubsection{Modelo formal}
 
-Dado que los pueblos se pueden identificar según su índice, y que las tuberías son vínculos no dirigidos entre dos pueblos, resulta natural representar un plan de construcción como el grafo $B(V, E)$ donde $V = \{1,\;2,\;...,\;n\}$ y el par $(i,j) \in E$ sii se construye una tubería entre $p_i$ y $p_j$. Se debe definir también un conjunto $C \subseteq V$, $|C| \leq k$, incluyendo los índices de aquellos pueblos donde se construyen centrales.
+Dado que los pueblos se pueden identificar según su índice, y que las tuberías son vínculos no dirigidos entre dos pueblos, resulta natural representar un plan de construcción mediante un grafo. Para ello, se puede tomar $B(V, E)$, donde $V = \{1,\;2,\;...,\;n\}$ y vale que $(i,j) \in E$ sii se construye una tubería entre $p_i$ y $p_j$. Es necesario definir también un conjunto $C \subseteq V$, $|C| \leq k$, incluyendo los índices de aquellos pueblos donde se planea construir las centrales.
 
-A las aristas de dicho grafo asignamos una función de peso $w:E\rightarrow\mathbb{R}$, determinando la longitud de las tuberías que representan, o concretamente:
-$$si\;e = (i,j),\;w(e) = dist(p_i,p_j)$$
+A las aristas de dicho grafo se les debe asignar una función de peso $w:E\rightarrow\mathbb{R}$, determinando la longitud de las tuberías que representan; concretamente:
+$$si\;e = (i,j),\;w(e) = dist(p_i,p_j) = \sqrt{(x_i - x_j)^2 + (y_i - y_j)^2}$$
 
-donde $dist$ representa la distancia euclidiana $\sqrt{(x_i - x_j)^2 + (y_i - y_j)^2}$.
+donde $dist$ representa la distancia euclidiana.
 
 Modelando de esta forma un plan de construcción, un determinado plan $P = <C,\;B(V, E),\;w>$ debe cumplir las siguientes características para ser solución al problema:
 
@@ -17,7 +17,7 @@ Modelando de esta forma un plan de construcción, un determinado plan $P = <C,\;
 
 \subsubsection{Descripción del algoritmo}
 
-En primer lugar, definimos un \emph{bosque generador mínimo con $k$ componentes conexas} de un grafo $G$, como un grafo que cumple las siguientes condiciones:
+En primer lugar, definimos un \emph{bosque generador mínimo con $k$ componentes conexas} de un grafo $G$ como un grafo que cumple las siguientes condiciones:
 
 \begin{itemize}
   \item Es un subgrafo generador de $G$.
@@ -36,7 +36,7 @@ Ahora presentaremos una idea de por este modelo efectivamente resuelve el proble
 
 \item Dada una solución $<C,\;B(V,E')>$, la misma es factible sii $C$ contiene un y solo un vértice de cada componente conexa de $B$. Formalmente, sii $(\forall D$ componente conexa de $B)((\exists v \in D) v \in C)$.  
 
-\item Dada una solución con i componentes conexas (siendo i $<$ k), existe una solución mejor o igual con i+1 componentes conexas.
+\item Dada una solución con i componentes conexas (siendo i $<$ k), existe una solución mejor o igual con i+1 componentes conexas (no necesariamente factibles).
 \end{itemize}
 
 Vamos a suponer que k $\leq$ n, ya que en caso contrario se puede construir una central en cada pueblo sin necesidad de tuberías, y la solución es trivial.
