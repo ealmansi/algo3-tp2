@@ -1,6 +1,13 @@
 csv_dir = '../problema3/csv/';
 eps_dir = '../problema3/eps/';
 
+ms_k_02 = cargar_mediciones([csv_dir 'instancia_p_20p_k_02.csv']);
+ms_k_04 = cargar_mediciones([csv_dir 'instancia_p_20p_k_04.csv']);
+ms_k_06 = cargar_mediciones([csv_dir 'instancia_p_20p_k_06.csv']);
+ms_k_08 = cargar_mediciones([csv_dir 'instancia_p_20p_k_08.csv']);
+ms_k_10 = cargar_mediciones([csv_dir 'instancia_p_20p_k_10.csv']);
+
+
 ms_k_02 = cargar_mediciones([csv_dir 'instancia_p_80p_k_02.csv']);
 ms_k_04 = cargar_mediciones([csv_dir 'instancia_p_80p_k_04.csv']);
 ms_k_06 = cargar_mediciones([csv_dir 'instancia_p_80p_k_06.csv']);
