@@ -2,22 +2,6 @@
 
 Para implementar las soluciones algorítmicas desarrolladas en cada problema utilizamos el lenguaje C++, el cual presenta una serie de características muy convenientes. Este lenguaje es imperativo, al igual que el lenguaje de pseudocódigo utilizado para describir las soluciones y probar su correctitud. Adicionalmente, el mismo posee librerías estándar muy completas, versátiles y bien documentadas, lo cual permite abstraer el manejo de memoria, la implementación de estructuras de datos y algoritmos de uso frecuente, y provee mecanismos para realizar mediciones de tiempo de manera fidedigna.
 
-\subsection{Algoritmo de ordenamiento}
-
-En las implementaciones desarrollados para resolver los problemas planteados, utilizamos la función \emph{sort} de la Standard Template Library (STL). Para que la complejidad temporal de las soluciones se condiga con el análisis teórico, es necesario verificar que dicha función tenga efectivamente una complejidad temporal $O(n * log(n))$.
-
-En la página de documentación oficial cppreference\footnote{http://en.cppreference.com/w/cpp/algorithm/sort}, se observa que a partir del standard C+11 de C++, la complejidad requerida para std::sort es de $O(n*log (n))$ 
-comparaciones, y a lo sumo $O(n * log(n))$ swaps. Como utilizamos contenedores de acceso aleatorio en tiempo constante para desarrollar las soluciones, las operaciones de comparación y swap son $O(1)$. Por esto, efectivamente las rutinas de ordenamiento utilizadas tienen una complejidad de $O(n * log(n))$ operaciones.
-
-% Con sólo esta informacion no podemos asegurar que el algoritmo en su totalidad tenga una complejidad temporal de $O(n*log (n))$  operaciones, por lo que buscamos que hace el algoritmo \emph{std::sort} revisando el código de \emph{algorithm.h}.
-
-% esto no esta bien
- %Encontramos que, para casos con cantidad de elementos a ordenar menor a 64, hace un sort especial (el cual no nos interesa ya que queremos evaluar lo que pasa para $n$ grande). 
-
-%esto depende exclusivamente de la implementacion que estás usando, y no del standard!
- %En casos mas grandes, realiza \emph{IntroSort}. \emph{IntroSort} intenta ordenar usando \emph{QuickSort}, si no lo resuelve en $n*log (n)$ pasos, usa HeapSort para garantizar $O(n*log (n))$ comparaciones.
-
-
 \subsection{Mediciones de performance}
 \label{consideraciones-mediciones}
 
