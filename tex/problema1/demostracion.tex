@@ -29,7 +29,7 @@ P(i,j) = opt(i,j) maximiza nuestro puntaje para las cartas desde $c_i$ hasta $c_
 
 Primero analicemos el caso base:
 
-P(1) = $(\forall i,j 0 < j -i + 1 \leq 1) P(i,j)$, osea i = j
+P(1) = $(\forall i,j 0 < j -i + 1 \leq 1) P(i,j)$, o sea i = j
 
 P(i,i) = opt(i,i) maximiza nuestro puntaje para las cartas desde $c_i$ hasta $c_i$
 
@@ -71,7 +71,7 @@ Y la puntuación óptima se determina por la cuenta:
 
 $\sum cartas - min(opt(i+1,j), ... , opt(j,j), opt(i,j-1), ... , opt(i,i), 0)$
 
-Por lo tanto, si asumimos que se cumple nuestra hipótesis inductiva, nuestra función $opt$ minimiza el puntaje del jugador contrario. Osea que realmente determina nuestra puntuación óptima y el movimiento a realizar para obtenerla, que es lo que el problema pide.
+Por lo tanto, si asumimos que se cumple nuestra hipótesis inductiva, nuestra función $opt$ minimiza el puntaje del jugador contrario. O sea que realmente determina nuestra puntuación óptima y el movimiento a realizar para obtenerla, que es lo que el problema pide.
 
 Lo que queda mostrar es que completamos la matriz de forma correcta. Como cada casilla de la matriz es un subproblema y para resolver cada subproblema usamos subproblemas mas chicos, tenemos que mostrar que a la hora de completar una casilla siempre tenemos completas las casillas de los subproblemas que se necesitan.
 
@@ -81,4 +81,4 @@ Entonces, supongamos que queremos llenar la casilla $opt[i][j]$. Como la matriz 
 
 Además, como dijimos en el desarrollo para llenar una casilla $opt[i][j]$ se necesita observar los valores de las casillas que están a la izquierda de la ésta y las que están abajo. Como se muestra en la Figura 1.
 
-Osea que las casillas necesarias son $opt[i'][j]$, donde $i' < i$ y $opt[i][j']$ donde $j < j'$. Estas son las mismas casillas que ya dijimos que iban a estar completas a la hora de completar $opt[i][j]$. Por lo tanto al completar $opt[i][j]$ casilla van a estar previamente completadas las casillas necesarias para hacerlo, por lo tanto nuestra matriz se llena correctamente.
+O sea que las casillas necesarias son $opt[i'][j]$, donde $i' < i$ y $opt[i][j']$ donde $j < j'$. Estas son las mismas casillas que ya dijimos que iban a estar completas a la hora de completar $opt[i][j]$. Por lo tanto al completar $opt[i][j]$ casilla van a estar previamente completadas las casillas necesarias para hacerlo, por lo tanto nuestra matriz se llena correctamente.

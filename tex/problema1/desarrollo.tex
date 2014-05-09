@@ -8,7 +8,7 @@ Donde $C$ es el total de los puntos que sumamos e $i$ y $j$ son los índices de 
 
 Pensamos la función según el siguiente enfoque: Al finalizar el juego, la suma de las cartas que robamos será la suma de todas las cartas menos la suma de las cartas que robo el rival, esto es así porque según las reglas del juego no podemos elegir no robar cartas.
 
-Lo que pensamos es que maximizar la sumatoria de puntos que robemos nosotros es lo mismo que minimizar la suma de puntos robada por el jugador contrario \footnote{Esto esta demostrado en la sección de ``Demostración de correctitud''}. Además sabemos que el otro jugador también jugara de forma óptima, por lo que en su turno pensará de la misma forma que nosotros. Por eso llegamos a la conclusión de que la función recursiva para resolver este problema es la siguiente:
+Lo que pensamos es que maximizar la sumatoria de puntos que robemos nosotros es lo mismo que minimizar la suma de puntos robada por el jugador contrario \footnote{Esto está demostrado en la sección de ``Demostración de correctitud''}. Además sabemos que el otro jugador también jugará de forma óptima, por lo que en su turno ``pensará'' de la misma forma que nosotros. Por eso llegamos a la conclusión de que la función recursiva para resolver este problema es la siguiente:
 
 $opt(i,i) = c_i$ \\
 $opt(i,j) = \sum cartas - min(opt(i+1, j), ..., opt(j,j), opt(i, j-1), ... ,opt(i,i), 0)$
@@ -19,6 +19,8 @@ Los casos base ocurren cuando no queda ninguna carta, o cuando queda una sola ca
 
 Lo que dice el paso recursivo de esta función es que el jugador debe robar cartas de forma tal que minimice los puntos que pueda ganar el contrincante, sabiendo que este también jugará de forma óptima. Por ejemplo, si el valor mínimo de la función $opt$ es $opt(i+3,j)$ significa que el jugador debe robar las primeras 3 cartas empezando por la izquierda para minimizar la puntuación del jugador rival.
 
+Esto nos permite observar que en este problema vale el \emph{principio de optimalidad}. El mismo dice que si un problema se puede dividir en subproblemas con sus respectivas subsoluciones, la solución óptima al problema esta formada por las subsoluciones óptimas de los subproblemas en los que el problema se divide.
+
 \subsubsection{Implementación}
 
 Para implementar un algoritmo que utiliza la técnica de programación dinámica necesitamos de una estructura para guardar los resultados que vamos computando para no tener que recalcularlos, y de esta forma lograr una buena complejidad temporal.
@@ -27,17 +29,17 @@ Para resolver este algoritmo utilizamos una matriz de $n * n$ donde $n$ es la ca
 
 El valor de la casilla $opt[i][j]$ será por un lado la cantidad de puntos óptima que se podrá lograr a partir de las cartas que quedan ($c_i ... c_j$), a este valor lo llamaremos $opt[i][j].cantPuntos$. Y por otro lado cada casilla contará con dos valores que indican las cartas que quedarán luego de que el jugador que le toque realice su turno, llamaremos a esos valores $opt[i][j].iSiguiente$ y $opt[i][j].jSiguiente$. Estos valores se utilizan para que dada una secuencia de cartas se pueda realizar un seguimiento de todos los turnos que se realicen hasta terminar el juego.
 
-Por ejemplo si en la casilla $opt[i][j]$ tiene los valores $i+k, j$ como $iSiguiente$ y $jSiguiente$ significa que en ese turno el jugador robo k cartas empezando desde la izquierda y la próxima casilla que se debe observar para continuar con el seguimiento del juego es la casilla $opt[i+k][j]$. Además, si los valores de la casilla son $-1, -1$ significa que en ese turno el jugador robó todas las cartas restantes, terminando de esta forma el juego.
+Por ejemplo si en la casilla $opt[i][j]$ tiene los valores $i+k, j$ como $iSiguiente$ y $jSiguiente$ significa que en ese turno el jugador robó k cartas empezando desde la izquierda y la próxima casilla que se debe observar para continuar con el seguimiento del juego es la casilla $opt[i+k][j]$. Además, si los valores de la casilla son $-1, -1$ significa que en ese turno el jugador robó todas las cartas restantes, terminando de esta forma el juego.
 
-Ahora vamos a explicar como se llena una casilla de la matriz. Primero vale aclarar que como asumimos que $i \leq j$ sólo llenamos los elementos de la diagonal de la matriz y los que se encuentran arriba de la misma.
+Ahora vamos a explicar cómo se llena una casilla de la matriz. Primero vale aclarar que como asumimos que $i \leq j$ sólo llenamos los elementos de la diagonal de la matriz y los que se encuentran arriba de la misma.
 
 Para comenzar pensemos en la situación de estar en una casilla de la diagonal $opt[i][i]$, esto significa que queda una única carta en el juego, y por las reglas del mismo el jugador debe robarla y el juego terminará allí. Es por esto que el valor $cantPuntos$ de la casilla correspondiente a la puntuación será $c_i$ y los valores $iSiguiente$ y $jSiguiente$ que hacen referencia al próximo turno serán iguales a -1, ya que no puede haber un próximo turno.
 
 A partir de ahora explicaremos cómo llenamos las casillas que están fuera de la diagonal, por lo tanto $i < j$.
 
-Para llenar el resto de las casillas debemos ver con qué movimiento minimizamos los puntos del equipo contrario. Para eso debemos ver los valores $cantPuntos$ de las otras casillas ya completas de la matriz, pero no debemos ver todos ellos, sólo debemos ver los valores de las posibles instancias del juego que pueden resultar luego de jugar nuestro turno. Recordemos que sólo podemos tomar cartas de uno de los dos extremos, por lo tanto que para ver qué ocurriría si robáramos cartas empezando de la izquierda debemos observar las casillas de $opt$ incrementando el valor de $i$ (osea descendiendo por las filas de la matriz) pero manteniendo fijo el valor $j$, ya que no podemos agarrar cartas de los dos extremos. De esta misma manera, para ver que pasaría si robáramos cartas desde la derecha debemos observar los valores de las casillas de opt decrementando $j$ pero manteniendo fijo el valor de $i$.
+Para llenar el resto de las casillas debemos ver con qué movimiento minimizamos los puntos del equipo contrario. Para eso debemos ver los valores $cantPuntos$ de las otras casillas ya completas de la matriz, pero no debemos ver todos ellos, sólo debemos ver los valores de las posibles instancias del juego que pueden resultar luego de jugar nuestro turno. Recordemos que sólo podemos tomar cartas de uno de los dos extremos, por lo tanto que para ver qué ocurriría si robáramos cartas empezando de la izquierda debemos observar las casillas de $opt$ incrementando el valor de $i$ (o sea descendiendo por las filas de la matriz) pero manteniendo fijo el valor $j$, ya que no podemos agarrar cartas de los dos extremos. De esta misma manera, para ver que pasaría si robáramos cartas desde la derecha debemos observar los valores de las casillas de $opt$ decrementando $j$ pero manteniendo fijo el valor de $i$.
 
-Por lo tanto dada la matriz opt en la casilla $opt[i][j]$ debemos observar las siguientes casillas:
+Por lo tanto dada la matriz $opt$ en la casilla $opt[i][j]$ debemos observar las siguientes casillas:
 
 \begin{figure}[H]
 \begin{center}
@@ -115,7 +117,7 @@ El algoritmo de $buscarMinimo$ es el siguiente:
     \EndFor
    \EndProcedure
   \end{pseudo}
-
+  \label{problema1-pseudo2}
  \end{figure}
 
 \end{center}
