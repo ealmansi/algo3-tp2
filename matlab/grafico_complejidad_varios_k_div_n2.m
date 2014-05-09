@@ -1,4 +1,8 @@
-function grafico_complejidad_varios_k_div_n2(ms_k_1, ms_k_2, ms_k_3, ms_k_4, ms_k_5, fig_title, labels)
+function grafico_complejidad_varios_k_div_n2(ms_k_1, ms_k_2, ms_k_3, ms_k_4, ms_k_5, fig_title, labels, unidades)
+
+  if ~exist('unidades','var')
+    unidades='ns';
+  end
 
   cc=hsv(5);
   figure;
@@ -10,7 +14,7 @@ function grafico_complejidad_varios_k_div_n2(ms_k_1, ms_k_2, ms_k_3, ms_k_4, ms_
   plot(ms_k_5(:,1), ms_k_5(:,2) ./ (ms_k_5(:,1).^2), 'color', cc(5,:));
 
   title([fig_title]);
-  ylabel('Tiempo de ejecucion / cuadratica (ns/n^2)');
+  ylabel(['Tiempo de ejecucion / cuadratica (' unidades '/n^2)']);
   xlabel('Tamano de entrada (n)');
   legend(labels);
 
