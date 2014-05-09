@@ -1,18 +1,18 @@
 \subsubsection{Modelo formal}
 
-Dado que los pueblos se pueden identificar según su índice, y que las tuberías son vínculos no dirigidos entre dos pueblos, resulta natural representar un plan de construcción mediante un grafo. Para ello, dado un plan particular se lo puede relacionar con el grafo $B(V, E)$, donde $V = \{1,\;2,\;...,\;n\}$ y vale que $(i,j) \in E$ sii se construye una tubería entre $p_i$ y $p_j$. Es necesario definir también un conjunto $C \subseteq V$, $|C| \leq k$, incluyendo los índices de aquellos pueblos donde se planea construir las centrales.
+Dado que los pueblos se pueden identificar según su índice, y que las tuberías son vínculos no dirigidos entre dos pueblos, resulta natural representar un plan de construcción mediante un grafo. Para ello, dado un plan particular se lo puede relacionar con el grafo $B(V, E)$, donde $V = \{1,\;2,\;...,\;n\}$ y vale que $(i,j) \in E$ sii se construye una tubería entre $p_i$ y $p_j$, $p_i$ $\in$ V y $p_j$ $\in$ V. Es necesario definir también un conjunto $C \subseteq V$, $|C| \leq k$, incluyendo los índices de aquellos pueblos donde se planea construir las centrales.
 
-A las aristas de dicho grafo se les debe asignar una función de peso $w:E\rightarrow\mathbb{R}$, determinando la longitud de las tuberías que representan; concretamente:
+A las aristas de dicho grafo se les debe asignar una función de peso $w:E\rightarrow\mathbb{R}$, determinando la longitud de las tuberías que representan concretamente:
 $$si\;e = (i,j),\;w(e) = dist(p_i,p_j) = \sqrt{(x_i - x_j)^2 + (y_i - y_j)^2}$$
 
-donde $dist$ representa la distancia euclidiana.
+donde $dist$ representa la distancia euclidiana entre los dos pueblos $p_i$ y $p_j$.
 
-Modelando de esta forma un plan de construcción, un determinado plan $P = <C,\;B(V, E),\;w>$ debe cumplir las siguientes características para ser solución al problema:
+Modelando de esta forma un plan de construcción, un determinado plan $P$ que es una tupla $<$conjunto de pueblos $C$, grafo $B(V, E)>$ que debe cumplir las siguientes características para ser solución al problema:
 
 \begin{itemize}
   \item Todo pueblo debe estar abastecido de gas. Es decir, $(\forall v \in V)(\exists c \in C)\;\exists$ un camino entre $v$ y $c$ en $B$. En este caso, decimos que el plan es una solución \emph{factible}.
   
-  \item Dado cualquier otro plan factible $P'$, su riesgo asociado es mayor o igual al de $P$. Equivalentemente, si $P' = <C',\;B'(V', E'),\;w'>$ y $P'$ es factible, vale que $max\{w(e)\;|\;e\in E\} \leq max\{w'(e')\;|\;e'\in E'\}$. En este caso, decimos que el plan es una solución \emph{óptima}.
+  \item Dado cualquier otro plan factible $P'$, su riesgo asociado es mayor o igual al de $P$. Equivalentemente, si $P'$ = $<C',\;B'(V, E')>$ y $P'$ es factible, vale que $max\{w(e)\;|\;e\in E\} \leq max\{w'(e')\;|\;e'\in E'\}$. En el caso en que valga la igualdad, decimos que el plan $P'$ es una solución \emph{óptima}.
 \end{itemize}
 
 \subsubsection{Descripción del algoritmo}
@@ -34,7 +34,7 @@ Ahora presentaremos una idea de por este modelo efectivamente resuelve el proble
 \begin{itemize}
 \item Un bosque de $k$ componentes conexas generador mínimo también minimiza la máxima arista.
 
-\item Dada una solución $<C,\;B(V,E')>$, la misma es factible sii $C$ contiene un y solo un vértice de cada componente conexa de $B$. Formalmente, sii $(\forall D$ componente conexa de $B)((\exists v \in D) v \in C)$.  
+\item Dada una solución $<C,\;B(V,E')>$, la misma es factible sii $C$ contiene un y solo un vértice de cada componente conexa de $B$. Formalmente, sii $(\forall D$ componente conexa de $B)((\exists ! v \in D) v \in C)$.  
 
 \item Dada una solución con i componentes conexas (siendo i $<$ k), existe una solución mejor o igual con i+1 componentes conexas (no necesariamente factibles).
 \end{itemize}
