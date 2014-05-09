@@ -45,17 +45,13 @@ $ P(n) \Leftarrow P(n+1)$
 
 P(n+1) = $(\forall i,j 0 < j -i + 1 \leq n+1) P(i,j)$
 
-Tomemos i,j genericos, si $0 < j-i+1 \leq n$ entonces por H.I. vale.
+Tomemos i,j genéricos, si $0 < j-i+1 \leq n$ entonces por H.I. vale.
 
 El caso que nos queda probar es si j-i+1 = n+1
 
 Recordemos que $opt(i,j) = \sum cartas - min(opt(i+1, j), ..., opt(j,j), opt(i, j-1), ... ,opt(i,i), 0)$ ya que i $\neq$ j
 
-Tenemos que realizar el paso inductivo, esto significa que tenemos que probar que $P(i,j)$ seguro vale si vale $P(i',j')$ para todas las subsecuencias de cartas que $opt(i,j)$ utiliza, osea, para probar $P(i,j)$ queremos ver que:
-
-$[(\forall i',j',(( i < i' \wedge j = j') \vee (i' = i \wedge j' < j))) P(i',j')]  \implies P(i,j)$
-
-\textbf{HI:} $((\forall i',j',(( i < i' \wedge j = j') \vee (i' = i \wedge j' < j))) P(i',j'))$
+Tenemos que realizar el paso inductivo, esto significa que tenemos que probar que $P(i,j)$ sabiendo que vale $P(i',j')$ para $j' - i' + 1 \leq n$ (H.I.).
 
 Para demostrar esto vamos a dar como válida la hipótesis inductiva y a partir de eso probar que vale $P(i,j)$.
 
@@ -63,7 +59,7 @@ En este caso quedan $j-i+1$ cartas, tenemos que demostrar que $opt(i,j)$ toma la
 
 Lo que la función debe determinar es, de las posibles instancias del juego que se pueden generar luego de jugar nuestro turno, la que minimiza la función de $opt$ ya que el puntaje del jugador contrario será el resultado de aplicar $opt$ a la instancia que quede. Y por hipótesis inductiva sabemos que al aplicar $opt$ a dicha instancia se obtendrá un resultado óptimo.
 
-Como sólo se pueden robar cartas de uno de los dos extremos las posibles instancias son las siguientes: Si se roba una carta comenzando de la izquierda la instancia generada será de $(i+1,j)$, si se roban 2, de $(i+2,j)$ y se se roban $j-i$, de $(j,j)$. De esta misma forma si se roba una carta empezando de la derecha quedará una instancia de $(i,j-1)$ y si se roban $j-i$ cartas, la instancia sera de $(i,i)$.
+Como sólo se pueden robar cartas de uno de los dos extremos las posibles instancias son las siguientes: Si se roba una carta comenzando de la izquierda la instancia generada será de $(i+1,j)$, si se roban 2, de $(i+2,j)$ y se se roban $j-i$, de $(j,j)$. De esta misma forma si se roba una carta empezando de la derecha quedará una instancia de $(i,j-1)$ y si se roban $j-i$ cartas, la instancia sera de $(i,i)$. Como todos estos casos cumplen que $j' - i' + 1 \leq n$, por H.I. sabemos que opt(i',j') es la forma optima de jugar.
 
 Pero queda una instancia más por analizar, la de levantar todas las cartas posibles (no importa de cual extremo). En ese caso los puntos del siguiente jugador son 0.
 
